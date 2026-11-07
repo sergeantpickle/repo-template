@@ -37,8 +37,10 @@ REQUIRED = [
   "starter/.repo-standard.json",
   "scripts/audit_project.py",
   "scripts/check_latest.py",
+  "scripts/init_project.py",
   "tests/test_audit_project.py",
   "tests/test_check_latest.py",
+  "tests/test_init_project.py",
 ]
 
 
