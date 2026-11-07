@@ -32,6 +32,21 @@ class AuditProjectTests(unittest.TestCase):
   def active_findings(self, result):
     return [finding for finding in result["findings"] if finding["status"] == "active"]
 
+  def test_pre_adoption_mode_allows_missing_manifest(self):
+    with tempfile.TemporaryDirectory() as temp:
+      project = Path(temp)
+      (project / "README.md").write_text("# Example\n\n## Current state\nWork in progress.\n", encoding="utf-8")
+      result = audit_project.audit(project, pre_adoption=True)
+      self.assertEqual([], result["errors"])
+      self.assertEqual("pre-adoption", result["adoption_status"])
+      self.assertTrue(any(f["id"] == "RGS-ROUTE-README-001" for f in result["findings"]))
+
+  def test_missing_manifest_is_error_after_adoption(self):
+    with tempfile.TemporaryDirectory() as temp:
+      project = Path(temp)
+      result = audit_project.audit(project)
+      self.assertTrue(any(error["code"] == "manifest-missing" for error in result["errors"]))
+
   def test_minimal_project_has_no_findings(self):
     temp, project = self.make_project({
       "README.md": "# Example\n\nSetup and usage.\n",
