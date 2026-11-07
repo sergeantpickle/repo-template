@@ -149,8 +149,9 @@ def main():
 
   manifest_path = ROOT / "starter/.repo-standard.json"
   manifest = load_json(manifest_path, errors, "starter manifest") if manifest_path.is_file() else None
-  if manifest and manifest.get("version") != version:
-    errors.append("starter manifest version must match VERSION")
+  starter_target = version if latest in {"none", "null"} else latest
+  if manifest and manifest.get("version") != starter_target:
+    errors.append("starter manifest version must match the latest stable target, or VERSION before the first stable release")
 
   action_path = ROOT / "action.yml"
   if action_path.is_file():
@@ -158,13 +159,13 @@ def main():
     if f"actions/setup-python@{SETUP_PYTHON_SHA}" not in action_text:
       errors.append("action.yml must pin setup-python to the reviewed full commit SHA")
     if "--require-version-match" not in action_text:
-      errors.append("action.yml must require the pinned auditor to match the adopted standard version")
+      errors.append("action.yml must require the pinned auditor to match the last-aligned standard version")
     if (
       "--require-source" not in action_text
       or "github.action_repository" not in action_text
       or "github.server_url" not in action_text
     ):
-      errors.append("action.yml must require the pinned auditor source/server to match the adopted standard source")
+      errors.append("action.yml must require the pinned auditor source/server to match the aligned standard source")
 
   workflow_path = ROOT / ".github/workflows/standard.yml"
   if workflow_path.is_file():
