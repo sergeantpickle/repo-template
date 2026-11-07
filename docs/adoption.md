@@ -62,7 +62,7 @@ From a local checkout of the standard:
 python scripts/check_latest.py /path/to/project
 ```
 
-The checker compares the project's adopted version with the current upstream `VERSION` on `main`. It reports an available update but does not adopt it.
+The checker derives the upstream `VERSION` URL from the manifest's `source` when `source` is a canonical GitHub repository URL. For other source types, pass `--latest-url`. It reports an available update but does not adopt it.
 
 For GitHub-hosted projects, this repository also exposes a composite action. A downstream workflow can pin the action to the immutable commit or release tag it has adopted and let that pinned auditor separately check upstream `VERSION` for newer guidance.
 
