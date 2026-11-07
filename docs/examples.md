@@ -68,3 +68,4 @@ See `../examples/starting-at-twenty.md`.
 - `../examples/starting-at-twenty.md`
 - `../examples/recovering-from-sprawl.md`
 - `../examples/project-map.md`
+- `../examples/organization-scale.md`
