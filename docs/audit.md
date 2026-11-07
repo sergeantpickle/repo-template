@@ -59,9 +59,10 @@ The reviewing agent should then:
 5. Inspect manual rules from `rules.json`, especially canonical ownership, earned structure, promotion, retirement, and enforcement.
 6. Identify structures that no longer have an active trigger and are candidates for simplification.
 7. Check scoped agent instructions for rules that belong only to one domain and global instructions for task state or historical narrative.
-8. Compare the project's adopted standard version with current upstream and review changed rules before proposing adoption.
-9. Report findings with rule IDs, evidence, confidence, and the smallest corrective action that restores clear ownership.
-10. Do not create new categories merely to resolve a finding when routing, deletion, or a smaller existing owner is sufficient.
+8. Identify any plan, handoff, status, or historical artifact that agents could mistakenly treat as current authorization for controlled actions; verify the actual authority mechanism is explicit.
+9. Compare the project's adopted standard version with current upstream and review changed rules before proposing adoption.
+10. Report findings with rule IDs, evidence, confidence, and the smallest corrective action that restores clear ownership.
+11. Do not create new categories merely to resolve a finding when routing, deletion, or a smaller existing owner is sufficient.
 
 A periodic audit is complete when the project can explain why each persistent organizational artifact still exists.
 
