@@ -21,6 +21,7 @@ class InitProjectTests(unittest.TestCase):
         {path.name for path in target.iterdir()},
       )
       manifest = json.loads((target / ".repo-standard.json").read_text(encoding="utf-8"))
+      self.assertEqual(1, manifest["schema_version"])
       self.assertEqual("https://github.com/example/standard", manifest["source"])
       self.assertEqual(init_project.ALIGN_VERSION, manifest["version"])
       self.assertIsNone(manifest["last_checked"])
