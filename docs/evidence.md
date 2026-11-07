@@ -210,6 +210,19 @@ Sources:
 - https://docs.github.com/en/actions/tutorials/create-actions/create-a-composite-action
 - https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows
 
+## Mature governance separates state records from action authority
+
+The 2026 `agent-governance-starter` project explicitly assigns strategic direction to one plan, current repository reality to STATUS, exact task admission to governance task records, architecture decisions to ADRs, and session evidence to dated logs. It repeatedly states that plans, status, logs, and roadmap entries do not themselves authorize tasks, Git actions, publication, release, deployment, or external actions.
+
+The current `agentic-templates/repo-template` similarly uses an explicit maintainer/`ready` mechanism to decide which issues agents are authorized to build instead of inferring authority from descriptive documentation.
+
+Implication: repository growth governance needs an authority boundary in addition to information routing. "What should happen next" and "what may this agent do now" are distinct questions.
+
+Sources:
+
+- https://github.com/Andy-JunXiong/agent-governance-starter/blob/main/DEVELOPMENT_PLAN.md
+- https://github.com/agentic-templates/repo-template
+
 ## Organization-scale ownership is a separate maturity problem
 
 Backstage's catalog model centralizes metadata and explicit ownership so organizations can discover and manage large software estates. GitHub organization rulesets similarly apply centrally managed rules across selected repositories and expose rule-insight/bypass data.
