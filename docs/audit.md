@@ -65,6 +65,25 @@ The reviewing agent should then:
 
 A periodic audit is complete when the project can explain why each persistent organizational artifact still exists.
 
+### Contextual review report shape
+
+For each material finding, report:
+
+- **Rule** — stable rule ID.
+- **Evidence** — concrete files/sections/observations.
+- **Confidence** — high, medium, or low.
+- **Current owner** — which artifact currently owns the information/responsibility, even if that ownership is accidental.
+- **Problem** — overlap, orphaning, stale lifecycle, unnecessary persistence, missing enforcement, or another specific failure.
+- **Smallest correction** — route, delete, merge, scope, promote, retire, or mechanize.
+- **Growth effect** — none, grows structure, or shrinks structure.
+- **Why now** — the observed trigger that makes the correction worth its maintenance cost.
+
+Low-confidence findings should normally remain recommendations for inspection rather than structural changes.
+
+A reusable audit instruction is:
+
+> Audit this repository against its adopted Repository Growth Standard. Run the deterministic audit first, then perform the contextual review in `docs/audit.md`. Do not reorganize files while auditing. Report findings with rule IDs, evidence, confidence, current owner, smallest correction, growth effect, and trigger. Prefer routing or deletion over new structure when both solve the problem.
+
 ## Exceptions
 
 Exceptions are recorded in `.repo-standard.json` under the rule ID:
