@@ -198,6 +198,17 @@ Sources:
 - https://docs.github.com/en/actions/reference/workflows-and-actions/contexts
 - https://docs.github.com/en/actions/tutorials/create-actions/create-a-composite-action
 
+## Workflow dependencies should be immutable at the control-plane layer
+
+Current GitHub secure-use guidance describes workflow dependency lockfiles as stronger than inline SHA pinning because lockfiles also cover transitive dependencies and repository identity. For repositories that do not use lockfiles, GitHub recommends full-length commit SHA pins and supports organization policies that require them.
+
+This standard currently pins its small set of external GitHub Actions dependencies to reviewed full SHAs rather than moving major tags. A larger organization may earn dependency lockfiles as a stronger mechanical control.
+
+Sources:
+
+- https://docs.github.com/en/actions/reference/security/secure-use
+- https://docs.github.com/en/actions/concepts/security/workflow-dependency-lockfiles
+
 ## Central reusable automation reduces copied workflow logic
 
 Current GitHub Actions supports reusable workflows and composite actions from central repositories, referenced by branch/tag/SHA; GitHub recommends immutable SHAs for maximum stability. Scheduled workflows are available for periodic checks, but public-repository schedules can be disabled after 60 days of inactivity.
