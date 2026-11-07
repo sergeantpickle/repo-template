@@ -11,7 +11,7 @@ Initial draft standard.
 - Defined canonical information ownership, explicit information lifecycles, progressive structural growth, evidence-based promotion, retirement, and mechanical enforcement.
 - Separated descriptive repository state from action authority so plans/handoffs/history cannot silently become permission surfaces.
 - Added stable rule IDs and a machine-readable `rules.json` catalog with required/recommended/advisory levels and mechanical/heuristic/manual detection classes.
-- Defined upstream adoption by semantic version rather than copying the full guide into every project.
+- Defined upstream alignment by reference: projects record the version they last aligned to, while the latest released upstream standard remains the target.
 - Defined explicit exceptions that reference known rule IDs and remain visible in audit output.
 
 ### Routing and growth
