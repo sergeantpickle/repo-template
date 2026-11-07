@@ -7,7 +7,7 @@
 - [lifecycle.md](lifecycle.md) — information states, promotion, retirement, and conflict authority.
 - [routing.md](routing.md) — canonical ownership for common repository information.
 - [growth.md](growth.md) — triggers for adding organizational structure.
-- [adoption.md](adoption.md) — downstream adoption, version checks, and deliberate updates.
+- [alignment.md](alignment.md) — downstream alignment, released-target checks, and deliberate updates.
 - [audit.md](audit.md) — audit levels, heuristic limits, and exception semantics.
 
 ## Non-normative guidance
