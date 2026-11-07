@@ -1,186 +1,70 @@
-# Growth Examples
+# Quick Examples
 
-These examples are non-normative. They demonstrate how to apply the standard without turning every observed problem into permanent structure.
+These examples are non-normative. They demonstrate application of the standard; they do not create requirements.
 
-## 1. README contamination
+Longer trajectories live under `examples/`.
 
-### Observed
+## README contamination
 
-`README.md` contains setup instructions, current implementation progress, unfinished TODOs, three prior release summaries, blockers, and the next agent's instructions.
+Observed: README contains setup, current progress, unfinished TODOs, prior release summaries, blockers, and next-agent instructions.
 
-### Diagnosis
+Action: keep purpose/setup/normal usage in README; route shipped history to changelog when useful; route active state to the bounded work artifact; promote only durable non-obvious discoveries; delete obsolete debugging narrative.
 
-The README has acquired several incompatible lifecycles because no routing rule prevented convenient dumping.
+Growth: none. The first fix is jurisdiction, not another category.
 
-### Action
+## HANDOFF.md becomes enormous
 
-- Keep project purpose, setup, and normal usage in README.
-- Move shipped release-facing changes to the changelog if the project uses one.
-- Move current progress, blockers, validation state, and next action to the scoped active-work artifact.
-- Promote only genuinely durable discoveries to durable documentation.
-- Delete temporary debugging narrative that no longer has value.
+Observed: a permanent HANDOFF covers several completed features, old blockers, architecture notes, release notes, and current work.
 
-### Growth
+Action: move current continuation state into the active work owner, promote durable knowledge, leave raw history to Git/issues/PRs, and retire the handoff when it no longer has a bounded transfer purpose.
 
-None. The fix is routing, not a new documentation category.
+Growth: persistent task state may be justified; a larger handoff framework is not.
 
-## 2. HANDOFF.md becomes enormous
+## CHANGELOG becomes a development diary
 
-### Observed
+Observed: changelog contains attempted fixes, abandoned approaches, blockers, TODOs, and session summaries.
 
-A permanent `HANDOFF.md` grows for months and contains multiple completed features, old blockers, architecture notes, release notes, and current work.
+Action: retain notable shipped changes only. Route active state elsewhere.
 
-### Diagnosis
+Growth: none.
 
-The handoff file has no bounded owner or retirement point.
+## One architecture discussion occurs
 
-### Action
+Wrong response: create an architecture directory, index, ADR framework, and architecture-review workflow.
 
-Move current continuation state into the active task's work artifact. Promote durable conclusions to their proper owners. Let Git/issues/PRs retain raw history.
+Better response: keep the task-level choice in active work. Promote only if it later becomes a durable non-obvious boundary.
 
-Delete or archive the old handoff after useful information has been promoted.
+## A decision keeps being rediscovered
 
-### Growth
+Observed: several agents independently question the same technology choice and repeatedly reconstruct the same constraints.
 
-Create task-scoped persistent work only if work actually crosses sessions/agents. Do not replace one global handoff with a larger handoff framework.
+Action: create one decision record. Link to it instead of repeating the rationale.
 
-## 3. CHANGELOG.md becomes a development diary
+Growth: one decision file first; a decisions directory only after multiple independent decisions justify it.
 
-### Observed
+## Rule graduates into enforcement
 
-The changelog contains attempted fixes, abandoned approaches, blockers, internal refactors, TODOs, and session summaries.
+Observed: agents repeatedly forget to regenerate derived clients after schema changes.
 
-### Diagnosis
+Progression: fix task -> concise durable rule if needed -> deterministic stale-generation check -> shrink redundant prose once enforcement is reliable.
 
-Release history is being used as active work storage.
+## A document reaches 500 lines
 
-### Action
+Wrong response: split solely because of size.
 
-Keep only notable shipped changes appropriate to the project's users or release consumers. Move active state to the current work artifact. Leave raw implementation chronology to Git/issues/PRs.
+Better response: split only if it now contains independently evolving responsibilities or retrieval paths.
 
-### Growth
+Size is pressure, not jurisdiction.
 
-None.
+## Starting at twenty files
 
-## 4. One architecture discussion occurs
+File count does not determine maturity. A project can begin with source, tests, CI, deployment, and generated files while still needing only README, scoped agent rules, and the standard adoption manifest.
 
-### Observed
+See `../examples/starting-at-twenty.md`.
 
-A task requires choosing between two internal module layouts.
+## Detailed trajectories
 
-### Wrong response
-
-Create `docs/architecture/`, an architecture index, ADR tooling, and an architecture-review workflow.
-
-### Better response
-
-Record the task-level choice in the active work artifact. If the choice later becomes a durable boundary that future work repeatedly needs, promote it then.
-
-### Growth
-
-None yet.
-
-## 5. The same durable decision keeps being rediscovered
-
-### Observed
-
-Three separate agents propose replacing SQLite with Postgres. Each time, maintainers explain the same offline-first and deployment constraints.
-
-### Diagnosis
-
-The rationale is non-obvious, durable, repeatedly needed, and expensive to reconstruct.
-
-### Action
-
-Create one decision record explaining the constraint, alternatives, and consequences. Link to it from relevant project documentation rather than copying the rationale.
-
-### Growth
-
-One decision document. Do not create a `decisions/` directory until enough independent decisions justify it.
-
-## 6. An agent repeatedly forgets a required generation step
-
-### Observed
-
-Schema changes repeatedly ship without regenerating a client.
-
-### Progression
-
-1. First occurrence: record it in the task and fix the immediate defect.
-2. Repetition: add a concise durable instruction if agents cannot infer the requirement.
-3. Mechanical opportunity: add a stale-generation check to validation/CI.
-4. After enforcement is reliable: shrink prose to the reason and remediation path.
-
-### Growth
-
-The rule graduates from observation to instruction to enforcement. It does not remain duplicated at every level.
-
-## 7. A monorepo's backend and frontend have conflicting rules
-
-### Observed
-
-Global agent instructions contain separate backend and frontend command stacks, test rules, and conventions. Agents apply the wrong rules across areas.
-
-### Diagnosis
-
-Global context has become noisy and scope-specific.
-
-### Action
-
-Keep only cross-repository rules at the root. Move subsystem-specific rules to nested `AGENTS.md` files or path-scoped mechanisms supported by the coding tool.
-
-### Growth
-
-This is a Level 3 domain trigger because the rules have genuinely different scopes.
-
-## 8. A documentation file becomes large
-
-### Observed
-
-`docs/operations.md` reaches 500 lines.
-
-### Wrong response
-
-Split it solely because the line count feels large.
-
-### Better response
-
-Inspect responsibility and retrieval patterns. If the file still has one coherent owner and readers usually need the whole thing, keep it. If deployment, incident response, backups, and migrations now evolve independently, split along those responsibilities.
-
-### Growth
-
-Size alone is not the trigger. Independent ownership/lifecycle is.
-
-## 9. A project starts with twenty files
-
-### Observed
-
-A new project already contains source, tests, CI, manifests, deployment configuration, and several tool-generated files.
-
-### Action
-
-Do not mirror the upstream guide's structure. Establish only the owners the project already needs:
-
-- README for project/use information;
-- AGENTS for non-derivable agent rules and commands;
-- adoption manifest if using this standard;
-- changelog only if release history matters;
-- additional durable/work artifacts only when the existing twenty files create an actual ownership gap.
-
-### Growth
-
-Starting file count does not determine maturity level.
-
-## 10. The upstream standard changes
-
-### Observed
-
-The project adopts standard 0.1.0 and upstream releases 0.2.0 with a new routing rule.
-
-### Action
-
-Compare versions, read the changelog and changed normative guidance, audit the project, record any justified exception, and deliberately adopt 0.2.0 when ready.
-
-### Growth
-
-The project does not copy upstream files or automatically restructure itself.
+- `../examples/seed-to-mature.md`
+- `../examples/starting-at-twenty.md`
+- `../examples/recovering-from-sprawl.md`
+- `../examples/project-map.md`
