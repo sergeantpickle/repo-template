@@ -16,6 +16,7 @@ class CheckLatestTests(unittest.TestCase):
     self.assertEqual("behind", check_latest.compare("0.1.0", "0.2.0"))
     self.assertEqual("current", check_latest.compare("1.2.3", "1.2.3"))
     self.assertEqual("ahead", check_latest.compare("2.0.0", "1.9.9"))
+    self.assertEqual("unreleased", check_latest.compare("0.1.0", None))
 
   def test_semver_rejects_non_release_value(self):
     with self.assertRaises(ValueError):
@@ -23,7 +24,12 @@ class CheckLatestTests(unittest.TestCase):
     with self.assertRaises(ValueError):
       check_latest.parse_semver("v1.0.0")
 
-  def test_read_adoption(self):
+  def test_parse_latest_accepts_none_sentinel(self):
+    self.assertIsNone(check_latest.parse_latest("none\n"))
+    self.assertIsNone(check_latest.parse_latest("null"))
+    self.assertEqual("1.2.3", check_latest.parse_latest("1.2.3\n"))
+
+  def test_read_alignment(self):
     with tempfile.TemporaryDirectory() as temp:
       project = Path(temp)
       (project / ".repo-standard.json").write_text(
@@ -38,16 +44,16 @@ class CheckLatestTests(unittest.TestCase):
           "source": "https://github.com/example/standard",
           "version": "0.1.0",
         },
-        check_latest.read_adoption(project),
+        check_latest.read_alignment(project),
       )
 
   def test_latest_url_is_derived_from_manifest_source(self):
     self.assertEqual(
-      "https://raw.githubusercontent.com/example/standard/main/VERSION",
+      "https://raw.githubusercontent.com/example/standard/main/LATEST",
       check_latest.latest_url_from_source("https://github.com/example/standard"),
     )
     self.assertEqual(
-      "https://raw.githubusercontent.com/example/standard/main/VERSION",
+      "https://raw.githubusercontent.com/example/standard/main/LATEST",
       check_latest.latest_url_from_source("https://github.com/example/standard.git"),
     )
 
