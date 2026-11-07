@@ -1,0 +1,35 @@
+name: Repository Growth Standard audit
+description: Audit a checked-out repository against the pinned Repository Growth Standard and optionally check for a newer upstream standard.
+inputs:
+  project-path:
+    description: Path to the project, relative to GITHUB_WORKSPACE.
+    required: false
+    default: .
+  strict:
+    description: Fail on active audit warnings.
+    required: false
+    default: "false"
+  check-latest:
+    description: Check upstream VERSION for a newer standard.
+    required: false
+    default: "true"
+runs:
+  using: composite
+  steps:
+    - name: Audit repository organization
+      shell: bash
+      env:
+        PROJECT_PATH: ${{ inputs.project-path }}
+        STRICT: ${{ inputs.strict }}
+      run: |
+        args=()
+        if [[ "$STRICT" == "true" ]]; then
+          args+=(--strict)
+        fi
+        python "$GITHUB_ACTION_PATH/scripts/audit_project.py" "$GITHUB_WORKSPACE/$PROJECT_PATH" "${args[@]}"
+    - name: Check for newer upstream standard
+      if: ${{ inputs.check-latest == 'true' }}
+      shell: bash
+      env:
+        PROJECT_PATH: ${{ inputs.project-path }}
+      run: python "$GITHUB_ACTION_PATH/scripts/check_latest.py" "$GITHUB_WORKSPACE/$PROJECT_PATH"
