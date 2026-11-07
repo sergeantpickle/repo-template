@@ -56,6 +56,14 @@ Before creating or appending to one, classify the content:
 - reproducible consequential investigation -> research artifact;
 - disposable exploration -> do not persist.
 
+## Authority routing — RGS-AUTH-001
+
+Information ownership and action authority are separate concerns.
+
+A task plan can own the statement "deployment is the next step" without authorizing deployment. A status file can record that a release is ready without granting publish authority. Historical evidence can show that an operation was previously approved without making that approval current.
+
+Projects that allow agents to perform controlled actions should define a bounded authorization surface appropriate to the project: for example an issue label, protected workflow, policy engine, human approval, signed request, or another explicit mechanism. The mechanism's scope and freshness must be clear enough that an old document cannot be mistaken for current permission.
+
 ## Project maps / indexes
 
 A project map is optional. It earns existence when semantic relationships, ownership, entry points, or validation paths are repeatedly expensive to reconstruct from the repository itself.
