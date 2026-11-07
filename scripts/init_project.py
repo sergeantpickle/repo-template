@@ -7,6 +7,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 STARTER = ROOT / "starter"
 VERSION = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+LATEST = (ROOT / "LATEST").read_text(encoding="utf-8").strip()
+ALIGN_VERSION = VERSION if LATEST in {"none", "null", ""} else LATEST
 DEFAULT_SOURCE = "https://github.com/sergeantpickle/repo-template"
 STARTER_FILES = ["README.md", "AGENTS.md", ".repo-standard.json"]
 
@@ -15,7 +17,7 @@ def render_manifest(source):
   return json.dumps(
     {
       "source": source,
-      "version": VERSION,
+      "version": ALIGN_VERSION,
       "last_checked": None,
       "exceptions": {},
     },
@@ -67,6 +69,9 @@ def main():
     return 1
 
   print(f"Initialized Repository Growth Standard starter at {target}")
+  print(f"Alignment version: {ALIGN_VERSION}")
+  if LATEST in {"none", "null", ""}:
+    print("NOTE: no stable release exists yet; this is a Draft trial and should pin a reviewed upstream commit SHA.")
   print("Created: " + ", ".join(STARTER_FILES))
   return 0
 
