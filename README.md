@@ -11,7 +11,7 @@ Status: **Draft** — usable for trials, not yet published as an immutable relea
 
 > Every class of durable information has one canonical owner. New permanent structure must earn existence through an observed coordination need.
 
-A project adopts this repository by reference and version. It keeps its own project-specific instructions and knowledge; it does not copy this guide wholesale.
+A project aligns to this repository by reference. It records the standard version it last aligned to, keeps its own project-specific instructions and knowledge, and periodically compares that state with the latest released upstream standard.
 
 ## Operating model
 
@@ -22,7 +22,7 @@ repo-template (upstream guide/control plane)
   ├─ evidence
   └─ audit implementation
           │
-          │ export starter / adopt by version
+          │ export starter / align by reference
           ▼
 project
   ├─ README + project-specific agent rules
@@ -31,20 +31,20 @@ project
           │
           │ structural change or periodic review
           ▼
-pinned audit against adopted version
+pinned audit against last-aligned version
           │
           ├─ routing / lifecycle findings
           ├─ contextual AI review
           └─ explicit exceptions
           │
-          │ newer upstream version detected
+          │ newer released upstream version detected
           ▼
 review changelog + changed rules
           │
-          └─ deliberately adopt, except, or stay pinned
+          └─ deliberately align the delta or record exceptions
 ```
 
-The upstream guide evolves; projects do not silently inherit it.
+The upstream guide evolves. Projects do not silently inherit changes, but the latest released standard remains the target; the recorded version is the last-aligned bookmark.
 
 ## Start here
 
@@ -101,7 +101,7 @@ python scripts/audit_project.py /path/to/project --strict
 python scripts/audit_project.py /path/to/project --format json
 ```
 
-Check whether the project is behind the current upstream `VERSION`:
+Check whether the project is behind the latest **released** upstream standard:
 
 ```bash
 python scripts/check_latest.py /path/to/project
