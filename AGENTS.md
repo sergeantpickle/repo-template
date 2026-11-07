@@ -2,32 +2,36 @@
 
 This repository is the upstream Repository Growth Standard. It is not a normal project scaffold.
 
-## Read first
+## Read based on the task
 
-For changes to this repository, read:
+- Normative rule change: read `STANDARD.md`, `rules.json`, and the delegated normative document being changed.
+- Routing/lifecycle change: read `docs/lifecycle.md` and `docs/routing.md`.
+- Growth trigger change: read `docs/growth.md` and relevant examples.
+- Audit/tooling change: read `docs/audit.md`, `rules.json`, and tests.
+- Fast-moving agent/tool guidance: verify current sources and update `docs/evidence.md` when the conclusion changes.
 
-1. `README.md` for the role of the repository.
-2. `STANDARD.md` for normative rules.
-3. `docs/evidence.md` when changing guidance that depends on current agent behavior or tooling.
-4. The relevant document under `docs/` for the area being changed.
+Do not require every task to read every document.
 
 ## Change discipline
 
-- Keep normative rules in `STANDARD.md` or a document it explicitly delegates to.
-- Keep examples non-normative. An example demonstrates judgment; it does not create a requirement.
-- Do not add a new permanent category, directory, or workflow because it might be useful someday. Apply the growth triggers in `docs/growth.md` first.
-- Prefer one file before a directory. Split only when independent responsibilities, lifecycles, or retrieval needs justify it.
-- Do not duplicate rules across documents. Link to the canonical owner.
-- When a rule can be checked deterministically and repeated violations justify the cost, prefer tooling over additional prose.
-- Treat model- and tool-specific advice as fast-moving. Verify current sources before changing it.
+- A normative rule has one canonical owner and a stable ID in `rules.json`.
+- Examples are non-normative. They demonstrate judgment; they do not create rules.
+- Do not add a permanent file or directory because a mature project might someday need it. Apply `docs/growth.md` to this repository too.
+- Prefer one document before a directory when the responsibility is still singular.
+- Do not duplicate normative prose. Link to the canonical rule.
+- Heuristic audit checks must be labeled as heuristics and backed by tests for the failure mode they target.
+- Exceptions must remain visible in audit output; do not implement silent suppression.
+- Hard deterministic requirements should move toward tooling when repeated failures justify it.
 
 ## Versioning
 
-Any normative change must update `VERSION` and `CHANGELOG.md` in the same change:
+`VERSION` is the current upstream standard version. Any normative semantic change must update `VERSION` and `CHANGELOG.md` in the same change:
 
-- MAJOR: incompatible governance, routing, or adoption semantics.
-- MINOR: a new normative rule, lifecycle, or materially expanded requirement.
-- PATCH: clarification, example, evidence refresh, or tooling change that does not alter normative meaning.
+- MAJOR: incompatible governance, adoption, or rule semantics.
+- MINOR: new normative rule, lifecycle, or materially expanded requirement.
+- PATCH: clarification, example, evidence refresh, or tooling change with no normative semantic change.
+
+Rule wording may change without changing the rule ID when meaning is preserved. Incompatible rule meaning requires migration guidance.
 
 ## Validation
 
@@ -37,8 +41,4 @@ Run:
 python scripts/check_standard.py
 ```
 
-When changing project-audit behavior, also exercise:
-
-```bash
-python scripts/audit_project.py starter
-```
+This runs the focused unit tests and audits the minimal downstream starter in strict mode.
