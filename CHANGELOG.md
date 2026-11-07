@@ -9,6 +9,7 @@ Initial draft standard.
 ### Standard model
 
 - Defined canonical information ownership, explicit information lifecycles, progressive structural growth, evidence-based promotion, retirement, and mechanical enforcement.
+- Separated descriptive repository state from action authority so plans/handoffs/history cannot silently become permission surfaces.
 - Added stable rule IDs and a machine-readable `rules.json` catalog with required/recommended/advisory levels and mechanical/heuristic/manual detection classes.
 - Defined upstream adoption by semantic version rather than copying the full guide into every project.
 - Defined explicit exceptions that reference known rule IDs and remain visible in audit output.
