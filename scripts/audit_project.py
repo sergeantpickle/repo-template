@@ -176,6 +176,25 @@ def duplicate_instruction_groups(paths):
   return [group for group in groups.values() if len(group) > 1]
 
 
+def is_pointer_adapter(path, canonical):
+  if path == canonical or not canonical.is_file():
+    return False
+  text = path.read_text(encoding="utf-8", errors="replace").strip()
+  if not text or len(text) > 512:
+    return False
+  nonblank = [line.strip() for line in text.splitlines() if line.strip()]
+  if len(nonblank) > 5:
+    return False
+  lowered = text.lower()
+  return "agents.md" in lowered and (
+    text == "@AGENTS.md"
+    or text == "@agents.md"
+    or "read agents.md" in lowered
+    or "follow agents.md" in lowered
+    or "see agents.md" in lowered
+  )
+
+
 def is_generated_adapter(path, canonical):
   if path == canonical or not canonical.is_file():
     return False
@@ -319,7 +338,10 @@ def audit(
   managed_adapters = {
     path
     for path in root_instruction_files
-    if is_generated_adapter(path, canonical_agents)
+    if (
+      is_generated_adapter(path, canonical_agents)
+      or is_pointer_adapter(path, canonical_agents)
+    )
   }
   unmanaged_root_files = [
     path
