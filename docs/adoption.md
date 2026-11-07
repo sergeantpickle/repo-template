@@ -1,10 +1,12 @@
-# Adoption and Updates
+# Adoption and Upstream Checks
 
-A downstream project adopts this standard by reference. It does not copy the guide's complete documentation tree.
+This document is normative.
 
-## Minimal adoption record
+A downstream project adopts this standard by reference. It does not copy this repository's complete guide tree.
 
-A project may keep `.repo-standard.json` at its root:
+## Adoption manifest — RGS-ADOPT-001
+
+A project records its adopted source and semantic version in `.repo-standard.json`:
 
 ```json
 {
@@ -15,70 +17,86 @@ A project may keep `.repo-standard.json` at its root:
 }
 ```
 
-`exceptions` maps a stable audit/rule identifier to a concise reason for the deviation.
+`last_checked` may be null until the first upstream comparison.
 
-The repository may also keep a small `AGENTS.md` telling agents where project-specific rules live and when to consult the upstream standard. See `starter/` for an example.
+The manifest is deliberately small. Project-specific structure remains in the project, not in the standard manifest.
+
+## Exceptions — RGS-EXCEPT-001
+
+Exceptions are keyed by stable rule ID and remain visible in audit output:
+
+```json
+{
+  "exceptions": {
+    "RGS-ROUTE-HANDOFF-001": {
+      "reason": "Release-train coordination temporarily uses a bounded root handoff.",
+      "scope": "HANDOFF.md",
+      "review_after": "2027-01-31"
+    }
+  }
+}
+```
+
+`reason` is required. `scope` and `review_after` are optional. Unknown IDs, empty reasons, and attempts to except non-exception rules are invalid adoption state.
 
 ## When to consult upstream
 
-Do not fetch and reread the full standard for every ordinary code edit.
+Do not fetch and reread the standard for every normal code edit.
 
 Consult upstream when:
 
 - adopting the standard for the first time;
-- changing repository-wide agent instructions;
-- adding or splitting a permanent documentation/work category;
-- resolving information-routing drift;
-- introducing a new enforcement layer;
-- performing a periodic repository-organization audit;
-- a newer standard version is known to exist.
+- changing repository-wide instruction/document structure;
+- creating or splitting a permanent work/document category;
+- resolving routing drift such as README, changelog, notes, or handoff contamination;
+- adding a new enforcement layer;
+- deliberately auditing repository organization;
+- a newer upstream `VERSION` is detected;
+- a major coding-agent/tool change may invalidate an existing assumption.
 
-## Checking for updates
+## Periodic check
 
-1. Read upstream `VERSION`.
-2. If it differs from the project's adopted version, read `CHANGELOG.md` for the intervening versions.
-3. Review the changed normative documents, not the entire repository by default.
-4. Run the current audit tooling against the project when practical.
-5. Decide which changes apply to the project.
-6. Record intentional exceptions rather than forcing irrelevant structure.
-7. Update `.repo-standard.json` only after the new version has been deliberately adopted.
+From a local checkout of the standard:
 
-A standard update must never silently rewrite a project.
+```bash
+python scripts/check_latest.py /path/to/project
+```
 
-## Standard versioning
+The checker compares the project's adopted version with the current upstream `VERSION` on `main`. It reports an available update but does not adopt it.
+
+For GitHub-hosted projects, this repository also exposes a composite action. A downstream workflow can pin the action to the immutable commit or release tag it has adopted and let that pinned auditor separately check upstream `VERSION` for newer guidance.
+
+See `examples/github-actions/repo-standard.yml`.
+
+Scheduled GitHub workflows are a convenience, not the only audit trigger. Public-repository schedules may be disabled after prolonged inactivity, so projects with stronger guarantees should also run the audit on an appropriate human or repository-maintenance event.
+
+## Deliberate update process
+
+When upstream `VERSION` differs:
+
+1. Read `CHANGELOG.md` for every intervening version.
+2. Read the normative documents for rules that changed.
+3. Run the newer audit logic against the project when practical.
+4. Identify which findings are actual project problems, false positives, or justified deviations.
+5. Apply relevant migrations and structural changes.
+6. Record explicit exceptions where the project intentionally differs.
+7. Update `last_checked`.
+8. Change the adopted `version` only when the project has deliberately adopted the new standard.
+
+An upstream change must never silently rewrite the project.
+
+## Pinning audit code
+
+A project should pin externally executed audit code to an immutable commit SHA or a reviewed release tag. The project's manifest version and the audit-code ref should represent the same adopted standard release.
+
+Using upstream `main` directly for enforcement couples a project to unreviewed future standard changes and defeats deliberate adoption.
+
+## Versioning
 
 The standard uses semantic versioning for governance meaning:
 
-- **MAJOR** — incompatible changes to governance, routing, or adoption semantics;
-- **MINOR** — new normative rules, lifecycles, or materially expanded requirements;
-- **PATCH** — clarifications, examples, evidence refreshes, or tooling changes with no normative semantic change.
+- **MAJOR** — incompatible governance, adoption, or rule semantics;
+- **MINOR** — a new normative rule/lifecycle or materially expanded requirement;
+- **PATCH** — clarification, example, evidence refresh, detector improvement, or tooling change without normative semantic expansion.
 
-## Audit cadence
-
-No universal calendar cadence is required. Audit when the expected value is real.
-
-Useful triggers include:
-
-- after repeated routing mistakes;
-- after a major reorganization;
-- after a substantial increase in agent concurrency;
-- after adopting a materially different coding-agent generation or toolchain;
-- when a standard update changes rules relevant to the project;
-- on a periodic maintenance schedule for repositories that change continuously.
-
-## Exceptions
-
-An exception is healthy when it is explicit and scoped.
-
-Bad exception behavior:
-
-- copying an obsolete structure because the guide once showed it;
-- changing the guide locally without recording the divergence;
-- creating parallel documents to satisfy both local practice and the standard.
-
-Good exception behavior:
-
-- identify the rule or audit identifier;
-- state why the project differs;
-- keep the deviation as narrow as possible;
-- remove the exception when the underlying reason disappears.
+Migration guidance belongs in the changelog while migrations are few. If migrations become independently numerous enough to need their own retrieval lifecycle, the standard should then earn a migrations directory.
