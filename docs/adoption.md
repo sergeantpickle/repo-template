@@ -4,6 +4,8 @@ This document is normative.
 
 A downstream project adopts this standard by reference. It does not copy this repository's complete guide tree.
 
+Before adoption, an existing repository can run `python scripts/audit_project.py /path/to/project --pre-adoption` to inspect routing/growth smells without first creating a manifest. Adoption remains a deliberate later action.
+
 ## Adoption manifest — RGS-ADOPT-001
 
 A project records its adopted source and semantic version in `.repo-standard.json`:
