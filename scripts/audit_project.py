@@ -3,6 +3,7 @@ import argparse
 import datetime as dt
 import hashlib
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -66,9 +67,12 @@ def validate_exceptions(manifest, rules):
         errors.append({"code": "exception-review-date-invalid", "message": f"exception {rule_id} has an invalid review_after date"})
         continue
       if review_date < today:
+        rule_meta = rules["RGS-EXCEPT-001"]
         warnings.append({
           "id": "RGS-EXCEPT-001",
           "level": "warning",
+          "rule_level": rule_meta["level"],
+          "detection": rule_meta["detection"],
           "status": "active",
           "message": f"exception {rule_id} passed its review_after date {review_after}",
           "paths": [".repo-standard.json"],
@@ -98,12 +102,15 @@ def normalized_digest(path):
   return hashlib.sha256(normalized.encode("utf-8")).hexdigest()
 
 
-def add_finding(findings, exceptions, rule_id, level, message, paths=None):
+def add_finding(findings, exceptions, rules, rule_id, level, message, paths=None):
   exception = exceptions.get(rule_id)
   status = "excepted" if exception else "active"
+  rule = rules[rule_id]
   finding = {
     "id": rule_id,
     "level": level,
+    "rule_level": rule["level"],
+    "detection": rule["detection"],
     "status": status,
     "message": message,
     "paths": paths or [],
@@ -111,6 +118,45 @@ def add_finding(findings, exceptions, rule_id, level, message, paths=None):
   if exception:
     finding["exception"] = exception
   findings.append(finding)
+
+
+SKIP_INSTRUCTION_DIRS = {
+  ".git",
+  ".hg",
+  ".svn",
+  ".venv",
+  "venv",
+  "node_modules",
+  "vendor",
+  "dist",
+  "build",
+  "target",
+  "__pycache__",
+}
+
+
+def discover_instruction_files(project):
+  found = []
+  for root, dirs, files in os.walk(project):
+    dirs[:] = [name for name in dirs if name not in SKIP_INSTRUCTION_DIRS]
+    root_path = Path(root)
+    for name in files:
+      path = root_path / name
+      if path.is_symlink():
+        continue
+      relative = path.relative_to(project)
+      if name in {"AGENTS.md", "CLAUDE.md", "GEMINI.md"}:
+        found.append(path)
+      elif relative.as_posix() == ".github/copilot-instructions.md":
+        found.append(path)
+  return sorted(found)
+
+
+def duplicate_instruction_groups(paths):
+  groups = {}
+  for path in paths:
+    groups.setdefault(normalized_digest(path), []).append(path)
+  return [group for group in groups.values() if len(group) > 1]
 
 
 def audit(project, pre_adoption=False):
@@ -157,6 +203,7 @@ def audit(project, pre_adoption=False):
     add_finding(
       findings,
       exceptions,
+      rules,
       "RGS-ROUTE-README-001",
       "warning",
       "README contains headings commonly associated with active work or handoff state: " + ", ".join(readme_hits),
@@ -171,6 +218,7 @@ def audit(project, pre_adoption=False):
     add_finding(
       findings,
       exceptions,
+      rules,
       "RGS-ROUTE-CHANGELOG-001",
       "warning",
       "CHANGELOG contains headings commonly associated with active work: " + ", ".join(changelog_hits),
@@ -181,6 +229,7 @@ def audit(project, pre_adoption=False):
     add_finding(
       findings,
       exceptions,
+      rules,
       "RGS-ROUTE-HANDOFF-001",
       "warning",
       "root HANDOFF.md is a broad singleton; verify that its scope and retirement boundary are explicit",
@@ -192,21 +241,22 @@ def audit(project, pre_adoption=False):
     add_finding(
       findings,
       exceptions,
+      rules,
       "RGS-ROUTE-BUCKET-001",
       "warning",
       "generic root buckets need bounded ownership: " + ", ".join(buckets),
       buckets,
     )
 
-  instruction_paths = [
+  root_instruction_paths = [
     project / "AGENTS.md",
     project / "CLAUDE.md",
     project / "GEMINI.md",
     project / ".github/copilot-instructions.md",
   ]
-  instruction_files = [path for path in instruction_paths if path.is_file() and not path.is_symlink()]
-  if len(instruction_files) > 1:
-    digests = {normalized_digest(path) for path in instruction_files}
+  root_instruction_files = [path for path in root_instruction_paths if path.is_file() and not path.is_symlink()]
+  if len(root_instruction_files) > 1:
+    digests = {normalized_digest(path) for path in root_instruction_files}
     if len(digests) == 1:
       message = "multiple independent root instruction files contain the same content; copies can drift unless generated, linked, or checked"
     else:
@@ -214,10 +264,26 @@ def audit(project, pre_adoption=False):
     add_finding(
       findings,
       exceptions,
+      rules,
       "RGS-INSTR-002",
       "warning",
       message,
-      [str(path.relative_to(project)) for path in instruction_files],
+      [str(path.relative_to(project)) for path in root_instruction_files],
+    )
+
+  all_instruction_files = discover_instruction_files(project)
+  root_set = set(root_instruction_files)
+  for group in duplicate_instruction_groups(all_instruction_files):
+    if set(group).issubset(root_set):
+      continue
+    add_finding(
+      findings,
+      exceptions,
+      rules,
+      "RGS-INSTR-002",
+      "warning",
+      "identical instruction content is independently copied across repository scopes; verify intentional inheritance or generate/link/check the copies",
+      [str(path.relative_to(project)) for path in group],
     )
 
   agent_hits = heading_hits(
@@ -228,6 +294,7 @@ def audit(project, pre_adoption=False):
     add_finding(
       findings,
       exceptions,
+      rules,
       "RGS-INSTR-001",
       "warning",
       "AGENTS.md contains headings commonly associated with active task state: " + ", ".join(agent_hits),
