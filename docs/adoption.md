@@ -101,7 +101,7 @@ Once a version is released/tagged, its normative meaning is immutable. Later sem
 
 A project should pin externally executed audit code to an immutable commit SHA or a reviewed release tag. The project's manifest version and the audit-code ref should represent the same adopted standard release.
 
-The provided composite action enforces both the adopted version and adopted source before auditing. GitHub exposes the executing action's repository identity to composite actions, so a fork or different standard repository cannot silently claim conformance merely by sharing the same version string.
+The provided composite action enforces both the adopted version and adopted source before auditing. GitHub exposes both the executing action's repository identity and server URL to composite actions, so a fork, alternate standard, or GitHub Enterprise host cannot silently claim equivalence merely by sharing the same version string.
 
 A deliberately newer or alternate auditor can still be run manually without `--require-version-match` / `--require-source` during an upgrade or comparison review.
 
