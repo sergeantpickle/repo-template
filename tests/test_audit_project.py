@@ -17,6 +17,7 @@ class AuditProjectTests(unittest.TestCase):
     temp = tempfile.TemporaryDirectory()
     project = Path(temp.name)
     data = manifest or {
+      "schema_version": 1,
       "source": "https://github.com/sergeantpickle/repo-template",
       "version": "0.1.0",
       "last_checked": None,
@@ -52,6 +53,31 @@ class AuditProjectTests(unittest.TestCase):
     self.addCleanup(temp.cleanup)
     result = audit_project.audit(project)
     self.assertEqual(1, result["schema_version"])
+
+  def test_manifest_schema_version_is_required(self):
+    manifest = {
+      "source": "https://github.com/sergeantpickle/repo-template",
+      "version": "0.1.0",
+      "last_checked": None,
+      "exceptions": {},
+    }
+    temp, project = self.make_project({}, manifest)
+    self.addCleanup(temp.cleanup)
+    result = audit_project.audit(project)
+    self.assertTrue(any(error["code"] == "manifest-schema-unsupported" for error in result["errors"]))
+
+  def test_unknown_manifest_schema_version_is_error(self):
+    manifest = {
+      "schema_version": 2,
+      "source": "https://github.com/sergeantpickle/repo-template",
+      "version": "0.1.0",
+      "last_checked": None,
+      "exceptions": {},
+    }
+    temp, project = self.make_project({}, manifest)
+    self.addCleanup(temp.cleanup)
+    result = audit_project.audit(project)
+    self.assertTrue(any(error["code"] == "manifest-schema-unsupported" for error in result["errors"]))
 
   def test_minimal_project_has_no_findings(self):
     temp, project = self.make_project({
@@ -183,6 +209,7 @@ class AuditProjectTests(unittest.TestCase):
 
   def test_exception_is_visible_not_hidden(self):
     manifest = {
+      "schema_version": 1,
       "source": "https://github.com/sergeantpickle/repo-template",
       "version": "0.1.0",
       "last_checked": None,
@@ -201,6 +228,7 @@ class AuditProjectTests(unittest.TestCase):
 
   def test_unknown_exception_is_error(self):
     manifest = {
+      "schema_version": 1,
       "source": "https://github.com/sergeantpickle/repo-template",
       "version": "0.1.0",
       "last_checked": None,
@@ -216,6 +244,7 @@ class AuditProjectTests(unittest.TestCase):
 
   def test_non_exception_rule_cannot_be_excepted(self):
     manifest = {
+      "schema_version": 1,
       "source": "https://github.com/sergeantpickle/repo-template",
       "version": "0.1.0",
       "last_checked": None,
@@ -232,6 +261,7 @@ class AuditProjectTests(unittest.TestCase):
   def test_expired_exception_warns(self):
     yesterday = (dt.date.today() - dt.timedelta(days=1)).isoformat()
     manifest = {
+      "schema_version": 1,
       "source": "https://github.com/sergeantpickle/repo-template",
       "version": "0.1.0",
       "last_checked": None,
@@ -258,6 +288,7 @@ class AuditProjectTests(unittest.TestCase):
 
   def test_github_source_git_suffix_is_equivalent(self):
     manifest = {
+      "schema_version": 1,
       "source": "https://github.com/SergeantPickle/repo-template.git",
       "version": "0.1.0",
       "last_checked": None,
@@ -282,6 +313,7 @@ class AuditProjectTests(unittest.TestCase):
 
   def test_version_match_can_be_required_for_pinned_auditor(self):
     manifest = {
+      "schema_version": 1,
       "source": "https://github.com/sergeantpickle/repo-template",
       "version": "9.9.9",
       "last_checked": None,
@@ -294,6 +326,7 @@ class AuditProjectTests(unittest.TestCase):
 
   def test_version_drift_is_informational_and_not_exceptable(self):
     manifest = {
+      "schema_version": 1,
       "source": "https://github.com/sergeantpickle/repo-template",
       "version": "9.9.9",
       "last_checked": None,
