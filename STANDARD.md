@@ -1,13 +1,25 @@
 # Repository Growth Standard
 
 Version: **0.1.0**  
-Status: **Active**
+Status: **Draft**
 
 ## Purpose
 
 This standard controls how AI-primary repositories accumulate instructions, documentation, work state, history, and enforcement as they grow.
 
 It is intentionally a growth control rather than a universal folder tree.
+
+## Non-goals
+
+This standard does not attempt to:
+
+- prescribe one repository tree, planning framework, or documentation taxonomy;
+- make every useful convention a normative rule;
+- replace project-specific engineering judgment;
+- treat heuristic audit findings as proof of a defect;
+- automatically rewrite downstream repositories;
+- require all historical information to remain in the agent's active context;
+- freeze model/tool-specific practices that can change faster than the standard.
 
 ## RGS-CORE-001 — One canonical owner
 
