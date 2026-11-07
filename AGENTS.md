@@ -51,7 +51,14 @@ After a version is released/tagged, normative semantic changes advance `VERSION`
 
 A released version is not edited in place. Rule wording may be clarified in a later release without changing the rule ID when meaning is preserved. Incompatible rule meaning requires migration guidance.
 
-`LATEST` names the latest stable released target and remains unchanged while the next standard line is Draft. A release transaction sets `LATEST` to `VERSION`, marks the candidate Active, passes validation/CI on that exact commit, and tags/releases that commit. Later Draft development advances `VERSION` while leaving `LATEST` on the prior stable release.
+`LATEST` names the latest stable released target and remains unchanged while the next standard line is Draft **and while a release candidate is being validated**. A release transaction:
+
+1. marks the exact candidate Active and finalizes `VERSION`/changelog;
+2. passes validation and remote CI on that exact candidate;
+3. tags/releases that exact commit;
+4. only after the immutable release exists, advances `LATEST` on the development branch to the released version.
+
+This ordering prevents downstream projects from observing a release target that has not been published yet. Later Draft development advances `VERSION` while `LATEST` remains on the prior stable release.
 
 ## Validation
 
