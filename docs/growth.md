@@ -38,6 +38,20 @@ At least one is true:
 
 One persistent task does not justify a permanent handoff framework, archive taxonomy, roadmap hierarchy, or program-management layer.
 
+### Procedure / skill trigger
+
+A repeatable procedure may earn a skill or equivalent on-demand workflow when:
+
+- the **how** matters across multiple tasks;
+- the procedure is stable enough to version;
+- it contains branching/validation steps that are costly to restate correctly;
+- scripts, templates, fixtures, or reference assets belong with the procedure;
+- keeping it out of always-loaded instructions materially reduces irrelevant context.
+
+A one-off task, rapidly changing procedure, or generic advice does not justify a skill. Keep it in the task or prompt until repetition and stability are demonstrated.
+
+A specialized subagent definition follows the same principle: create one when a repeated role, review lens, isolation boundary, or parallel-work pattern has stable value—not merely because the platform supports subagents.
+
 ## Level 2 — Durable knowledge
 
 Add durable technical documentation or decision records when knowledge repeatedly matters beyond the task that discovered it.
