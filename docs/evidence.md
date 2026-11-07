@@ -71,6 +71,26 @@ Sources:
 - https://github.github.com/spec-kit/upgrade.html
 - https://github.com/github/spec-kit/blob/main/.specify/memory/constitution.md
 
+### Copy-once repository templates have an update gap
+
+The current `agentic-templates/repo-template` project provides a substantial agent-first GitHub scaffold with rules, checks, hooks, planning, review, and release workflows. Its published limitations explicitly note that a repository created from the template does not receive later template changes.
+
+Implication: a template can be useful for initial mechanics, but long-lived governance needs an upstream reference/version path if projects are expected to benefit from later improvements.
+
+Source:
+
+- https://github.com/agentic-templates/repo-template
+
+### Independent tooling is emerging specifically for instruction drift
+
+The independent `untactit/agent-drift` project scans copied agent instruction files and reports when similar copies have diverged. Its motivating examples include multiple versions of CLAUDE.md/AGENTS.md-style instructions across repositories and machines.
+
+Implication: multiple independent instruction surfaces should be treated as a drift risk. Prefer one canonical source with tool-specific adapters, links, generation, or explicit drift checking when duplication is unavoidable.
+
+Source:
+
+- https://github.com/untactit/agent-drift
+
 ### Progressive rigor is a useful counterweight to ceremony
 
 OpenSpec's current guidance explicitly recommends the lightest level that keeps a change verifiable and reserves fuller ceremony for riskier or cross-cutting work.
