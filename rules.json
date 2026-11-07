@@ -134,12 +134,12 @@
       "summary": "Generic NOTES.md and LOG.md files should not act as unbounded sinks for unrelated lifecycles."
     },
     {
-      "id": "RGS-ADOPT-001",
+      "id": "RGS-ALIGN-001",
       "title": "Track alignment; latest released upstream is the target",
       "level": "required",
       "detection": "mechanical",
       "exception_allowed": false,
-      "document": "docs/adoption.md",
+      "document": "docs/alignment.md",
       "summary": "Projects record the upstream source and last-aligned version, periodically compare with the latest released standard, and deliberately align rather than silently applying changes."
     },
     {
@@ -157,7 +157,7 @@
       "level": "required",
       "detection": "mechanical",
       "exception_allowed": false,
-      "document": "docs/adoption.md",
+      "document": "docs/alignment.md",
       "summary": "Exceptions reference known rule IDs and include a reason; optional review dates surface stale exceptions."
     }
   ]
