@@ -1,6 +1,6 @@
 # Audit Model
 
-This document is normative for the standard's audit tooling.
+This document is normative for the standard's audit tooling and review process.
 
 The auditor is a growth-control aid, not an autonomous repository rewriter.
 
@@ -23,6 +23,37 @@ A heuristic detector must not pretend to prove a manual rule.
 - **mechanical** — the condition can be established deterministically from available repository state.
 - **heuristic** — the condition is a useful smell but can have legitimate false positives.
 - **manual** — the rule requires contextual judgment and is documented but not automatically decided.
+
+## Periodic AI review
+
+A useful repository audit has two layers.
+
+### 1. Run deterministic/heuristic tooling
+
+Run the pinned standard audit first:
+
+```bash
+python scripts/audit_project.py /path/to/project
+```
+
+Treat heuristic findings as prompts for inspection, not automatic proof that the repository should be reorganized.
+
+### 2. Perform the contextual review
+
+The reviewing agent should then:
+
+1. Inventory persistent repository knowledge and instruction artifacts.
+2. Assign each artifact a lifecycle from `docs/lifecycle.md`.
+3. State the canonical responsibility of each artifact.
+4. Identify overlapping owners, orphaned information, and files whose responsibility has silently expanded.
+5. Inspect manual rules from `rules.json`, especially canonical ownership, earned structure, promotion, retirement, and enforcement.
+6. Identify structures that no longer have an active trigger and are candidates for simplification.
+7. Check scoped agent instructions for rules that belong only to one domain and global instructions for task state or historical narrative.
+8. Compare the project's adopted standard version with current upstream and review changed rules before proposing adoption.
+9. Report findings with rule IDs, evidence, confidence, and the smallest corrective action that restores clear ownership.
+10. Do not create new categories merely to resolve a finding when routing, deletion, or a smaller existing owner is sufficient.
+
+A periodic audit is complete when the project can explain why each persistent organizational artifact still exists.
 
 ## Exceptions
 
