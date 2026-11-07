@@ -146,6 +146,8 @@ def main():
       errors.append("action.yml must set up Python explicitly")
     if "--require-version-match" not in action_text:
       errors.append("action.yml must require the pinned auditor to match the adopted standard version")
+    if "--require-source" not in action_text or "github.action_repository" not in action_text:
+      errors.append("action.yml must require the pinned auditor source to match the adopted standard source")
 
   docs_index = ROOT / "docs/README.md"
   if docs_index.is_file():
