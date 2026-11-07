@@ -42,11 +42,11 @@ def load_manifest(project, pre_adoption=False):
   if not path.is_file():
     if pre_adoption:
       return None, []
-    return None, [{"code": "manifest-missing", "message": f"missing adoption manifest: {path.name}"}]
+    return None, [{"code": "manifest-missing", "message": f"missing alignment manifest: {path.name}"}]
   try:
     return json.loads(path.read_text(encoding="utf-8")), []
   except (OSError, json.JSONDecodeError) as exc:
-    return None, [{"code": "manifest-invalid", "message": f"invalid adoption manifest: {exc}"}]
+    return None, [{"code": "manifest-invalid", "message": f"invalid alignment manifest: {exc}"}]
 
 
 def validate_exceptions(manifest, rules):
@@ -243,7 +243,7 @@ def audit(
           errors.append({
             "code": "auditor-source-mismatch",
             "message": (
-              f"project adopts source {source!r} but the pinned auditor source is "
+              f"project records source {source!r} but the pinned auditor source is "
               f"{require_source!r}"
             ),
           })
@@ -254,13 +254,13 @@ def audit(
         "id": "standard-version-drift",
         "level": "info",
         "status": "active",
-        "message": f"project adopts {adopted}; this checkout of the standard is {STANDARD_VERSION}",
+        "message": f"project last aligned to {adopted}; this auditor checkout is {STANDARD_VERSION}",
         "paths": [".repo-standard.json"],
       })
       if require_version_match:
         errors.append({
           "code": "auditor-version-mismatch",
-          "message": f"project adopts {adopted} but the pinned auditor is {STANDARD_VERSION}",
+          "message": f"project last aligned to {adopted} but the pinned auditor is {STANDARD_VERSION}",
         })
     if last_checked is not None:
       if not isinstance(last_checked, str) or not DATE.fullmatch(last_checked):
@@ -398,7 +398,7 @@ def audit(
     "schema_version": 1,
     "project": str(project),
     "standard_version": STANDARD_VERSION,
-    "adoption_status": "adopted" if manifest is not None else "pre-adoption",
+    "alignment_status": "aligned" if manifest is not None else "pre-alignment",
     "errors": errors,
     "findings": findings,
     "exceptions": exceptions,
@@ -409,7 +409,7 @@ def text_report(result):
   lines = [
     f"Repository Growth Standard audit: {result['project']}",
     f"Standard checkout: {result['standard_version']}",
-    f"Adoption status: {result['adoption_status']}",
+    f"Alignment status: {result['alignment_status']}",
   ]
   for error in result["errors"]:
     lines.append(f"ERROR [{error['code']}]: {error['message']}")
