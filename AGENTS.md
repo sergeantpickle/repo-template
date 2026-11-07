@@ -39,13 +39,17 @@ If these cannot be stated concretely, keep the idea in evidence/examples until i
 
 ## Versioning
 
-`VERSION` is the current upstream standard version. Any normative semantic change must update `VERSION` and `CHANGELOG.md` in the same change:
+`VERSION` is the current standard line.
+
+While `STANDARD.md` is marked **Draft**, that version is provisional and may evolve before its first immutable release. Draft trial adopters must pin a reviewed commit SHA; the semantic version alone is not an immutable implementation identity.
+
+After a version is released/tagged, normative semantic changes advance `VERSION` and `CHANGELOG.md`:
 
 - MAJOR: incompatible governance, adoption, or rule semantics.
 - MINOR: new normative rule, lifecycle, or materially expanded requirement.
-- PATCH: clarification, example, evidence refresh, or tooling change with no normative semantic change.
+- PATCH: clarification, example, evidence refresh, or tooling change with no normative semantic expansion.
 
-Rule wording may change without changing the rule ID when meaning is preserved. Incompatible rule meaning requires migration guidance.
+A released version is not edited in place. Rule wording may be clarified in a later release without changing the rule ID when meaning is preserved. Incompatible rule meaning requires migration guidance.
 
 ## Validation
 
