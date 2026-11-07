@@ -20,6 +20,7 @@ REQUIRED = [
   "docs/growth.md",
   "docs/examples.md",
   "docs/evidence.md",
+  "starter/README.md",
   "starter/AGENTS.md",
   "starter/.repo-standard.json",
   "scripts/audit_project.py",
