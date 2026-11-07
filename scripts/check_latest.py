@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse
+import base64
 import json
 import re
 import sys
@@ -51,14 +52,40 @@ def latest_url_from_source(source):
     repository = repository[:-4]
   if not owner or not repository:
     raise ValueError("GitHub source must include owner and repository")
-  return f"https://raw.githubusercontent.com/{owner}/{repository}/main/LATEST"
+  return f"https://api.github.com/repos/{owner}/{repository}/contents/LATEST"
+
+
+def parse_latest_payload(payload):
+  text = payload.decode("utf-8")
+  try:
+    data = json.loads(text)
+  except json.JSONDecodeError:
+    return parse_latest(text)
+
+  if isinstance(data, dict) and data.get("encoding") == "base64":
+    encoded = data.get("content")
+    if not isinstance(encoded, str):
+      raise ValueError("GitHub contents response is missing base64 content")
+    try:
+      decoded = base64.b64decode(encoded, validate=False).decode("utf-8")
+    except (ValueError, UnicodeDecodeError) as exc:
+      raise ValueError(f"invalid base64 LATEST content: {exc}") from exc
+    return parse_latest(decoded)
+
+  raise ValueError("LATEST endpoint did not return plain text or a GitHub contents response")
 
 
 def fetch_latest(url, timeout):
-  request = urllib.request.Request(url, headers={"User-Agent": "repo-growth-standard"})
+  request = urllib.request.Request(
+    url,
+    headers={
+      "User-Agent": "repo-growth-standard",
+      "Accept": "application/vnd.github+json",
+    },
+  )
   with urllib.request.urlopen(request, timeout=timeout) as response:
-    value = response.read(128).decode("utf-8")
-  return parse_latest(value)
+    payload = response.read(16384)
+  return parse_latest_payload(payload)
 
 
 def compare(aligned, latest):
