@@ -36,6 +36,14 @@ Run the pinned standard audit first:
 python scripts/audit_project.py /path/to/project
 ```
 
+For an existing repository that has not adopted the standard yet:
+
+```bash
+python scripts/audit_project.py /path/to/project --pre-adoption
+```
+
+Pre-adoption mode skips only the missing-manifest error. It does not imply conformance or create an adoption record.
+
 Treat heuristic findings as prompts for inspection, not automatic proof that the repository should be reorganized.
 
 ### 2. Perform the contextual review
