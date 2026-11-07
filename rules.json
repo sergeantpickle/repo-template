@@ -31,7 +31,7 @@
       "level": "required",
       "detection": "manual",
       "exception_allowed": true,
-      "document": "docs/growth.md",
+      "document": "STANDARD.md",
       "summary": "Create persistent files, directories, and workflows only after an observed responsibility justifies them."
     },
     {
@@ -76,7 +76,7 @@
       "level": "recommended",
       "detection": "heuristic",
       "exception_allowed": true,
-      "document": "docs/routing.md",
+      "document": "STANDARD.md",
       "summary": "Multiple tool-specific instruction files should have explicit independent scope or be generated, linked, or checked for drift."
     },
     {
