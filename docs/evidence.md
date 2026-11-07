@@ -79,6 +79,18 @@ Sources:
 - https://github.github.com/spec-kit/upgrade.html
 - https://github.com/github/spec-kit/blob/main/.specify/memory/constitution.md
 
+## Active work has several healthy storage models
+
+Current agent-forward repositories disagree productively about where task state belongs. `xklob/codex-repo-template` makes repository ExecPlans a first-class convention and reserves `plans/`. `agentic-templates/repo-template` explicitly avoids committing plans/session logs and uses GitHub issues, branches, and pull requests as the work system. OpenAI's Codex workflow recipe describes AGENTS/PLANS/harness files as optional conventions that should be adapted to the project.
+
+Implication: this standard should require a bounded owner for active work when persistence is needed, but should not mandate Markdown plans, GitHub issues, OpenSpec changes, or another tracker as the universal owner.
+
+Sources:
+
+- https://github.com/xklob/codex-repo-template
+- https://github.com/agentic-templates/repo-template
+- https://github.com/openai/openai-cookbook/blob/main/examples/codex/iterating-development-workflows-with-codex.md
+
 ## Progressive rigor counters ceremony
 
 OpenSpec's current guidance favors the lightest workflow that keeps a change verifiable. Its model also separates active changes from archived history, and current maintainers are explicitly exploring ways to reduce archive ceremony where it does not earn its cost.
