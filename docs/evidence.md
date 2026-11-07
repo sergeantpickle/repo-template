@@ -177,6 +177,17 @@ Sources:
 - https://docs.astral.sh/ruff/settings/
 - https://github.com/ossf/scorecard/blob/main/docs/checks.md
 
+## Composite actions expose their own repository identity
+
+Current GitHub Actions contexts expose `github.action_repository` for a step executing an action, including composite actions when passed through `env`. This lets a reusable audit bind the executing control-plane repository to the project's declared adoption source instead of trusting a version string alone.
+
+Implication: pinned downstream audits should verify both adopted version and adopted source. A fork or alternate standard with the same semantic version is not silently equivalent.
+
+Sources:
+
+- https://docs.github.com/en/actions/reference/workflows-and-actions/contexts
+- https://docs.github.com/en/actions/tutorials/create-actions/create-a-composite-action
+
 ## Central reusable automation reduces copied workflow logic
 
 Current GitHub Actions supports reusable workflows and composite actions from central repositories, referenced by branch/tag/SHA; GitHub recommends immutable SHAs for maximum stability. Scheduled workflows are available for periodic checks, but public-repository schedules can be disabled after 60 days of inactivity.
