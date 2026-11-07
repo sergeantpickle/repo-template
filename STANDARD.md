@@ -73,6 +73,14 @@ Active task state, long procedures, historical narrative, and broad repository e
 
 When several tools require different instruction files, differences must be intentional and scoped. Identical or substantially overlapping copies should be generated, linked, imported, or checked for drift when the toolchain permits it.
 
+## RGS-AUTH-001 — Separate information from authority
+
+Repository knowledge can describe intent, state, history, and recommended next actions without granting permission to perform them.
+
+Plans, handoffs, status files, changelogs, research, and historical records must not be treated as authorization for irreversible, external, privileged, publishing, release, deployment, or other project-defined controlled actions unless the project explicitly defines that artifact/mechanism as an authorization surface.
+
+When a project delegates action authority to agents, define the authority owner, scope, freshness/validity conditions, and precedence explicitly. Authorization may be human-held or mechanical; the standard does not require one governance model.
+
 ## RGS-ENFORCE-001 — Graduate repeatable hard rules to enforcement
 
 Instruction prose is not a reliable enforcement boundary.
