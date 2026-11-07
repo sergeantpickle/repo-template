@@ -21,11 +21,21 @@ This standard does not attempt to:
 - require all historical information to remain in the agent's active context;
 - freeze model/tool-specific practices that can change faster than the standard.
 
+## Terminology
+
+- **Canonical owner** — the artifact, system, or mechanism responsible for one class of information. It can be a file, issue tracker, generated catalog, database, or other repository-adjacent system; it does not mean "one physical Markdown file."
+- **Responsible owner** — a person, team, service owner, or other accountable actor. This is different from an information owner.
+- **Authority** — permission to perform a controlled action. Information that describes state or intent does not imply authority.
+- **Alignment** — deliberate comparison with the latest released standard, application of relevant changes/exceptions, and advancement of the project's recorded last-aligned state.
+- **Scope** — the repository, domain, subsystem, task, or other boundary within which a rule/information owner applies.
+
 ## RGS-CORE-001 — One canonical owner
 
 Each class of durable information must have one canonical owner.
 
-If the same fact is useful elsewhere, link to the owner. Do not maintain parallel copies unless a tool requires duplication and the copies are generated, linked, or mechanically checked for drift.
+Canonical ownership is about responsibility, not physical centralization. At higher concurrency, many per-change inputs may feed a generated/consolidated canonical record so long as the ownership and consolidation rule remain unambiguous.
+
+If the same fact is useful elsewhere, link to the owner. Do not maintain parallel independently editable copies unless a tool requires duplication and the copies are generated, linked, or mechanically checked for drift.
 
 When two artifacts appear to own the same information, resolve the ownership conflict instead of adding synchronization prose.
 
