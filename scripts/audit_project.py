@@ -334,6 +334,7 @@ def audit(project, pre_adoption=False, require_version_match=False):
     )
 
   return {
+    "schema_version": 1,
     "project": str(project),
     "standard_version": STANDARD_VERSION,
     "adoption_status": "adopted" if manifest is not None else "pre-adoption",
