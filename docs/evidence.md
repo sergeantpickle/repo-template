@@ -257,6 +257,20 @@ Sources:
 - https://github.com/backstage/backstage/blob/master/docs/features/software-catalog/index.md
 - https://docs.github.com/en/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization
 
+## Repository assessments increasingly separate missing evidence from confirmed defects
+
+Recent independent agent-readiness work is explicitly treating audit coverage and observability as part of the result. Exadel's current agentic-readiness assessment reports run scope, confidence, commands executed, and environment blockers; it records unavailable tools/services/network as evidence limitations rather than automatically blaming the repository, and refuses to silently sample only part of a monorepo. A recent AIDD workflow-readiness proposal likewise argued that an assessment should distinguish missing repository evidence from a confirmed defect and should not guess undocumented human knowledge.
+
+The current `repository-standards/core` assessment method independently requires large-repo assessments to name uninspected areas, shallow-history limitations to be explicit, and CI configuration to be distinguished from observed CI execution.
+
+Implication: an AI audit needs a coverage contract. A clean report without declared scope can be more dangerous than no report because future agents may treat omitted areas as verified.
+
+Sources:
+
+- https://github.com/exadel-inc/agentic-readiness-assessment
+- https://github.com/ai-driven-dev/framework/issues/954
+- https://github.com/repository-standards/core/blob/main/docs/method/repo-assessment.md
+
 ## 2026-11-07 heuristic calibration against public agent-heavy repositories
 
 The current audit heuristics were compared against several active public repository patterns rather than being designed only from synthetic fixtures.
