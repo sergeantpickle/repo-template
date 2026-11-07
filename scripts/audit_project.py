@@ -175,7 +175,7 @@ def is_generated_adapter(path, canonical):
   return bool(canonical_text) and canonical_text in adapter_text
 
 
-def audit(project, pre_adoption=False):
+def audit(project, pre_adoption=False, require_version_match=False):
   rules = load_rules()
   errors = []
   findings = []
@@ -199,6 +199,11 @@ def audit(project, pre_adoption=False):
         "message": f"project adopts {adopted}; this checkout of the standard is {STANDARD_VERSION}",
         "paths": [".repo-standard.json"],
       })
+      if require_version_match:
+        errors.append({
+          "code": "auditor-version-mismatch",
+          "message": f"project adopts {adopted} but the pinned auditor is {STANDARD_VERSION}",
+        })
     if last_checked is not None:
       if not isinstance(last_checked, str) or not DATE.fullmatch(last_checked):
         errors.append({"code": "manifest-last-checked-invalid", "message": "last_checked must be null or YYYY-MM-DD"})
@@ -370,6 +375,7 @@ def main():
   parser.add_argument("project", nargs="?", default=".", help="project directory to audit")
   parser.add_argument("--strict", action="store_true", help="treat active warnings as failures")
   parser.add_argument("--pre-adoption", action="store_true", help="allow auditing a repository that has not adopted the standard yet")
+  parser.add_argument("--require-version-match", action="store_true", help="fail when the project version differs from this auditor checkout")
   parser.add_argument("--format", choices=["text", "json"], default="text", help="report format")
   args = parser.parse_args()
 
@@ -378,7 +384,11 @@ def main():
     print(f"error: not a directory: {project}", file=sys.stderr)
     return 2
 
-  result = audit(project, pre_adoption=args.pre_adoption)
+  result = audit(
+    project,
+    pre_adoption=args.pre_adoption,
+    require_version_match=args.require_version_match,
+  )
   if args.format == "json":
     print(json.dumps(result, indent=2, sort_keys=True))
   else:
