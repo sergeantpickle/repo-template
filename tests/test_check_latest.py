@@ -23,14 +23,37 @@ class CheckLatestTests(unittest.TestCase):
     with self.assertRaises(ValueError):
       check_latest.parse_semver("v1.0.0")
 
-  def test_read_adopted(self):
+  def test_read_adoption(self):
     with tempfile.TemporaryDirectory() as temp:
       project = Path(temp)
       (project / ".repo-standard.json").write_text(
-        json.dumps({"version": "0.1.0"}),
+        json.dumps({
+          "source": "https://github.com/example/standard",
+          "version": "0.1.0",
+        }),
         encoding="utf-8",
       )
-      self.assertEqual("0.1.0", check_latest.read_adopted(project))
+      self.assertEqual(
+        {
+          "source": "https://github.com/example/standard",
+          "version": "0.1.0",
+        },
+        check_latest.read_adoption(project),
+      )
+
+  def test_latest_url_is_derived_from_manifest_source(self):
+    self.assertEqual(
+      "https://raw.githubusercontent.com/example/standard/main/VERSION",
+      check_latest.latest_url_from_source("https://github.com/example/standard"),
+    )
+    self.assertEqual(
+      "https://raw.githubusercontent.com/example/standard/main/VERSION",
+      check_latest.latest_url_from_source("https://github.com/example/standard.git"),
+    )
+
+  def test_non_github_source_requires_explicit_latest_url(self):
+    with self.assertRaises(ValueError):
+      check_latest.latest_url_from_source("https://example.com/standard")
 
 
 if __name__ == "__main__":
