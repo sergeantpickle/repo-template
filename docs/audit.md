@@ -95,7 +95,7 @@ By default, `scripts/audit_project.py` fails only for malformed adoption state a
 
 `--require-version-match` makes a project/auditor version mismatch an error. The pinned downstream GitHub Action uses this mode; upgrade exploration can intentionally omit it.
 
-`--format json` provides machine-readable findings for higher-level tooling.
+`--format json` provides machine-readable findings for higher-level tooling. The top-level `schema_version` is currently `1`; consumers should reject unsupported schema versions rather than inferring compatibility.
 
 ## False positives and false negatives
 
