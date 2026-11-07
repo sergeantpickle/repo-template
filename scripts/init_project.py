@@ -16,6 +16,7 @@ STARTER_FILES = ["README.md", "AGENTS.md", ".repo-standard.json"]
 def render_manifest(source):
   return json.dumps(
     {
+      "schema_version": 1,
       "source": source,
       "version": ALIGN_VERSION,
       "last_checked": None,
