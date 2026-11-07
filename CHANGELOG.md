@@ -13,6 +13,7 @@ Initial draft standard.
 - Added stable rule IDs and a machine-readable `rules.json` catalog with required/recommended/advisory levels and mechanical/heuristic/manual detection classes.
 - Defined upstream alignment by reference: projects record the version they last aligned to, while the latest released upstream standard remains the target.
 - Defined explicit exceptions that reference known rule IDs and remain visible in audit output.
+- Required audit reports to state coverage and evidence limits so uninspected or unavailable areas cannot be silently reported as healthy.
 
 ### Routing and growth
 
