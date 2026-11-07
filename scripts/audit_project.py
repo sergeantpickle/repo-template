@@ -19,9 +19,11 @@ def load_rules():
   return {rule["id"]: rule for rule in data["rules"]}
 
 
-def load_manifest(project):
+def load_manifest(project, pre_adoption=False):
   path = project / ".repo-standard.json"
   if not path.is_file():
+    if pre_adoption:
+      return None, []
     return None, [{"code": "manifest-missing", "message": f"missing adoption manifest: {path.name}"}]
   try:
     return json.loads(path.read_text(encoding="utf-8")), []
@@ -111,11 +113,11 @@ def add_finding(findings, exceptions, rule_id, level, message, paths=None):
   findings.append(finding)
 
 
-def audit(project):
+def audit(project, pre_adoption=False):
   rules = load_rules()
   errors = []
   findings = []
-  manifest, manifest_errors = load_manifest(project)
+  manifest, manifest_errors = load_manifest(project, pre_adoption=pre_adoption)
   errors.extend(manifest_errors)
   exceptions = {}
 
@@ -235,6 +237,7 @@ def audit(project):
   return {
     "project": str(project),
     "standard_version": STANDARD_VERSION,
+    "adoption_status": "adopted" if manifest is not None else "pre-adoption",
     "errors": errors,
     "findings": findings,
     "exceptions": exceptions,
@@ -245,6 +248,7 @@ def text_report(result):
   lines = [
     f"Repository Growth Standard audit: {result['project']}",
     f"Standard checkout: {result['standard_version']}",
+    f"Adoption status: {result['adoption_status']}",
   ]
   for error in result["errors"]:
     lines.append(f"ERROR [{error['code']}]: {error['message']}")
@@ -271,6 +275,7 @@ def main():
   parser = argparse.ArgumentParser(description="Audit a project against this checkout of the Repository Growth Standard.")
   parser.add_argument("project", nargs="?", default=".", help="project directory to audit")
   parser.add_argument("--strict", action="store_true", help="treat active warnings as failures")
+  parser.add_argument("--pre-adoption", action="store_true", help="allow auditing a repository that has not adopted the standard yet")
   parser.add_argument("--format", choices=["text", "json"], default="text", help="report format")
   args = parser.parse_args()
 
@@ -279,7 +284,7 @@ def main():
     print(f"error: not a directory: {project}", file=sys.stderr)
     return 2
 
-  result = audit(project)
+  result = audit(project, pre_adoption=args.pre_adoption)
   if args.format == "json":
     print(json.dumps(result, indent=2, sort_keys=True))
   else:
