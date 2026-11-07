@@ -1,10 +1,10 @@
 # Agent Instructions
 
-This project follows the Repository Growth Standard version recorded in `.repo-standard.json`.
+This project follows the Repository Growth Standard. `.repo-standard.json` records the upstream source and the version this project last aligned to.
 
 For ordinary code work, use the project's code, tests, configuration, and local instructions. Do not fetch the upstream standard on every task.
 
-When consulting upstream, use the `source` and `version` recorded in `.repo-standard.json`. A newer upstream version is available guidance, not adopted policy, until the project deliberately updates the manifest.
+When consulting upstream, use the `source` and `version` recorded in `.repo-standard.json`. The latest **released** upstream standard is the alignment target. A newer release is not applied silently, but being behind is known governance drift to review rather than a permanently separate policy line.
 
 Treat `.repo-standard.json` as governance state. Do not change its `source`, `version`, or exceptions as incidental cleanup; changes follow the adoption/exception process in the upstream standard.
 
@@ -15,7 +15,7 @@ Consult upstream before:
 - resolving routing drift such as README, changelog, notes, or handoff contamination;
 - adding a new repository-level enforcement layer;
 - deliberately auditing repository organization;
-- adopting a newer standard version.
+- aligning to a newer released standard.
 
 ## Project-specific rules
 
