@@ -1,42 +1,24 @@
-# Project Knowledge Index
+# Documentation Index
 
-This file is the canonical navigation surface for durable repository knowledge.
+This directory contains deeper project documentation.
 
-> Template state: the first project agent must replace the placeholder inventory below with project-specific entries and keep this index current.
+The canonical map of the repository is [INDEX.md](../INDEX.md). This file maps documentation categories, not the project itself.
 
-## Start here
+## Governance
 
-| Need | Source |
-| --- | --- |
-| Project purpose, setup, usage | [README.md](../README.md) |
-| Agent operating instructions | [AGENTS.md](../AGENTS.md) |
-| System map | [ARCHITECTURE.md](../ARCHITECTURE.md) |
-| Documentation authority and lifecycle | [GOVERNANCE.md](GOVERNANCE.md) |
-| Execution-plan rules | [PLANS.md](PLANS.md) |
+- [GOVERNANCE.md](GOVERNANCE.md) — documentation authority, lifecycle, conflict resolution, and maintenance rules.
+- [PLANS.md](PLANS.md) — execution-plan contract.
 
-## Current project state
+## Documentation areas
 
-During initialization, replace this section with a concise map of:
-
-- primary source directories;
-- test directories;
-- configuration and infrastructure;
-- important entry points;
-- validation commands;
-- deployment/release surfaces;
-- major generated artifacts;
-- external dependencies or integrations that materially shape the project.
-
-## Knowledge areas
-
-Create and link entries only when the project needs them:
+Create and retain only the areas the project actually needs:
 
 - `architecture/` — durable system architecture and subsystem boundaries.
 - `design/` — implementation/design specifications.
 - `product/` — product behavior, terminology, requirements, and user-facing contracts.
 - `decisions/` — durable decisions and rationale.
 - `plans/active/` — living execution plans.
-- `plans/completed/` — completed plans retained as history.
+- `plans/completed/` — completed plans retained as engineering history.
 - `research/` — investigations and evidence.
 - `handoffs/` — dated continuation snapshots.
 - `operations/` — runbooks and operational procedures.
@@ -47,4 +29,4 @@ Create and link entries only when the project needs them:
 
 ## Maintenance rule
 
-Every durable project document that matters to future work must be reachable from this index or from a document linked by it.
+When a durable document is added, removed, or moved, update `INDEX.md` if it changes the project map and update this file when it changes the documentation map.
