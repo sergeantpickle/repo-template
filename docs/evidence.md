@@ -79,6 +79,18 @@ Sources:
 - https://github.github.com/spec-kit/upgrade.html
 - https://github.com/github/spec-kit/blob/main/.specify/memory/constitution.md
 
+## An independent living repository standard uses last-aligned state, not a frozen policy fork
+
+The current `repository-standards/core` project is unusually close to this standard's control-plane model. It separates repository assessment from mutation, treats its standard as a living upstream target, records the state a project last aligned to as a bookmark, and applies later changes as deltas rather than re-scaffolding the repository. Its assessment guidance also distinguishes the existence of CI configuration from evidence that CI actually ran, calls out incomplete/shallow assessments explicitly, and routes findings into later work instead of modifying an unfamiliar repository during assessment.
+
+That project is intentionally much more prescriptive than this standard: its baseline includes product/architecture/spec/decision/backlog structures, lifecycle skills, and a numeric compliance model. Those can be coherent for its target workflow, but adopting them universally would recreate the speculative structure this standard is designed to prevent.
+
+Implication: this standard adopts the stronger **last-aligned bookmark + latest released target + analysis-before-change** model while retaining trigger-based growth, non-numeric contextual findings, and no mandatory product/spec/ADR/backlog skeleton.
+
+Source:
+
+- https://github.com/repository-standards/core
+
 ## Active work has several healthy storage models
 
 Current agent-forward repositories disagree productively about where task state belongs. `xklob/codex-repo-template` makes repository ExecPlans a first-class convention and reserves `plans/`. `agentic-templates/repo-template` explicitly avoids committing plans/session logs and uses GitHub issues, branches, and pull requests as the work system. OpenAI's Codex workflow recipe describes AGENTS/PLANS/harness files as optional conventions that should be adapted to the project.
