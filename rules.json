@@ -135,12 +135,12 @@
     },
     {
       "id": "RGS-ADOPT-001",
-      "title": "Adopt upstream by version",
+      "title": "Track alignment; latest released upstream is the target",
       "level": "required",
       "detection": "mechanical",
       "exception_allowed": false,
       "document": "docs/adoption.md",
-      "summary": "Projects that claim adoption record the upstream source and adopted semantic version and review upgrades deliberately."
+      "summary": "Projects record the upstream source and last-aligned version, periodically compare with the latest released standard, and deliberately align rather than silently applying changes."
     },
     {
       "id": "RGS-EXCEPT-001",
