@@ -8,21 +8,19 @@ The template keeps durable project knowledge separate from active work, research
 
 1. Create a repository from this template.
 2. Give the first agent the project goal and tell it to follow `AGENTS.md`.
-3. The agent inventories the repository, replaces template placeholders, and builds `INDEX.md` from the actual project.
-4. The agent creates architecture, product, reference, operations, and other deeper documentation only when the project actually needs them.
-5. Non-trivial implementation work gets a task-scoped execution plan under `docs/plans/active/`.
-6. Durable decisions are recorded under `docs/decisions/`; research evidence goes under `docs/research/`.
-7. When work is complete, the execution plan moves to `docs/plans/completed/`.
+3. The agent inventories the repository, replaces template placeholders, builds `docs/README.md` into the project knowledge index, and creates architecture/product/reference material only as needed.
+4. Non-trivial implementation work gets a task-scoped execution plan under `docs/plans/active/`.
+5. Durable decisions are recorded under `docs/decisions/`; research evidence goes under `docs/research/`.
+6. When work is complete, the execution plan moves to `docs/plans/completed/`.
 
 ## Repository knowledge model
 
 - `AGENTS.md` — small, stable instructions and navigation for agents.
 - `README.md` — human-facing project purpose, setup, and usage.
-- `INDEX.md` — canonical map of the actual project.
-- `docs/README.md` — index of deeper documentation.
+- `ARCHITECTURE.md` — concise system map and architectural entry point.
+- `docs/README.md` — canonical project knowledge index.
 - `docs/GOVERNANCE.md` — documentation authority, lifecycle, and conflict rules.
 - `docs/PLANS.md` — execution-plan contract.
-- `docs/architecture/` — architecture documents when the project needs them.
 - `docs/decisions/` — durable architectural/product/engineering decisions.
 - `docs/plans/active/` — living plans for substantial work.
 - `docs/plans/completed/` — completed plans retained as engineering history.
