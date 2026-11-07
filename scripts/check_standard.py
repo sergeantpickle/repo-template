@@ -103,6 +103,14 @@ def main():
   if manifest and manifest.get("version") != version:
     errors.append("starter manifest version must match VERSION")
 
+  action_path = ROOT / "action.yml"
+  if action_path.is_file():
+    action_text = action_path.read_text(encoding="utf-8")
+    if "actions/setup-python@v7" not in action_text:
+      errors.append("action.yml must set up Python explicitly")
+    if "--require-version-match" not in action_text:
+      errors.append("action.yml must require the pinned auditor to match the adopted standard version")
+
   docs_index = ROOT / "docs/README.md"
   if docs_index.is_file():
     text = docs_index.read_text(encoding="utf-8")
