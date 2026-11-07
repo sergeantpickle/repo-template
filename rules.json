@@ -80,6 +80,15 @@
       "summary": "Multiple tool-specific instruction files should have explicit independent scope or be generated, linked, or checked for drift."
     },
     {
+      "id": "RGS-AUTH-001",
+      "title": "Separate information from authority",
+      "level": "required",
+      "detection": "manual",
+      "exception_allowed": false,
+      "document": "STANDARD.md",
+      "summary": "Plans, handoffs, status, and history do not grant controlled action authority unless the project explicitly defines an authorization mechanism and scope."
+    },
+    {
       "id": "RGS-ENFORCE-001",
       "title": "Graduate repeatable hard rules to enforcement",
       "level": "recommended",
