@@ -89,6 +89,12 @@ When upstream `VERSION` differs:
 
 An upstream change must never silently rewrite the project.
 
+## Drafts and released standards
+
+A version number in `VERSION` identifies the standard semantics being developed. A stable downstream release should also have an immutable Git tag or commit reference that projects can pin.
+
+While the upstream status is **Draft**, projects may trial the standard by pinning a reviewed commit SHA. Do not treat a moving branch such as `main` as an immutable adopted implementation.
+
 ## Pinning audit code
 
 A project should pin externally executed audit code to an immutable commit SHA or a reviewed release tag. The project's manifest version and the audit-code ref should represent the same adopted standard release.
