@@ -1,5 +1,5 @@
 name: Repository Growth Standard audit
-description: Audit a checked-out repository against the pinned Repository Growth Standard and optionally check for a newer upstream standard.
+description: Audit a checked-out repository against the pinned Repository Growth Standard and optionally check for a newer released upstream standard.
 inputs:
   project-path:
     description: Path to the project, relative to GITHUB_WORKSPACE.
@@ -10,7 +10,7 @@ inputs:
     required: false
     default: "false"
   check-latest:
-    description: Check upstream VERSION for a newer standard.
+    description: Check upstream LATEST for a newer released standard.
     required: false
     default: "true"
 runs:
