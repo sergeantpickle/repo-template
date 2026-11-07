@@ -2,7 +2,7 @@
 
 This changelog records changes to the Repository Growth Standard itself. It is not a development log or handoff record.
 
-## 0.1.0 - 2026-11-07
+## 0.1.0 (draft) - 2026-11-07
 
 Initial draft standard.
 
