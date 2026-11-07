@@ -120,6 +120,17 @@ Source:
 
 - https://github.com/yzhao062/anywhere-agents/releases/tag/v0.9.0
 
+## Generated instruction adapters can solve multi-tool compatibility without creating independent policy
+
+The current `anywhere-agents` repository keeps `AGENTS.md` as the shared source and generates `CLAUDE.md`/agent-specific files from it, with explicit generated-file headers and local override layers. In contrast, independent drift tools report unmanaged copies diverging across repositories and machines.
+
+Implication: the risk is not multiple filenames by itself. The risk is multiple independently maintained policy owners. The auditor therefore recognizes a generated adapter that embeds the canonical AGENTS content, while continuing to warn when a claimed/generated adapter has diverged.
+
+Sources:
+
+- https://github.com/yzhao062/anywhere-agents
+- https://github.com/untactit/agent-drift
+
 ## Stable rule identities and explicit suppressions scale better than prose-only policy
 
 Ruff exposes stable rule codes and explicit global/per-file ignore mechanisms, while OpenSSF Scorecard exposes named checks with risk classifications. These are not agent-governance systems, but they demonstrate a mature pattern: findings need stable identities, machine-readable output, and explicit scoped deviations rather than silent suppression.
