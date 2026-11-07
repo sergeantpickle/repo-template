@@ -159,6 +159,22 @@ def duplicate_instruction_groups(paths):
   return [group for group in groups.values() if len(group) > 1]
 
 
+def is_generated_adapter(path, canonical):
+  if path == canonical or not canonical.is_file():
+    return False
+  adapter_text = path.read_text(encoding="utf-8", errors="replace")
+  header = "\n".join(adapter_text.splitlines()[:40]).lower()
+  generated_marker = (
+    "generated file" in header
+    or "do not edit by hand" in header
+    or "generated from agents.md" in header
+  )
+  if not generated_marker:
+    return False
+  canonical_text = canonical.read_text(encoding="utf-8", errors="replace").strip()
+  return bool(canonical_text) and canonical_text in adapter_text
+
+
 def audit(project, pre_adoption=False):
   rules = load_rules()
   errors = []
@@ -255,8 +271,19 @@ def audit(project, pre_adoption=False):
     project / ".github/copilot-instructions.md",
   ]
   root_instruction_files = [path for path in root_instruction_paths if path.is_file() and not path.is_symlink()]
-  if len(root_instruction_files) > 1:
-    digests = {normalized_digest(path) for path in root_instruction_files}
+  canonical_agents = project / "AGENTS.md"
+  managed_adapters = {
+    path
+    for path in root_instruction_files
+    if is_generated_adapter(path, canonical_agents)
+  }
+  unmanaged_root_files = [
+    path
+    for path in root_instruction_files
+    if path not in managed_adapters
+  ]
+  if len(unmanaged_root_files) > 1:
+    digests = {normalized_digest(path) for path in unmanaged_root_files}
     if len(digests) == 1:
       message = "multiple independent root instruction files contain the same content; copies can drift unless generated, linked, or checked"
     else:
@@ -268,7 +295,7 @@ def audit(project, pre_adoption=False):
       "RGS-INSTR-002",
       "warning",
       message,
-      [str(path.relative_to(project)) for path in root_instruction_files],
+      [str(path.relative_to(project)) for path in unmanaged_root_files],
     )
 
   all_instruction_files = discover_instruction_files(project)
