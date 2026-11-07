@@ -13,6 +13,39 @@ Status: **Draft** — usable for trials, not yet published as an immutable relea
 
 A project adopts this repository by reference and version. It keeps its own project-specific instructions and knowledge; it does not copy this guide wholesale.
 
+## Operating model
+
+```text
+repo-template (upstream guide/control plane)
+  ├─ normative rules
+  ├─ growth examples
+  ├─ evidence
+  └─ audit implementation
+          │
+          │ export starter / adopt by version
+          ▼
+project
+  ├─ README + project-specific agent rules
+  ├─ .repo-standard.json
+  └─ only the structure its work has earned
+          │
+          │ structural change or periodic review
+          ▼
+pinned audit against adopted version
+          │
+          ├─ routing / lifecycle findings
+          ├─ contextual AI review
+          └─ explicit exceptions
+          │
+          │ newer upstream version detected
+          ▼
+review changelog + changed rules
+          │
+          └─ deliberately adopt, except, or stay pinned
+```
+
+The upstream guide evolves; projects do not silently inherit it.
+
 ## Start here
 
 - [STANDARD.md](STANDARD.md) — normative principles and stable rule IDs.
