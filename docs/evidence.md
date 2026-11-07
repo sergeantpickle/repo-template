@@ -15,6 +15,18 @@ Sources:
 - https://www.anthropic.com/research/components-of-agent-memory
 - https://code.claude.com/docs/en/memory
 
+## Skills are a middle layer for repeated procedures, not a reason to package every task
+
+Current OpenAI skills guidance describes skills as reusable, independently versionable procedures that are loaded when needed, especially for conditional workflows or procedures with scripts/assets. It explicitly identifies one-off or rapidly changing tasks as poor skill candidates. OpenAI's September 2026 guidance also warns that skill descriptions and accumulated skill content can bloat agent context.
+
+Implication: skills are a useful escape valve from monolithic instructions, but skill libraries need the same earned-growth discipline as documentation.
+
+Sources:
+
+- https://developers.openai.com/cookbook/examples/skills_in_api
+- https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra
+- https://developers.openai.com/api/docs/guides/tools-skills
+
 ## Newer models need less forced scaffolding
 
 OpenAI's September 11, 2026 GPT-6 Astra guidance warns that accumulated `AGENTS.md` and skill instructions can become bloated or contradictory. It specifically recommends against forcing a full repo map or stack of docs before every edit.
