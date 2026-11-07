@@ -57,6 +57,8 @@ ephemeral observation
 
 A transition requires evidence that the next level earns its maintenance cost.
 
+Promotion into **durable current** knowledge should normally follow validation appropriate to the underlying change. Do not let an unverified implementation automatically teach future agents that its behavior is intended truth. When validation is incomplete, keep the claim in active work or mark its uncertainty explicitly.
+
 Examples:
 
 - One failed migration stays in the task record.
