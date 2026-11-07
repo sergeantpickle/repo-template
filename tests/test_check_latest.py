@@ -49,6 +49,20 @@ class CheckLatestTests(unittest.TestCase):
         check_latest.read_alignment(project),
       )
 
+  def test_read_alignment_rejects_unsupported_schema(self):
+    with tempfile.TemporaryDirectory() as temp:
+      project = Path(temp)
+      (project / ".repo-standard.json").write_text(
+        json.dumps({
+          "schema_version": 2,
+          "source": "https://github.com/example/standard",
+          "version": "0.1.0",
+        }),
+        encoding="utf-8",
+      )
+      with self.assertRaises(ValueError):
+        check_latest.read_alignment(project)
+
   def test_latest_url_is_derived_from_manifest_source(self):
     self.assertEqual(
       "https://api.github.com/repos/example/standard/contents/LATEST",
