@@ -38,7 +38,7 @@ class AuditProjectTests(unittest.TestCase):
       (project / "README.md").write_text("# Example\n\n## Current state\nWork in progress.\n", encoding="utf-8")
       result = audit_project.audit(project, pre_adoption=True)
       self.assertEqual([], result["errors"])
-      self.assertEqual("pre-adoption", result["adoption_status"])
+      self.assertEqual("pre-alignment", result["alignment_status"])
       self.assertTrue(any(f["id"] == "RGS-ROUTE-README-001" for f in result["findings"]))
 
   def test_missing_manifest_is_error_after_adoption(self):
