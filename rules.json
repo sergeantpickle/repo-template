@@ -143,6 +143,15 @@
       "summary": "Projects record the upstream source and last-aligned version, periodically compare with the latest released standard, and deliberately align rather than silently applying changes."
     },
     {
+      "id": "RGS-AUDIT-001",
+      "title": "Audit claims state coverage and evidence limits",
+      "level": "required",
+      "detection": "manual",
+      "exception_allowed": false,
+      "document": "docs/audit.md",
+      "summary": "Repository audits state what was inspected, what was unavailable or omitted, and do not convert missing evidence into a pass or defect."
+    },
+    {
       "id": "RGS-EXCEPT-001",
       "title": "Exceptions are explicit and reviewable",
       "level": "required",
