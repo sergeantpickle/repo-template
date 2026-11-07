@@ -52,7 +52,7 @@ The upstream guide evolves. Projects do not silently inherit changes, but the la
 - [docs/lifecycle.md](docs/lifecycle.md) — how information moves from ephemeral to active, durable, historical, or mechanical.
 - [docs/routing.md](docs/routing.md) — which artifact owns which information.
 - [docs/growth.md](docs/growth.md) — when new files, directories, scoped rules, and automation are justified.
-- [docs/adoption.md](docs/adoption.md) — downstream adoption and periodic upstream checks.
+- [docs/adoption.md](docs/adoption.md) — downstream alignment and periodic upstream checks.
 - [docs/audit.md](docs/audit.md) — audit levels, heuristic limits, and explicit exceptions.
 - [examples/](examples/) — growth trajectories and recovery examples.
 - [docs/evidence.md](docs/evidence.md) — dated research behind current guidance.
@@ -69,13 +69,13 @@ python scripts/init_project.py /path/to/new-project
 
 The exporter refuses to overwrite existing `README.md`, `AGENTS.md`, or `.repo-standard.json`.
 
-For an existing project, do not export starter files over it. Run a pre-adoption review instead:
+For an existing project, do not export starter files over it. Run a pre-alignment review instead:
 
 ```bash
 python scripts/audit_project.py /path/to/existing-project --pre-adoption
 ```
 
-Then adopt deliberately by adding the manifest and only the project-specific instructions the repository actually needs.
+Then align deliberately by adding the manifest and only the project-specific instructions the repository actually needs.
 
 If GitHub's native **Use this template** button is a hard requirement, the clean architecture is a separate minimal template repository generated from `starter/`, while this repository remains the versioned guide/control plane. Do not make the guide itself minimal merely to satisfy GitHub's copy semantics.
 
