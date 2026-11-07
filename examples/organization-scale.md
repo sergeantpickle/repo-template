@@ -65,9 +65,10 @@ Possible growth:
 - reusable CI;
 - centralized policy for genuinely shared invariants;
 - explicit exception mechanisms;
-- service/package ownership metadata.
+- service/package ownership metadata;
+- distributed write paths for canonical records that have become merge hotspots, with later generation/consolidation.
 
-Do not centralize rules that remain genuinely local.
+Do not centralize rules that remain genuinely local. Do not preserve a single-file write path merely because the file remains the canonical presentation surface.
 
 ## Hundreds of independently changing components
 
