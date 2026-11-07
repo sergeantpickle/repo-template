@@ -199,6 +199,16 @@ Sources:
 - https://docs.astral.sh/ruff/settings/
 - https://github.com/ossf/scorecard/blob/main/docs/checks.md
 
+## Canonical ownership does not require a single high-contention write path
+
+The October 2026 design record for `coding-agent-skills` reports that a shared `Unreleased` upgrade-notes section caused eight of nine merge conflicts on one day. The project already squash-merged PR bodies into commit history, so it moved per-change upgrade-note input into PR/commit metadata and generated the release section later instead of making every branch edit one shared file.
+
+Implication: "one canonical owner" is a responsibility rule, not a mandate that thousands of concurrent changes write one physical file. At higher concurrency, distributed inputs plus deterministic consolidation can preserve ownership while removing a merge hotspot.
+
+Source:
+
+- https://github.com/EJRyan89/coding-agent-skills/blob/main/docs/design.md
+
 ## Composite actions expose their own repository identity
 
 Current GitHub Actions contexts expose `github.action_repository` for a step executing an action, including composite actions when passed through `env`. This lets a reusable audit bind the executing control-plane repository to the project's declared adoption source instead of trusting a version string alone.
