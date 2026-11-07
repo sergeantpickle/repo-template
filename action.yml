@@ -26,6 +26,7 @@ runs:
         PROJECT_PATH: ${{ inputs.project-path }}
         STRICT: ${{ inputs.strict }}
         ACTION_REPOSITORY: ${{ github.action_repository }}
+        ACTION_SERVER_URL: ${{ github.server_url }}
       run: |
         args=()
         if [[ "$STRICT" == "true" ]]; then
@@ -34,7 +35,7 @@ runs:
         python "$GITHUB_ACTION_PATH/scripts/audit_project.py" \
           "$GITHUB_WORKSPACE/$PROJECT_PATH" \
           --require-version-match \
-          --require-source "https://github.com/$ACTION_REPOSITORY" \
+          --require-source "$ACTION_SERVER_URL/$ACTION_REPOSITORY" \
           "${args[@]}"
     - name: Check for newer upstream standard
       if: ${{ inputs.check-latest == 'true' }}
