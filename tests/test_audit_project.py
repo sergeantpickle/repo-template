@@ -47,6 +47,12 @@ class AuditProjectTests(unittest.TestCase):
       result = audit_project.audit(project)
       self.assertTrue(any(error["code"] == "manifest-missing" for error in result["errors"]))
 
+  def test_audit_output_schema_is_versioned(self):
+    temp, project = self.make_project({})
+    self.addCleanup(temp.cleanup)
+    result = audit_project.audit(project)
+    self.assertEqual(1, result["schema_version"])
+
   def test_minimal_project_has_no_findings(self):
     temp, project = self.make_project({
       "README.md": "# Example\n\nSetup and usage.\n",
