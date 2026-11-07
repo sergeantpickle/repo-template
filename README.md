@@ -44,6 +44,8 @@ python scripts/audit_project.py /path/to/existing-project --pre-adoption
 
 Then adopt deliberately by adding the manifest and only the project-specific instructions the repository actually needs.
 
+If GitHub's native **Use this template** button is a hard requirement, the clean architecture is a separate minimal template repository generated from `starter/`, while this repository remains the versioned guide/control plane. Do not make the guide itself minimal merely to satisfy GitHub's copy semantics.
+
 ## Downstream baseline
 
 The `starter/` directory intentionally contains very little:
