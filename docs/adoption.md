@@ -112,6 +112,8 @@ Using upstream `main` directly for enforcement couples a project to unreviewed f
 
 `LATEST` contains the latest stable released target, or `none` before the first stable release. Draft changes on `main` do not become the downstream target until released.
 
+Release publication is ordered so the immutable tag/release exists **before** `LATEST` is advanced. This prevents a periodic checker from observing a target that has not actually been published.
+
 The standard uses semantic versioning for governance meaning:
 
 - **MAJOR** — incompatible governance, adoption, or rule semantics;
