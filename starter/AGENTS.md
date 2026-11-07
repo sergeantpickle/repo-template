@@ -6,6 +6,8 @@ For ordinary code work, use the project's code, tests, configuration, and local 
 
 When consulting upstream, use the `source` and `version` recorded in `.repo-standard.json`. A newer upstream version is available guidance, not adopted policy, until the project deliberately updates the manifest.
 
+Treat `.repo-standard.json` as governance state. Do not change its `source`, `version`, or exceptions as incidental cleanup; changes follow the adoption/exception process in the upstream standard.
+
 Consult upstream before:
 
 - changing repository-wide instruction or documentation structure;
