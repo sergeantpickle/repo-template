@@ -23,6 +23,26 @@ A project adopts this repository by reference and version. It keeps its own proj
 - [examples/](examples/) — growth trajectories and recovery examples.
 - [docs/evidence.md](docs/evidence.md) — dated research behind current guidance.
 
+## Create a new downstream project
+
+Do **not** use GitHub's native "Use this template" copy as the normal bootstrap path for this repository. GitHub template repositories copy the upstream directory structure and files, which would copy the guide itself into the project.
+
+From a checkout of this standard, export only the minimal starter:
+
+```bash
+python scripts/init_project.py /path/to/new-project
+```
+
+The exporter refuses to overwrite existing `README.md`, `AGENTS.md`, or `.repo-standard.json`.
+
+For an existing project, do not export starter files over it. Run a pre-adoption review instead:
+
+```bash
+python scripts/audit_project.py /path/to/existing-project --pre-adoption
+```
+
+Then adopt deliberately by adding the manifest and only the project-specific instructions the repository actually needs.
+
 ## Downstream baseline
 
 The `starter/` directory intentionally contains very little:
