@@ -87,11 +87,13 @@ Instruction prose is not a reliable enforcement boundary.
 
 Repeated mechanically checkable correctness or safety requirements should move toward tests, schemas, linters, hooks, permissions, CI, generated checks, or other deterministic controls when the benefit exceeds their maintenance cost.
 
-## RGS-ADOPT-001 — Adopt upstream by version
+## RGS-ADOPT-001 — Track alignment; latest released upstream is the target
 
-Projects adopt this standard by source and semantic version. They do not copy the upstream guide wholesale and they do not silently adopt upstream changes.
+Projects record the upstream source and the standard version they last deliberately aligned to. They do not copy the upstream guide wholesale and they do not silently apply upstream changes.
 
-A project checks upstream periodically or at relevant structural changes, reviews the changed rules, and deliberately updates its adopted version.
+The latest **released** upstream standard is the target. A project that is behind has known governance drift to review; an older aligned version is a reproducibility bookmark, not a permanently independent policy line.
+
+Alignment remains deliberate: compare the delta, review changed rules and migrations, apply what the current standard requires or record valid exceptions, then advance the recorded aligned version. Unreleased `main` or Draft work is not the stable target.
 
 See `docs/adoption.md`.
 
