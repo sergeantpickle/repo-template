@@ -80,6 +80,12 @@ def main():
       document = rule.get("document")
       if not isinstance(document, str) or not (ROOT / document).is_file():
         errors.append(f"rule {rule_id} references missing document: {document!r}")
+      else:
+        document_text = (ROOT / document).read_text(encoding="utf-8")
+        if rule_id not in document_text:
+          errors.append(
+            f"rule {rule_id} is not present in its declared canonical document: {document}"
+          )
 
   if version:
     standard = (ROOT / "STANDARD.md").read_text(encoding="utf-8") if (ROOT / "STANDARD.md").is_file() else ""
