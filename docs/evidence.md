@@ -176,6 +176,22 @@ Sources:
 - https://github.com/backstage/backstage/blob/master/docs/features/software-catalog/index.md
 - https://docs.github.com/en/organizations/managing-organization-settings/creating-rulesets-for-repositories-in-your-organization
 
+## 2026-11-07 heuristic calibration against public agent-heavy repositories
+
+The current audit heuristics were compared against several active public repository patterns rather than being designed only from synthetic fixtures.
+
+- `agentic-templates/repo-template` uses one root AGENTS.md plus task-specific guides. Its current root README/AGENTS organization does not match the standard's README active-state or unmanaged root-copy smells.
+- `anywhere-agents` uses AGENTS.md as a canonical shared source and generates CLAUDE.md with an explicit generated-file header. The initial auditor would have warned merely because the generated adapter differed by its header; the detector was changed to recognize a generated adapter that actually embeds the canonical AGENTS content while still warning when a claimed generated adapter has diverged.
+- `Diew/living-docs` intentionally bootstraps a richer documentation/governance skeleton. That is not treated as an automatic audit failure: whether those categories are earned is a contextual RGS-GROW-001 review, illustrating why manual rules must not be reduced to filename heuristics.
+
+Implication: heuristic findings should be calibrated against healthy counterexamples and narrowed when they produce noise. The audit suite includes regression cases for the generated-adapter calibration.
+
+Sources:
+
+- https://github.com/agentic-templates/repo-template
+- https://github.com/yzhao062/anywhere-agents
+- https://github.com/Diew/living-docs
+
 ## Review policy
 
 Refresh this evidence when:
