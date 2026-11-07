@@ -7,3 +7,4 @@ These examples are non-normative. They show how the same standard produces diffe
 - [recovering-from-sprawl.md](recovering-from-sprawl.md) — a README/HANDOFF/CHANGELOG system that has lost jurisdiction.
 - [project-map.md](project-map.md) — when an INDEX/PROJECT map earns existence and when it is only a duplicate of the tree.
 - [organization-scale.md](organization-scale.md) — how coordination pressure can grow from one maintainer/agent to organization scale without using headcount as a maturity threshold.
+- [brownfield-adoption.md](brownfield-adoption.md) — how an existing repository adopts the standard without being rewritten into the starter layout.
