@@ -32,6 +32,7 @@ REQUIRED = [
   "examples/recovering-from-sprawl.md",
   "examples/project-map.md",
   "examples/organization-scale.md",
+  "examples/brownfield-adoption.md",
   "examples/github-actions/repo-standard.yml",
   "starter/README.md",
   "starter/AGENTS.md",
