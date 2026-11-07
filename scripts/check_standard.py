@@ -30,6 +30,7 @@ REQUIRED = [
   "examples/starting-at-twenty.md",
   "examples/recovering-from-sprawl.md",
   "examples/project-map.md",
+  "examples/organization-scale.md",
   "examples/github-actions/repo-standard.yml",
   "starter/README.md",
   "starter/AGENTS.md",
