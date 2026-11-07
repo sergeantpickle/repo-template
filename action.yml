@@ -30,7 +30,7 @@ runs:
         if [[ "$STRICT" == "true" ]]; then
           args+=(--strict)
         fi
-        python "$GITHUB_ACTION_PATH/scripts/audit_project.py" "$GITHUB_WORKSPACE/$PROJECT_PATH" "${args[@]}"
+        python "$GITHUB_ACTION_PATH/scripts/audit_project.py" "$GITHUB_WORKSPACE/$PROJECT_PATH" --require-version-match "${args[@]}"
     - name: Check for newer upstream standard
       if: ${{ inputs.check-latest == 'true' }}
       shell: bash
