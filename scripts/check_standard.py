@@ -150,8 +150,11 @@ def main():
   manifest_path = ROOT / "starter/.repo-standard.json"
   manifest = load_json(manifest_path, errors, "starter manifest") if manifest_path.is_file() else None
   starter_target = version if latest in {"none", "null"} else latest
-  if manifest and manifest.get("version") != starter_target:
-    errors.append("starter manifest version must match the latest stable target, or VERSION before the first stable release")
+  if manifest:
+    if manifest.get("schema_version") != 1:
+      errors.append("starter manifest schema_version must be 1")
+    if manifest.get("version") != starter_target:
+      errors.append("starter manifest version must match the latest stable target, or VERSION before the first stable release")
 
   action_path = ROOT / "action.yml"
   if action_path.is_file():
