@@ -7,6 +7,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+CHECKOUT_SHA = "3d3c42e5aac5ba805825da76410c181273ba90b1"
+SETUP_PYTHON_SHA = "6d4fd22b20465ccc0f7354476588e8df7c9ca0e0"
 SEMVER = re.compile(r"^\d+\.\d+\.\d+$")
 RULE_ID = re.compile(r"^RGS-[A-Z]+(?:-[A-Z]+)*-\d{3}$")
 
@@ -142,8 +144,8 @@ def main():
   action_path = ROOT / "action.yml"
   if action_path.is_file():
     action_text = action_path.read_text(encoding="utf-8")
-    if "actions/setup-python@v7" not in action_text:
-      errors.append("action.yml must set up Python explicitly")
+    if f"actions/setup-python@{SETUP_PYTHON_SHA}" not in action_text:
+      errors.append("action.yml must pin setup-python to the reviewed full commit SHA")
     if "--require-version-match" not in action_text:
       errors.append("action.yml must require the pinned auditor to match the adopted standard version")
     if (
@@ -152,6 +154,20 @@ def main():
       or "github.server_url" not in action_text
     ):
       errors.append("action.yml must require the pinned auditor source/server to match the adopted standard source")
+
+  workflow_path = ROOT / ".github/workflows/standard.yml"
+  if workflow_path.is_file():
+    workflow_text = workflow_path.read_text(encoding="utf-8")
+    if f"actions/checkout@{CHECKOUT_SHA}" not in workflow_text:
+      errors.append("standard workflow must pin checkout to the reviewed full commit SHA")
+    if f"actions/setup-python@{SETUP_PYTHON_SHA}" not in workflow_text:
+      errors.append("standard workflow must pin setup-python to the reviewed full commit SHA")
+
+  example_workflow_path = ROOT / "examples/github-actions/repo-standard.yml"
+  if example_workflow_path.is_file():
+    example_workflow_text = example_workflow_path.read_text(encoding="utf-8")
+    if f"actions/checkout@{CHECKOUT_SHA}" not in example_workflow_text:
+      errors.append("downstream workflow example must pin checkout to the reviewed full commit SHA")
 
   docs_index = ROOT / "docs/README.md"
   if docs_index.is_file():
