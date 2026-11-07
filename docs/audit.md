@@ -91,6 +91,8 @@ By default, `scripts/audit_project.py` fails only for malformed adoption state a
 
 `--strict` makes active warnings fail while still allowing explicit valid exceptions.
 
+`--require-version-match` makes a project/auditor version mismatch an error. The pinned downstream GitHub Action uses this mode; upgrade exploration can intentionally omit it.
+
 `--format json` provides machine-readable findings for higher-level tooling.
 
 ## False positives and false negatives
