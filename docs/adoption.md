@@ -91,9 +91,11 @@ An upstream change must never silently rewrite the project.
 
 ## Drafts and released standards
 
-A version number in `VERSION` identifies the standard semantics being developed. A stable downstream release should also have an immutable Git tag or commit reference that projects can pin.
+A version number in `VERSION` identifies the standard line being developed. While `STANDARD.md` is **Draft**, that version is provisional and may change before its first immutable release.
 
-While the upstream status is **Draft**, projects may trial the standard by pinning a reviewed commit SHA. Do not treat a moving branch such as `main` as an immutable adopted implementation.
+Projects may trial a draft by pinning a reviewed commit SHA. During draft trials, the pinned SHA—not the provisional version string—is the immutable implementation identity. Do not use a moving branch such as `main` as an adopted implementation.
+
+Once a version is released/tagged, its normative meaning is immutable. Later semantic changes receive a new version according to the rules below.
 
 ## Pinning audit code
 
