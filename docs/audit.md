@@ -12,6 +12,25 @@ Rule IDs remain stable when wording is clarified. If the meaning changes incompa
 
 `rules.json` is an index and machine contract, not a second normative prose source. Its `document` field names the canonical document that owns the rule's meaning; summaries in the catalog are routing aids. The standard self-check verifies that each active rule ID actually appears in its declared canonical document.
 
+## RGS-AUDIT-001 — Audit claims state coverage and evidence limits
+
+An audit must not imply that an uninspected or unobservable area passed.
+
+Every contextual audit report states:
+
+- the repository scope inspected;
+- important areas intentionally or practically not inspected;
+- whether history was sufficient for historical claims;
+- whether CI/external-system evidence was actually observable;
+- commands/checks that could not be run and why;
+- any other limitation that materially lowers confidence.
+
+"Not determined", "unverified", and "not inspected" are valid results. They are preferable to converting missing evidence into either a pass or a defect.
+
+On a repository too large to inspect completely in one pass, audit by a declared boundary (for example capability/domain) and name the uncovered remainder.
+
+This standard does not define a single aggregate compliance/readiness score. Mechanical errors, heuristic smells, manual judgments, exceptions, and coverage limits are different evidence classes and should remain distinguishable unless a project has independently earned and validated a scoring model.
+
 ## Levels
 
 - **required** — normative requirement. A mechanically proven violation is a conformance failure unless that rule explicitly allows an exception.
@@ -52,21 +71,24 @@ Treat heuristic findings as prompts for inspection, not automatic proof that the
 
 The reviewing agent should then:
 
-1. Inventory persistent repository knowledge and instruction artifacts.
-2. Assign each artifact a lifecycle from `docs/lifecycle.md`.
-3. State the canonical responsibility of each artifact.
-4. Identify overlapping owners, orphaned information, and files whose responsibility has silently expanded.
-5. Inspect manual rules from `rules.json`, especially canonical ownership, earned structure, promotion, retirement, and enforcement.
-6. Identify structures that no longer have an active trigger and are candidates for simplification.
-7. Check scoped agent instructions for rules that belong only to one domain and global instructions for task state or historical narrative.
-8. Identify any plan, handoff, status, or historical artifact that agents could mistakenly treat as current authorization for controlled actions; verify the actual authority mechanism is explicit.
-9. Compare the project's adopted standard version with current upstream and review changed rules before proposing adoption.
-10. Report findings with rule IDs, evidence, confidence, and the smallest corrective action that restores clear ownership.
-11. Do not create new categories merely to resolve a finding when routing, deletion, or a smaller existing owner is sufficient.
+1. State audit scope, coverage, and evidence limitations before drawing repository-wide conclusions.
+2. Inventory persistent repository knowledge and instruction artifacts.
+3. Assign each artifact a lifecycle from `docs/lifecycle.md`.
+4. State the canonical responsibility of each artifact.
+5. Identify overlapping owners, orphaned information, and files whose responsibility has silently expanded.
+6. Inspect manual rules from `rules.json`, especially canonical ownership, earned structure, promotion, retirement, and enforcement.
+7. Identify structures that no longer have an active trigger and are candidates for simplification.
+8. Check scoped agent instructions for rules that belong only to one domain and global instructions for task state or historical narrative.
+9. Identify any plan, handoff, status, or historical artifact that agents could mistakenly treat as current authorization for controlled actions; verify the actual authority mechanism is explicit.
+10. Compare the project's last-aligned standard version with the latest released upstream target and review changed rules before proposing alignment.
+11. Report findings with rule IDs, evidence, confidence, and the smallest corrective action that restores clear ownership.
+12. Do not create new categories merely to resolve a finding when routing, deletion, or a smaller existing owner is sufficient.
 
 A periodic audit is complete when the project can explain why each persistent organizational artifact still exists.
 
 ### Contextual review report shape
+
+Before findings, report **Coverage and limits**: inspected scope, omitted scope, unavailable evidence, and any confidence limitation.
 
 For each material finding, report:
 
@@ -83,7 +105,7 @@ Low-confidence findings should normally remain recommendations for inspection ra
 
 A reusable audit instruction is:
 
-> Audit this repository against its adopted Repository Growth Standard. Run the deterministic audit first, then perform the contextual review in `docs/audit.md`. Do not reorganize files while auditing. Report findings with rule IDs, evidence, confidence, current owner, smallest correction, growth effect, and trigger. Prefer routing or deletion over new structure when both solve the problem.
+> Audit this repository against its Repository Growth Standard. Run the deterministic audit first, then perform the contextual review in `docs/audit.md`. Do not reorganize files while auditing. State coverage and evidence limits before findings. Report findings with rule IDs, evidence, confidence, current owner, smallest correction, growth effect, and trigger. Prefer routing or deletion over new structure when both solve the problem.
 
 ## Exceptions
 
