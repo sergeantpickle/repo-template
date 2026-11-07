@@ -1,3 +1,4 @@
+import base64
 import json
 import tempfile
 import unittest
@@ -50,13 +51,26 @@ class CheckLatestTests(unittest.TestCase):
 
   def test_latest_url_is_derived_from_manifest_source(self):
     self.assertEqual(
-      "https://raw.githubusercontent.com/example/standard/main/LATEST",
+      "https://api.github.com/repos/example/standard/contents/LATEST",
       check_latest.latest_url_from_source("https://github.com/example/standard"),
     )
     self.assertEqual(
-      "https://raw.githubusercontent.com/example/standard/main/LATEST",
+      "https://api.github.com/repos/example/standard/contents/LATEST",
       check_latest.latest_url_from_source("https://github.com/example/standard.git"),
     )
+
+  def test_parse_latest_payload_accepts_plain_text(self):
+    self.assertEqual("1.2.3", check_latest.parse_latest_payload(b"1.2.3\n"))
+    self.assertIsNone(check_latest.parse_latest_payload(b"none\n"))
+
+  def test_parse_latest_payload_accepts_github_contents_response(self):
+    encoded = base64.b64encode(b"1.2.3\n").decode("ascii")
+    payload = json.dumps({"encoding": "base64", "content": encoded}).encode("utf-8")
+    self.assertEqual("1.2.3", check_latest.parse_latest_payload(payload))
+
+  def test_parse_latest_payload_rejects_unexpected_json(self):
+    with self.assertRaises(ValueError):
+      check_latest.parse_latest_payload(b'{"message":"not a contents response"}')
 
   def test_non_github_source_requires_explicit_latest_url(self):
     with self.assertRaises(ValueError):
