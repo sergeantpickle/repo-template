@@ -1,53 +1,64 @@
 # Repository Growth Standard
 
-This repository is an upstream guide for AI-primary software repositories.
+A versioned upstream guide for keeping AI-primary repositories understandable as they grow.
 
-It is not a directory tree that every project should copy. It defines how a project should decide where information belongs, when new structure is justified, when rules should become mechanical, and how obsolete structure should disappear.
+The standard does not prescribe a large project tree. It defines **jurisdiction, lifecycle, growth triggers, exceptions, and enforcement** so agents do not gradually turn README files into handoffs, changelogs into work logs, or one-off observations into permanent bureaucracy.
 
-Current standard version: **0.1.0**
+Current version: **0.1.0**
 
-## The problem this solves
+## Core idea
 
-Coding agents are good at adding information and weak at protecting information boundaries over long periods. Without explicit ownership, a README becomes a handoff, a changelog becomes a work log, temporary notes become permanent policy, and duplicated instructions drift apart.
+> Every class of durable information has one canonical owner. New permanent structure must earn existence through an observed coordination need.
 
-This standard treats that as an organizational-control problem rather than a documentation-volume problem.
+A project adopts this repository by reference and version. It keeps its own project-specific instructions and knowledge; it does not copy this guide wholesale.
 
-The core rule is:
+## Start here
 
-> Every class of durable information has one canonical owner. Other surfaces link to it rather than absorbing copies.
+- [STANDARD.md](STANDARD.md) — normative principles and stable rule IDs.
+- [docs/lifecycle.md](docs/lifecycle.md) — how information moves from ephemeral to active, durable, historical, or mechanical.
+- [docs/routing.md](docs/routing.md) — which artifact owns which information.
+- [docs/growth.md](docs/growth.md) — when new files, directories, scoped rules, and automation are justified.
+- [docs/adoption.md](docs/adoption.md) — downstream adoption and periodic upstream checks.
+- [docs/audit.md](docs/audit.md) — audit levels, heuristic limits, and explicit exceptions.
+- [examples/](examples/) — growth trajectories and recovery examples.
+- [docs/evidence.md](docs/evidence.md) — dated research behind current guidance.
 
-## How projects use this repository
+## Downstream baseline
 
-A project adopts a specific version of this standard and records that adoption in a small local manifest such as `.repo-standard.json`.
+The `starter/` directory intentionally contains very little:
 
-The project does **not** copy this repository's full documentation hierarchy. It grows only the structures justified by its own work.
+```text
+README.md
+AGENTS.md
+.repo-standard.json
+```
 
-When repository organization, agent instructions, documentation ownership, or work-state handling needs review, compare the project against the adopted standard and the latest upstream version.
+It is an example baseline, not a mandatory tree. Projects add structure when the triggers in `docs/growth.md` are actually met.
 
-See:
+## Audit a project
 
-- [STANDARD.md](STANDARD.md) — normative rules.
-- [docs/adoption.md](docs/adoption.md) — how a project adopts and updates the standard.
-- [docs/routing.md](docs/routing.md) — where information belongs.
-- [docs/growth.md](docs/growth.md) — when repository structure should grow.
-- [docs/examples.md](docs/examples.md) — concrete growth and restraint examples.
-- [docs/evidence.md](docs/evidence.md) — current research behind the standard.
-- [starter/](starter/) — a minimal downstream example, not a mandatory project layout.
+From a checkout of this standard:
 
-## What belongs here
+```bash
+python scripts/audit_project.py /path/to/project
+python scripts/audit_project.py /path/to/project --strict
+python scripts/audit_project.py /path/to/project --format json
+```
 
-This upstream repository may be richer than a downstream project because it owns:
+Check whether the project is behind the current upstream `VERSION`:
 
-- normative repository-growth rules;
-- routing and lifecycle rules;
-- growth triggers;
-- non-normative examples;
-- standard versioning and migration guidance;
-- project-audit tooling;
-- the evidence base used to revise the standard.
+```bash
+python scripts/check_latest.py /path/to/project
+```
 
-A downstream project should contain only what its own work has earned.
+The repository also exposes a composite GitHub Action (`action.yml`) so downstream projects can run the pinned audit logic periodically without copying it. See `docs/adoption.md` and `examples/github-actions/`.
 
-## Design rule for this repository
+## Maintain this standard
 
-The guide must follow its own standard. New permanent files, directories, checks, and categories require a demonstrated responsibility that an existing artifact cannot own cleanly.
+Run:
+
+```bash
+python scripts/check_standard.py
+```
+
+The standard must follow itself: no new permanent category, workflow, or rule is added merely because it might be useful someday.
