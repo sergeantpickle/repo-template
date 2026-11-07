@@ -34,6 +34,7 @@ class CheckLatestTests(unittest.TestCase):
       project = Path(temp)
       (project / ".repo-standard.json").write_text(
         json.dumps({
+          "schema_version": 1,
           "source": "https://github.com/example/standard",
           "version": "0.1.0",
         }),
