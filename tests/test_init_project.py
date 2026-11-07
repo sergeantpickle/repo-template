@@ -22,7 +22,7 @@ class InitProjectTests(unittest.TestCase):
       )
       manifest = json.loads((target / ".repo-standard.json").read_text(encoding="utf-8"))
       self.assertEqual("https://github.com/example/standard", manifest["source"])
-      self.assertEqual(init_project.VERSION, manifest["version"])
+      self.assertEqual(init_project.ALIGN_VERSION, manifest["version"])
       self.assertIsNone(manifest["last_checked"])
 
   def test_refuses_nonempty_existing_project(self):
