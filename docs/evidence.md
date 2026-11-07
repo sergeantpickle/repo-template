@@ -78,6 +78,17 @@ Sources:
 - https://github.com/Fission-AI/OpenSpec/blob/main/docs/concepts.md
 - https://github.com/Fission-AI/OpenSpec/issues/1968
 
+## Native GitHub template copies are unsuitable for a rich upstream guide
+
+Current GitHub template repositories create descendants with the same directory structure and files from the template branch. That behavior is useful for starter code but conflicts with this standard's architecture: the upstream repository intentionally contains governance, evidence, examples, tests, and audit implementation that should not become project-local knowledge.
+
+Implication: this repository exports a minimal `starter/` into greenfield projects instead of using the full upstream tree as the downstream scaffold. Existing projects use pre-adoption review.
+
+Sources:
+
+- https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template
+- https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository
+
 ## Copy-once templates have an update gap
 
 The current `agentic-templates/repo-template` provides substantial agent-first automation but explicitly notes that repositories created from it do not receive later template changes.
