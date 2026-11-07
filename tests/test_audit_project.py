@@ -227,6 +227,39 @@ class AuditProjectTests(unittest.TestCase):
     result = audit_project.audit(project)
     self.assertTrue(any(f["id"] == "RGS-EXCEPT-001" for f in result["findings"]))
 
+  def test_source_match_can_be_required_for_pinned_auditor(self):
+    temp, project = self.make_project({})
+    self.addCleanup(temp.cleanup)
+    result = audit_project.audit(
+      project,
+      require_source="https://github.com/sergeantpickle/repo-template",
+    )
+    self.assertFalse(any(error["code"] == "auditor-source-mismatch" for error in result["errors"]))
+
+  def test_github_source_git_suffix_is_equivalent(self):
+    manifest = {
+      "source": "https://github.com/SergeantPickle/repo-template.git",
+      "version": "0.1.0",
+      "last_checked": None,
+      "exceptions": {},
+    }
+    temp, project = self.make_project({}, manifest)
+    self.addCleanup(temp.cleanup)
+    result = audit_project.audit(
+      project,
+      require_source="https://github.com/sergeantpickle/repo-template",
+    )
+    self.assertFalse(any(error["code"] == "auditor-source-mismatch" for error in result["errors"]))
+
+  def test_source_mismatch_fails_pinned_auditor(self):
+    temp, project = self.make_project({})
+    self.addCleanup(temp.cleanup)
+    result = audit_project.audit(
+      project,
+      require_source="https://github.com/example/other-standard",
+    )
+    self.assertTrue(any(error["code"] == "auditor-source-mismatch" for error in result["errors"]))
+
   def test_version_match_can_be_required_for_pinned_auditor(self):
     manifest = {
       "source": "https://github.com/sergeantpickle/repo-template",
