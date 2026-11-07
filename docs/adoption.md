@@ -14,6 +14,7 @@ A project records its upstream source and the semantic version it last deliberat
 
 ```json
 {
+  "schema_version": 1,
   "source": "https://github.com/sergeantpickle/repo-template",
   "version": "0.1.0",
   "last_checked": "2026-11-07",
@@ -21,7 +22,7 @@ A project records its upstream source and the semantic version it last deliberat
 }
 ```
 
-`version` is the **last-aligned version**, not a declaration that the project may permanently ignore newer released standards. `last_checked` may be null until the first upstream comparison.
+`schema_version` identifies the manifest contract understood by tooling. `version` is the **last-aligned version**, not a declaration that the project may permanently ignore newer released standards. `last_checked` may be null until the first upstream comparison.
 
 The manifest is deliberately small. Project-specific structure remains in the project, not in the standard manifest.
 
