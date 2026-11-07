@@ -133,9 +133,19 @@ Source:
 
 - https://github.com/untactit/agent-drift
 
+## Thin instruction pointers are another healthy multi-tool adapter
+
+Emanuel University's current AI-agent repository template recommends a short canonical AGENTS.md and tiny CLAUDE/GEMINI/Copilot pointer files that route tools back to AGENTS instead of copying policy. Its check script treats copied instructions as drift risk, and its skill guidance recommends creating a skill only after real repetition rather than to prevent an imagined future need.
+
+Implication: multiple instruction filenames are not themselves a defect. Thin pointers and generated adapters can preserve one policy owner. Procedure packaging should follow observed repetition.
+
+Source:
+
+- https://github.com/Emanuel-University/ai-agent-template
+
 ## Independent governance systems converge on canonical ownership, but differ on baseline size
 
-The independent `Diew/living-docs` project uses a governance registry that maps every documentation file to what it owns, what it must not contain, and when an agent should load it. Its stated core rule is one owner per rule, with task-to-file routing.
+The independent `Diew/living-docs` project uses a governance registry that maps every documentation file to what it owns, what it must not contain, and when an agent should load it. Its stated core rule is one owner per rule, with task-to-file routing. It also deliberately places a human confirmation checkpoint before an agent promotes completed work into durable docs, because silently documenting an incorrect implementation can make the next session treat the mistake as intended behavior.
 
 That project also bootstraps a richer documentation skeleton (developer guide, reference, UI standards, refactor tracker, governance registry) than this standard assumes.
 
