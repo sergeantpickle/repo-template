@@ -7,24 +7,24 @@ This repository is designed for AI-primary development.
 Before making changes:
 
 1. Read `README.md`.
-2. Read `INDEX.md`.
+2. Read `docs/README.md`.
 3. Read `docs/GOVERNANCE.md`.
-4. Follow links from `INDEX.md` to architecture, design, reference, operations, or other project-specific documentation as relevant.
+4. Read `ARCHITECTURE.md` when architecture is relevant.
 5. Read the active plan under `docs/plans/active/` when one exists.
 
 Do not treat chat history as canonical project memory. Durable context belongs in the repository.
 
 ## Project initialization
 
-When this repository is newly created from the template, the first agent must build `INDEX.md` from the repository itself rather than merely filling placeholders.
+When this repository is newly created from the template, the first agent must build the project index from the repository itself rather than merely filling placeholders.
 
 1. Inventory the full repository tree and identify source, tests, configuration, infrastructure, scripts, generated files, entry points, external integrations, and release/deployment surfaces.
 2. Read the files that define actual behavior: manifests, package/build configuration, application entry points, schemas, CI workflows, tests, and existing documentation.
-3. Replace template placeholders in `README.md` and `INDEX.md`.
-4. Make `INDEX.md` the canonical project map. It must tell a fresh agent what exists, where it lives, which documents are authoritative, and which validation commands establish correctness.
-5. Create deeper documentation only when supported by the repository or required for planned work. Do not manufacture speculative architecture.
+3. Replace template placeholders in `README.md`, `ARCHITECTURE.md`, and `docs/README.md`.
+4. Make `docs/README.md` the canonical project index. It must tell a fresh agent what exists, where it lives, which documents are authoritative, and which validation commands establish correctness.
+5. Create deeper documentation only when supported by the repository or required for the first planned work. Do not manufacture speculative architecture.
 6. Remove unused placeholder directories/files after evaluating whether the project needs them.
-7. Establish executable validation commands and record them in `INDEX.md`.
+7. Establish executable validation commands and record them in the project index.
 8. Before substantial implementation, create the first execution plan in `docs/plans/active/`.
 9. Run repository knowledge checks and resolve stale template markers before declaring initialization complete.
 
@@ -32,7 +32,7 @@ The initialized repository must explain itself to a fresh agent without requirin
 
 ## Project index requirements
 
-`INDEX.md` must include, when applicable:
+The project index at `docs/README.md` must include, when applicable:
 
 - repository map and major directories;
 - runtime/application entry points;
@@ -41,7 +41,7 @@ The initialized repository must explain itself to a fresh agent without requirin
 - build/package/dependency configuration;
 - CI/CD and deployment/release surfaces;
 - persistence, schemas, protocols, APIs, or external integrations;
-- links to architecture, design, and decision documents;
+- architecture and decision-document links;
 - active execution plans;
 - generated artifacts and how to regenerate them;
 - known constraints that materially affect implementation.
@@ -68,6 +68,6 @@ Verify:
 - acceptance criteria are satisfied;
 - relevant tests/checks pass;
 - active plans reflect the actual state;
-- durable decisions and project-specific documentation are updated where needed;
-- `INDEX.md` still maps the repository accurately;
+- durable decisions and architecture docs are updated where needed;
+- `docs/README.md` still maps the repository accurately;
 - no stale template text or contradictory documentation was introduced.
