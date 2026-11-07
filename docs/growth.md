@@ -110,6 +110,23 @@ Introduce catalogs, ownership metadata, dependency policy, platform-level govern
 
 This level is not a destination. Most repositories should never need it.
 
+## Persistent-structure creation gate — RGS-GROW-001
+
+Before creating a permanent file, directory, workflow, instruction layer, catalog, registry, or governance mechanism, answer these questions in order:
+
+1. **Is persistence necessary?** If the information is cheap and safe to rediscover, keep it ephemeral.
+2. **Does an existing owner already have jurisdiction?** Route or link instead of creating a second owner.
+3. **Is the responsibility recurring or consequential?** One ordinary occurrence usually belongs to the current task.
+4. **Can the new artifact state one bounded responsibility?** If not, the proposed artifact is probably another generic bucket.
+5. **What is its lifecycle and retirement condition?** A permanent artifact with no update/retirement model is organizational debt at creation time.
+6. **What is the lightest structure that works?** Prefer a section before a file, a file before a directory, and a local rule before an organization-wide system when scope permits.
+7. **Will it enter hot agent context?** The broader the automatic loading scope, the higher the evidence threshold for adding content.
+8. **Can an existing mechanical source own the fact?** Do not maintain prose that merely duplicates manifests, schemas, generated inventories, or other reliable machine-readable truth.
+
+If the proposed structure cannot pass this gate, do not create it yet.
+
+The gate is about responsibility, not numeric thresholds. Two artifacts can justify separation when their lifecycles are truly independent; ten artifacts can remain together when they still have one coherent owner.
+
 ## Directory growth rule
 
 A directory should normally emerge from several independently useful artifacts sharing a lifecycle or retrieval scope. Do not create empty future categories as instructions to the agent about what it should eventually write.
