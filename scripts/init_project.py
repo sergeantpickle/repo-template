@@ -25,11 +25,17 @@ def render_manifest(source):
 
 
 def initialize(target, source):
-  collisions = [name for name in STARTER_FILES if (target / name).exists()]
-  if collisions:
-    raise FileExistsError(
-      "refusing to overwrite existing starter paths: " + ", ".join(collisions)
+  if target.exists():
+    existing = sorted(
+      path.name
+      for path in target.iterdir()
+      if path.name != ".git"
     )
+    if existing:
+      raise FileExistsError(
+        "target is not empty; use pre-adoption review for an existing project: "
+        + ", ".join(existing)
+      )
 
   target.mkdir(parents=True, exist_ok=True)
   for name in STARTER_FILES:
