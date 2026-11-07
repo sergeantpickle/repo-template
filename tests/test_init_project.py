@@ -25,14 +25,21 @@ class InitProjectTests(unittest.TestCase):
       self.assertEqual(init_project.VERSION, manifest["version"])
       self.assertIsNone(manifest["last_checked"])
 
-  def test_refuses_to_overwrite_existing_starter_path(self):
+  def test_refuses_nonempty_existing_project(self):
     with tempfile.TemporaryDirectory() as temp:
       target = Path(temp)
-      (target / "README.md").write_text("# Existing\n", encoding="utf-8")
+      (target / "pyproject.toml").write_text("[project]\nname='existing'\n", encoding="utf-8")
       with self.assertRaises(FileExistsError):
         init_project.initialize(target, "https://github.com/example/standard")
       self.assertFalse((target / "AGENTS.md").exists())
       self.assertFalse((target / ".repo-standard.json").exists())
+
+  def test_git_metadata_does_not_make_new_checkout_nonempty(self):
+    with tempfile.TemporaryDirectory() as temp:
+      target = Path(temp)
+      (target / ".git").mkdir()
+      init_project.initialize(target, "https://github.com/example/standard")
+      self.assertTrue((target / "AGENTS.md").is_file())
 
   def test_empty_existing_directory_is_allowed(self):
     with tempfile.TemporaryDirectory() as temp:
