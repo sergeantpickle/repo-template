@@ -178,6 +178,23 @@ def main():
     if audit_result.returncode != 0:
       errors.append("starter audit failed:\n" + audit_result.stdout + audit_result.stderr)
 
+  if not errors:
+    self_audit = subprocess.run(
+      [
+        sys.executable,
+        str(ROOT / "scripts/audit_project.py"),
+        str(ROOT),
+        "--pre-adoption",
+        "--strict",
+      ],
+      cwd=ROOT,
+      capture_output=True,
+      text=True,
+      check=False,
+    )
+    if self_audit.returncode != 0:
+      errors.append("standard self-audit failed:\n" + self_audit.stdout + self_audit.stderr)
+
   if errors:
     print("Standard check failed:")
     for error in errors:
