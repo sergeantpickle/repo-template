@@ -1,111 +1,96 @@
 # Repository Growth Standard
 
 Version: **0.1.0**  
-Status: **Draft**
+Status: **Active**
 
 ## Purpose
 
 This standard controls how AI-primary repositories accumulate instructions, documentation, work state, history, and enforcement as they grow.
 
-Its purpose is not to maximize documentation. Its purpose is to prevent ambiguous ownership and uncontrolled structural growth.
+It is intentionally a growth control rather than a universal folder tree.
 
-## 1. One canonical owner
+## RGS-CORE-001 — One canonical owner
 
 Each class of durable information must have one canonical owner.
 
-If the same fact is useful elsewhere, link to the owner. Do not maintain parallel copies unless a tool requires one and the duplication is generated or mechanically checked.
+If the same fact is useful elsewhere, link to the owner. Do not maintain parallel copies unless a tool requires duplication and the copies are generated, linked, or mechanically checked for drift.
 
-When two artifacts appear to own the same information, resolve the ownership conflict instead of adding synchronization instructions.
+When two artifacts appear to own the same information, resolve the ownership conflict instead of adding synchronization prose.
 
-## 2. Separate current truth, active work, and history
+## RGS-LIFE-001 — Separate information lifecycles
 
-Repositories must distinguish:
+Current truth, active work, historical record, evidence, and mechanical enforcement must remain distinguishable.
 
-- **current truth** — how the project works now;
-- **active work** — what is being changed, discovered, blocked, or validated now;
-- **history** — what changed or why an old path existed.
+See `docs/lifecycle.md` for lifecycle definitions, promotion, retirement, and authority during conflicts.
 
-A document must not silently become responsible for more than one of these lifecycles.
+## RGS-GROW-001 — Earn permanent structure
 
-README content, release history, active-task state, and historical implementation narrative are different responsibilities even when they concern the same feature.
+Do not create persistent files, directories, workflows, or instruction layers merely because mature repositories sometimes have them.
 
-## 3. Earn permanent structure
+Create structure when an observed recurring responsibility has no clean owner and the new structure is worth maintaining.
 
-Do not create persistent files or directories merely because a mature repository might eventually need them.
+Use the lightest artifact that solves the demonstrated problem. A single document should normally precede a directory.
 
-Create structure when an observed responsibility has no clean owner, is likely to recur, and has enough durable value to justify maintenance cost.
+## RGS-KNOW-001 — Persist what is expensive to rediscover
 
-Use the lightest artifact that solves the demonstrated problem. A single document should precede a directory unless multiple independently useful documents already justify the directory.
+Durable repository knowledge should primarily capture information that is non-obvious from code/configuration and repeatedly useful, costly, or risky to reconstruct.
 
-## 4. Persist what is expensive to rediscover
+Do not maintain a project map that merely restates an easily inspected tree. Do not persist ordinary scratch reasoning simply because an agent can write it down.
 
-Do not store information merely because an agent can write it down.
+## RGS-PROMOTE-001 — Promote through evidence
 
-Durable repository knowledge should primarily capture information that is:
+Information should begin at the narrowest useful scope and move into durable or mechanical forms only when repeated use, consequence, or reproducibility justifies promotion.
 
-- non-obvious from code and configuration;
-- repeatedly needed;
-- expensive or risky to rediscover;
-- required to explain a durable constraint;
-- necessary for reproducible operation or validation.
+Promotion should remove unnecessary duplicate copies from the old owner.
 
-Repository maps that merely restate an easily inspected tree should not be maintained by default.
+## RGS-RETIRE-001 — Retire obsolete structure
 
-## 5. Promote through evidence
+Growth control includes deletion, demotion, supersession, and consolidation.
 
-New information should normally begin in the narrowest relevant scope.
+When a rule, category, handoff, subsystem, or document no longer earns its maintenance cost, remove it from the active knowledge path.
 
-A useful progression is:
+Historical value alone does not justify keeping every intermediate artifact hot forever.
 
-1. task-local observation;
-2. repeated or consequential lesson;
-3. durable project rule or reference;
-4. deterministic enforcement when the rule is mechanically checkable and violations justify it.
+## RGS-INSTR-001 — Keep persistent agent instructions scoped
 
-Promotion is not automatic. A one-time incident can remain historical without becoming permanent policy.
+Always-loaded agent instructions should contain high-value, non-derivable rules, exact commands, boundaries, and routing cues that apply broadly to their scope.
 
-## 6. Retire and demote
+Active task state, long procedures, historical narrative, and broad repository encyclopedias should load only when relevant.
 
-Growth control includes deletion.
+## RGS-INSTR-002 — Avoid unmanaged instruction copies
 
-When a rule becomes obsolete, an artifact loses its responsibility, or mechanical enforcement makes explanatory process text unnecessary, simplify or remove the old structure.
+When several tools require different instruction files, differences must be intentional and scoped. Identical or substantially overlapping copies should be generated, linked, imported, or checked for drift when the toolchain permits it.
 
-Historical value alone does not justify keeping every intermediate artifact in the hot path for future agents.
+## RGS-ENFORCE-001 — Graduate repeatable hard rules to enforcement
 
-## 7. Keep always-loaded instructions small
+Instruction prose is not a reliable enforcement boundary.
 
-Persistent agent instructions should contain only high-value, non-derivable rules and routing cues that apply broadly.
+Repeated mechanically checkable correctness or safety requirements should move toward tests, schemas, linters, hooks, permissions, CI, generated checks, or other deterministic controls when the benefit exceeds their maintenance cost.
 
-Task procedures, subsystem-specific rules, and long references should load only when relevant through the mechanisms supported by the active coding tool.
+## RGS-ADOPT-001 — Adopt upstream by version
 
-Do not force every task to read a full repository map or stack of documentation before trivial work.
+Projects adopt this standard by source and semantic version. They do not copy the upstream guide wholesale and they do not silently adopt upstream changes.
 
-## 8. Move hard requirements toward enforcement
+A project checks upstream periodically or at relevant structural changes, reviews the changed rules, and deliberately updates its adopted version.
 
-Instruction files guide agent behavior; they are not reliable enforcement boundaries.
+See `docs/adoption.md`.
 
-Repeated, deterministic, safety-critical, or correctness-critical requirements should move toward tests, linters, schemas, hooks, permissions, CI, generated checks, or other mechanical controls when practical.
+## RGS-EXCEPT-001 — Exceptions are explicit and reviewable
 
-## 9. The upstream standard is not copied wholesale
+A project may deviate from exception-eligible rules when local evidence justifies it.
 
-Projects adopt this standard by version. They do not mirror this repository's full structure.
+Exceptions reference stable rule IDs and record a reason. Temporary exceptions should record a review date. Audit output must keep exceptions visible rather than silently hiding them.
 
-A project may keep a small local adoption manifest and project-specific agent instructions. The normative growth rules remain upstream.
+See `docs/audit.md`.
 
-Projects must not silently adopt an upstream change. Standard updates are reviewed and adopted deliberately.
+## Normative delegated documents
 
-## 10. Exceptions are explicit
+The following documents are part of this standard:
 
-A project may deviate from this standard when its needs justify the deviation.
+- `docs/lifecycle.md` — information states, promotion, retirement, and conflict authority;
+- `docs/routing.md` — artifact jurisdiction;
+- `docs/growth.md` — structural growth triggers;
+- `docs/adoption.md` — downstream adoption and update behavior;
+- `docs/audit.md` — audit levels, detection classes, and exception semantics.
 
-Material deviations should be recorded with a scoped reason. An exception is preferable to distorting the standard or duplicating structure solely to appear compliant.
-
-## Delegated normative guidance
-
-The following documents are part of the standard:
-
-- `docs/routing.md` — artifact jurisdiction and ownership.
-- `docs/growth.md` — triggers for adding organizational structure.
-- `docs/adoption.md` — downstream adoption, audit, versioning, and exceptions.
-
-`docs/examples.md` and `docs/evidence.md` are explanatory and evidentiary, not independently normative.
+`rules.json` is the machine-readable rule catalog. `docs/examples.md`, `examples/`, and `docs/evidence.md` are explanatory/evidentiary and do not independently create normative requirements.
