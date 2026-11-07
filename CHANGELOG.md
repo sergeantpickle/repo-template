@@ -4,7 +4,7 @@ This changelog records changes to the Repository Growth Standard itself. It is n
 
 ## 0.1.0 - 2026-11-07
 
-Initial active standard.
+Initial draft standard.
 
 ### Standard model
 
