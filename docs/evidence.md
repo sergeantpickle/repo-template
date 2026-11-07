@@ -98,6 +98,28 @@ Source:
 
 - https://github.com/untactit/agent-drift
 
+## Independent governance systems converge on canonical ownership, but differ on baseline size
+
+The independent `Diew/living-docs` project uses a governance registry that maps every documentation file to what it owns, what it must not contain, and when an agent should load it. Its stated core rule is one owner per rule, with task-to-file routing.
+
+That project also bootstraps a richer documentation skeleton (developer guide, reference, UI standards, refactor tracker, governance registry) than this standard assumes.
+
+Implication: canonical ownership and contextual routing have independent practitioner support, while the amount of initial structure remains a design choice. This standard deliberately starts smaller and requires growth triggers before creating those categories.
+
+Source:
+
+- https://github.com/Diew/living-docs
+
+## Independent instruction-bloat reports show a concrete context-budget failure
+
+The September 2026 `anywhere-agents` v0.9.0 release notes report a shared AGENTS.md that had diverged to 66 KB and 75 KB across two copies. Their rewrite reduced the shared file to roughly 24 KB and moved rationale/version-history/how-to material into deeper docs; the authors report that the prior size exceeded Codex's default 32 KiB project-instruction budget and truncated later rules.
+
+Implication: instruction growth is not only aesthetic debt. It can create real truncation and copy-drift failures, strengthening the case for small routed instructions and deeper on-demand material.
+
+Source:
+
+- https://github.com/yzhao062/anywhere-agents/releases/tag/v0.9.0
+
 ## Stable rule identities and explicit suppressions scale better than prose-only policy
 
 Ruff exposes stable rule codes and explicit global/per-file ignore mechanisms, while OpenSSF Scorecard exposes named checks with risk classifications. These are not agent-governance systems, but they demonstrate a mature pattern: findings need stable identities, machine-readable output, and explicit scoped deviations rather than silent suppression.
