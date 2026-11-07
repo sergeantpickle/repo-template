@@ -23,6 +23,20 @@ Do not require every task to read every document.
 - Exceptions must remain visible in audit output; do not implement silent suppression.
 - Hard deterministic requirements should move toward tooling when repeated failures justify it.
 
+## Normative rule proposal gate
+
+Before adding or materially expanding a normative rule, establish:
+
+1. the observed failure, recurring ambiguity, coordination cost, or safety/correctness risk it addresses;
+2. why an existing rule/owner cannot solve the problem more simply;
+3. the rule's scope and canonical document;
+4. whether it is required, recommended, or advisory and whether detection is mechanical, heuristic, or manual;
+5. likely false-positive or over-compliance behavior, especially how an agent might cargo-cult the rule;
+6. impact on existing adopters and any migration required;
+7. whether the rule can eventually shrink, become mechanical, or be retired.
+
+If these cannot be stated concretely, keep the idea in evidence/examples until it earns normative status.
+
 ## Versioning
 
 `VERSION` is the current upstream standard version. Any normative semantic change must update `VERSION` and `CHANGELOG.md` in the same change:
