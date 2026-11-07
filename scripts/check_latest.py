@@ -32,6 +32,8 @@ def parse_latest(value):
 def read_alignment(project):
   path = project / ".repo-standard.json"
   data = json.loads(path.read_text(encoding="utf-8"))
+  if data.get("schema_version") != 1:
+    raise ValueError("alignment manifest schema_version must be 1")
   version = data.get("version")
   source = data.get("source")
   parse_semver(version)
