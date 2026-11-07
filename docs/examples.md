@@ -48,6 +48,16 @@ Observed: agents repeatedly forget to regenerate derived clients after schema ch
 
 Progression: fix task -> concise durable rule if needed -> deterministic stale-generation check -> shrink redundant prose once enforcement is reliable.
 
+## A handoff says "deploy next"
+
+Observed: the active work artifact or old handoff says production deployment is the next step.
+
+Wrong response: treat the sentence as standing deployment permission.
+
+Better response: use the project's explicit authorization mechanism. The work artifact owns continuation state; authorization owns permission. If the project has delegated autonomous deployment, that delegation should be defined mechanically or in a clearly scoped current authority rule rather than inferred from historical prose.
+
+Growth: none if an authority mechanism already exists. If controlled actions are becoming common and permission is repeatedly ambiguous, the project may have earned a dedicated mechanical authorization boundary.
+
 ## A document reaches 500 lines
 
 Wrong response: split solely because of size.
