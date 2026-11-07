@@ -16,8 +16,11 @@ The first routing question is not "which file is convenient?" It is **what lifec
 | Decision record | Rationale for a durable non-obvious choice where credible alternatives existed | Every implementation choice or general meeting notes |
 | Research artifact | Evidence/experiments that must survive the task because reproduction is expensive or consequential | Ordinary scratchpad |
 | Git / issue / PR | Raw chronology, diffs, discussion, review, provenance | Canonical current project documentation |
+| Generated artifact | Derived inventory/reference whose source and generator are known | Hand-maintained policy or a second editable source of truth |
 
 A project does not need every artifact in this table.
+
+Generated artifacts should identify or make discoverable the source/command that regenerates them. Change the source or generator rather than hand-editing derived output.
 
 ## README routing — RGS-ROUTE-README-001
 
