@@ -64,11 +64,11 @@ def audit(project: Path):
     if not isinstance(adopted, str) or not SEMVER.fullmatch(adopted):
       errors.append("manifest version must use MAJOR.MINOR.PATCH")
     elif adopted != STANDARD_VERSION:
-      add_warning(
-        warnings,
-        exceptions,
-        "standard-version-drift",
-        f"project adopts {adopted}; this checkout of the standard is {STANDARD_VERSION}",
+      warnings.append(
+        (
+          "standard-version-drift",
+          f"project adopts {adopted}; this checkout of the standard is {STANDARD_VERSION}",
+        )
       )
     if not isinstance(exceptions_raw, dict):
       errors.append("manifest exceptions must be an object mapping rule ids to reasons")
