@@ -4,7 +4,8 @@ A versioned upstream guide for keeping AI-primary repositories understandable as
 
 The standard does not prescribe a large project tree. It defines **jurisdiction, lifecycle, growth triggers, exceptions, and enforcement** so agents do not gradually turn README files into handoffs, changelogs into work logs, or one-off observations into permanent bureaucracy.
 
-Current version: **0.1.0**
+Current version: **0.1.0**  
+Status: **Draft** — usable for trials, not yet published as an immutable release.
 
 ## Core idea
 
