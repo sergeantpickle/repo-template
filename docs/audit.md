@@ -10,6 +10,8 @@ Normative and auditable rules use stable IDs from `rules.json`. Projects referen
 
 Rule IDs remain stable when wording is clarified. If the meaning changes incompatibly, the standard records the migration in its changelog and migration guidance.
 
+`rules.json` is an index and machine contract, not a second normative prose source. Its `document` field names the canonical document that owns the rule's meaning; summaries in the catalog are routing aids. The standard self-check verifies that each active rule ID actually appears in its declared canonical document.
+
 ## Levels
 
 - **required** — normative requirement. A mechanically proven violation is a conformance failure unless that rule explicitly allows an exception.
