@@ -9,7 +9,7 @@ TEMPLATE_MARKER = ROOT / ".repo-template"
 REQUIRED = [
   "README.md",
   "AGENTS.md",
-  "ARCHITECTURE.md",
+  "INDEX.md",
   "docs/README.md",
   "docs/GOVERNANCE.md",
   "docs/PLANS.md",
@@ -33,18 +33,21 @@ for relative in REQUIRED:
   if not (ROOT / relative).is_file():
     errors.append(f"missing required repository-knowledge file: {relative}")
 
-index = ROOT / "docs/README.md"
+index = ROOT / "INDEX.md"
 if index.is_file():
   text = index.read_text(encoding="utf-8")
-  for required_link in [
-    "../README.md",
-    "../AGENTS.md",
-    "../ARCHITECTURE.md",
-    "GOVERNANCE.md",
-    "PLANS.md",
+  for section in [
+    "Repository map",
+    "Validation",
+    "Active work",
+    "Maintenance rule",
   ]:
-    if required_link not in text:
-      errors.append(f"docs/README.md does not link required source: {required_link}")
+    if section not in text:
+      errors.append(f"INDEX.md is missing required section: {section}")
+
+docs_index = ROOT / "docs/README.md"
+if docs_index.is_file() and "../INDEX.md" not in docs_index.read_text(encoding="utf-8"):
+  errors.append("docs/README.md does not link to ../INDEX.md")
 
 agents = ROOT / "AGENTS.md"
 if agents.is_file():
@@ -57,8 +60,7 @@ if agents.is_file():
 if not TEMPLATE_MARKER.exists():
   checked = [
     ROOT / "README.md",
-    ROOT / "ARCHITECTURE.md",
-    ROOT / "docs/README.md",
+    ROOT / "INDEX.md",
   ]
   for path in checked:
     if not path.is_file():
@@ -70,16 +72,6 @@ if not TEMPLATE_MARKER.exists():
           f"{path.relative_to(ROOT)} still contains template marker matching "
           f"{pattern.pattern!r}"
         )
-
-  if index.is_file():
-    text = index.read_text(encoding="utf-8")
-    required_sections = [
-      "Current project state",
-      "Maintenance rule",
-    ]
-    for section in required_sections:
-      if section not in text:
-        errors.append(f"docs/README.md is missing required section: {section}")
 
 if errors:
   print("Repository knowledge check failed:")
