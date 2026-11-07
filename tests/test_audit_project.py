@@ -109,6 +109,26 @@ class AuditProjectTests(unittest.TestCase):
     finding = next(f for f in result["findings"] if f["id"] == "RGS-INSTR-002")
     self.assertIn("differ", finding["message"])
 
+  def test_thin_pointer_adapters_do_not_warn(self):
+    temp, project = self.make_project({
+      "AGENTS.md": "# Shared rules\n\nRun tests.\n",
+      "CLAUDE.md": "@AGENTS.md\n",
+      "GEMINI.md": "@AGENTS.md\n",
+      ".github/copilot-instructions.md": "Read AGENTS.md in the repository root.\n",
+    })
+    self.addCleanup(temp.cleanup)
+    result = audit_project.audit(project)
+    self.assertFalse(any(f["id"] == "RGS-INSTR-002" for f in result["findings"]))
+
+  def test_large_file_that_mentions_agents_is_not_treated_as_pointer(self):
+    temp, project = self.make_project({
+      "AGENTS.md": "# Shared rules\n",
+      "CLAUDE.md": "Read AGENTS.md.\n" + ("Tool-specific policy.\n" * 80),
+    })
+    self.addCleanup(temp.cleanup)
+    result = audit_project.audit(project)
+    self.assertTrue(any(f["id"] == "RGS-INSTR-002" for f in result["findings"]))
+
   def test_generated_root_adapter_does_not_warn_when_it_contains_canonical_agents(self):
     canonical = "# Shared rules\n\nRun tests.\n"
     generated = (
