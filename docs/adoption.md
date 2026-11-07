@@ -99,7 +99,9 @@ While the upstream status is **Draft**, projects may trial the standard by pinni
 
 A project should pin externally executed audit code to an immutable commit SHA or a reviewed release tag. The project's manifest version and the audit-code ref should represent the same adopted standard release.
 
-The provided composite action enforces that match before auditing. A deliberately newer auditor can still be run manually without `--require-version-match` during an upgrade review.
+The provided composite action enforces both the adopted version and adopted source before auditing. GitHub exposes the executing action's repository identity to composite actions, so a fork or different standard repository cannot silently claim conformance merely by sharing the same version string.
+
+A deliberately newer or alternate auditor can still be run manually without `--require-version-match` / `--require-source` during an upgrade or comparison review.
 
 Using upstream `main` directly for enforcement couples a project to unreviewed future standard changes and defeats deliberate adoption.
 
