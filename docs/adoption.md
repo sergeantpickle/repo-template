@@ -1,16 +1,16 @@
-# Adoption and Upstream Checks
+# Alignment and Upstream Checks
 
 This document is normative.
 
-A downstream project adopts this standard by reference. It does not copy this repository's complete guide tree.
+A downstream project aligns to this standard by reference. It does not copy this repository's complete guide tree.
 
 For a new project, `python scripts/init_project.py /path/to/new-project` exports only `starter/README.md`, `starter/AGENTS.md`, and a current adoption manifest. This is preferred over GitHub's native template-copy operation, which copies the complete upstream file tree.
 
-Before adoption, an existing repository can run `python scripts/audit_project.py /path/to/project --pre-adoption` to inspect routing/growth smells without first creating a manifest. Adoption remains a deliberate later action.
+Before alignment, an existing repository can run `python scripts/audit_project.py /path/to/project --pre-adoption` to inspect routing/growth smells without first creating a manifest. Alignment remains a deliberate later action.
 
-## Adoption manifest — RGS-ADOPT-001
+## Alignment manifest — RGS-ADOPT-001
 
-A project records its adopted source and semantic version in `.repo-standard.json`:
+A project records its upstream source and the semantic version it last deliberately aligned to in `.repo-standard.json`:
 
 ```json
 {
@@ -21,7 +21,7 @@ A project records its adopted source and semantic version in `.repo-standard.jso
 }
 ```
 
-`last_checked` may be null until the first upstream comparison.
+`version` is the **last-aligned version**, not a declaration that the project may permanently ignore newer released standards. `last_checked` may be null until the first upstream comparison.
 
 The manifest is deliberately small. Project-specific structure remains in the project, not in the standard manifest.
 
@@ -49,13 +49,13 @@ Do not fetch and reread the standard for every normal code edit.
 
 Consult upstream when:
 
-- adopting the standard for the first time;
+- aligning to the standard for the first time;
 - changing repository-wide instruction/document structure;
 - creating or splitting a permanent work/document category;
 - resolving routing drift such as README, changelog, notes, or handoff contamination;
 - adding a new enforcement layer;
 - deliberately auditing repository organization;
-- a newer upstream `VERSION` is detected;
+- a newer released upstream standard is detected;
 - a major coding-agent/tool change may invalidate an existing assumption.
 
 ## Periodic check
@@ -66,28 +66,28 @@ From a local checkout of the standard:
 python scripts/check_latest.py /path/to/project
 ```
 
-The checker derives the upstream `VERSION` URL from the manifest's `source` when `source` is a canonical GitHub repository URL. For other source types, pass `--latest-url`. It reports an available update but does not adopt it.
+The checker derives the upstream `LATEST` URL from the manifest's `source` when `source` is a canonical GitHub repository URL. `LATEST` names the most recent stable released target and is independent of Draft work on `main`. For other source types, pass `--latest-url`. The checker reports alignment drift but never applies it.
 
-For GitHub-hosted projects, this repository also exposes a composite action. A downstream workflow can pin the action to the immutable commit or release tag it has adopted and let that pinned auditor separately check upstream `VERSION` for newer guidance.
+For GitHub-hosted projects, this repository also exposes a composite action. A downstream workflow pins the action implementation corresponding to the project's last-aligned state and lets that pinned auditor separately check upstream `LATEST` for a newer released target.
 
 See `examples/github-actions/repo-standard.yml`.
 
 Scheduled GitHub workflows are a convenience, not the only audit trigger. Public-repository schedules may be disabled after prolonged inactivity, so projects with stronger guarantees should also run the audit on an appropriate human or repository-maintenance event.
 
-## Deliberate update process
+## Deliberate alignment process
 
-When upstream `VERSION` differs:
+When the latest released upstream standard is newer than the project's last-aligned `version`:
 
 1. Read `CHANGELOG.md` for every intervening version.
 2. Read the normative documents for rules that changed.
-3. Run the newer audit logic against the project when practical.
+3. Run the newer released audit logic against the project when practical.
 4. Identify which findings are actual project problems, false positives, or justified deviations.
 5. Apply relevant migrations and structural changes.
 6. Record explicit exceptions where the project intentionally differs.
 7. Update `last_checked`.
-8. Change the adopted `version` only when the project has deliberately adopted the new standard.
+8. Change `version` only after the project has deliberately aligned to the newer released standard.
 
-An upstream change must never silently rewrite the project.
+An upstream change must never silently rewrite the project. Remaining behind is visible drift to resolve, not an alternate permanently-current standard.
 
 ## Drafts and released standards
 
@@ -99,15 +99,17 @@ Once a version is released/tagged, its normative meaning is immutable. Later sem
 
 ## Pinning audit code
 
-A project should pin externally executed audit code to an immutable commit SHA or a reviewed release tag. The project's manifest version and the audit-code ref should represent the same adopted standard release.
+A project should pin externally executed audit code to an immutable commit SHA or a reviewed release tag. The project's manifest version and the audit-code ref should represent the same **last-aligned** standard release.
 
-The provided composite action enforces both the adopted version and adopted source before auditing. GitHub exposes both the executing action's repository identity and server URL to composite actions, so a fork, alternate standard, or GitHub Enterprise host cannot silently claim equivalence merely by sharing the same version string.
+The provided composite action enforces both the last-aligned version and source before auditing. GitHub exposes both the executing action's repository identity and server URL to composite actions, so a fork, alternate standard, or GitHub Enterprise host cannot silently claim equivalence merely by sharing the same version string.
 
 A deliberately newer or alternate auditor can still be run manually without `--require-version-match` / `--require-source` during an upgrade or comparison review.
 
 Using upstream `main` directly for enforcement couples a project to unreviewed future standard changes and defeats deliberate adoption.
 
-## Versioning
+## Released target and versioning
+
+`LATEST` contains the latest stable released target, or `none` before the first stable release. Draft changes on `main` do not become the downstream target until released.
 
 The standard uses semantic versioning for governance meaning:
 
