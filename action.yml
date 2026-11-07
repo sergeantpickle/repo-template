@@ -25,12 +25,17 @@ runs:
       env:
         PROJECT_PATH: ${{ inputs.project-path }}
         STRICT: ${{ inputs.strict }}
+        ACTION_REPOSITORY: ${{ github.action_repository }}
       run: |
         args=()
         if [[ "$STRICT" == "true" ]]; then
           args+=(--strict)
         fi
-        python "$GITHUB_ACTION_PATH/scripts/audit_project.py" "$GITHUB_WORKSPACE/$PROJECT_PATH" --require-version-match "${args[@]}"
+        python "$GITHUB_ACTION_PATH/scripts/audit_project.py" \
+          "$GITHUB_WORKSPACE/$PROJECT_PATH" \
+          --require-version-match \
+          --require-source "https://github.com/$ACTION_REPOSITORY" \
+          "${args[@]}"
     - name: Check for newer upstream standard
       if: ${{ inputs.check-latest == 'true' }}
       shell: bash
