@@ -2,6 +2,7 @@
 import json
 import re
 import subprocess
+import urllib.parse
 import sys
 from pathlib import Path
 
@@ -52,12 +53,46 @@ def load_json(path, errors, label):
     return None
 
 
+MARKDOWN_LINK = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
+
+
+def check_internal_links(errors):
+  for path in ROOT.rglob("*.md"):
+    if ".git" in path.parts:
+      continue
+    text = path.read_text(encoding="utf-8")
+    for raw_target in MARKDOWN_LINK.findall(text):
+      target = raw_target.strip().split()[0].strip("<>")
+      if not target or target.startswith("#"):
+        continue
+      parsed = urllib.parse.urlparse(target)
+      if parsed.scheme or parsed.netloc:
+        continue
+      relative_target = urllib.parse.unquote(parsed.path)
+      if not relative_target:
+        continue
+      destination = (path.parent / relative_target).resolve()
+      try:
+        destination.relative_to(ROOT.resolve())
+      except ValueError:
+        errors.append(
+          f"{path.relative_to(ROOT)} links outside the repository: {target}"
+        )
+        continue
+      if not destination.exists():
+        errors.append(
+          f"{path.relative_to(ROOT)} has broken internal link: {target}"
+        )
+
+
 def main():
   errors = []
 
   for relative in REQUIRED:
     if not (ROOT / relative).is_file():
       errors.append(f"missing required standard file: {relative}")
+
+  check_internal_links(errors)
 
   version = (ROOT / "VERSION").read_text(encoding="utf-8").strip() if (ROOT / "VERSION").is_file() else ""
   if not SEMVER.fullmatch(version):
