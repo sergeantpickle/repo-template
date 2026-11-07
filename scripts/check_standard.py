@@ -17,6 +17,7 @@ REQUIRED = [
   "AGENTS.md",
   "STANDARD.md",
   "VERSION",
+  "LATEST",
   "CHANGELOG.md",
   "rules.json",
   "action.yml",
@@ -100,6 +101,16 @@ def main():
   version = (ROOT / "VERSION").read_text(encoding="utf-8").strip() if (ROOT / "VERSION").is_file() else ""
   if not SEMVER.fullmatch(version):
     errors.append("VERSION must contain MAJOR.MINOR.PATCH")
+
+  latest = (ROOT / "LATEST").read_text(encoding="utf-8").strip() if (ROOT / "LATEST").is_file() else ""
+  if latest not in {"none", "null"}:
+    if not SEMVER.fullmatch(latest):
+      errors.append("LATEST must contain MAJOR.MINOR.PATCH or 'none'")
+    elif SEMVER.fullmatch(version):
+      latest_tuple = tuple(int(part) for part in latest.split("."))
+      version_tuple = tuple(int(part) for part in version.split("."))
+      if latest_tuple > version_tuple:
+        errors.append("LATEST cannot be newer than the standard VERSION under development")
 
   rules_data = load_json(ROOT / "rules.json", errors, "rules.json") if (ROOT / "rules.json").is_file() else None
   rule_ids = set()
