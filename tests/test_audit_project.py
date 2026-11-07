@@ -103,6 +103,34 @@ class AuditProjectTests(unittest.TestCase):
     finding = next(f for f in result["findings"] if f["id"] == "RGS-INSTR-002")
     self.assertIn("differ", finding["message"])
 
+  def test_nested_identical_instruction_copies_warn(self):
+    temp, project = self.make_project({
+      "AGENTS.md": "# Root rules\n",
+      "services/api/AGENTS.md": "# Same scoped rules\n\nRun API tests.\n",
+      "services/worker/AGENTS.md": "# Same scoped rules\n\nRun API tests.\n",
+    })
+    self.addCleanup(temp.cleanup)
+    result = audit_project.audit(project)
+    matching = [
+      finding
+      for finding in result["findings"]
+      if finding["id"] == "RGS-INSTR-002"
+      and "services/api/AGENTS.md" in finding["paths"]
+      and "services/worker/AGENTS.md" in finding["paths"]
+    ]
+    self.assertEqual(1, len(matching))
+    self.assertEqual("recommended", matching[0]["rule_level"])
+    self.assertEqual("heuristic", matching[0]["detection"])
+
+  def test_different_nested_scoped_instructions_do_not_warn_by_themselves(self):
+    temp, project = self.make_project({
+      "services/api/AGENTS.md": "# API\n\nRun API tests.\n",
+      "services/web/AGENTS.md": "# Web\n\nRun browser tests.\n",
+    })
+    self.addCleanup(temp.cleanup)
+    result = audit_project.audit(project)
+    self.assertFalse(any(f["id"] == "RGS-INSTR-002" for f in result["findings"]))
+
   def test_exception_is_visible_not_hidden(self):
     manifest = {
       "source": "https://github.com/sergeantpickle/repo-template",
