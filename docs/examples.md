@@ -48,6 +48,16 @@ Observed: agents repeatedly forget to regenerate derived clients after schema ch
 
 Progression: fix task -> concise durable rule if needed -> deterministic stale-generation check -> shrink redundant prose once enforcement is reliable.
 
+## A canonical changelog becomes a merge hotspot
+
+Observed: at low concurrency, contributors safely append shipped/user-facing entries to one changelog. Later, many parallel changes all edit the same `Unreleased` section, producing repeated merge conflicts and revalidation work.
+
+Wrong response: keep the write path unchanged because "CHANGELOG is the canonical owner."
+
+Better response: preserve the **responsibility** while changing the mechanism. Capture release-note inputs in per-change metadata, PR bodies, commit metadata, or another distributed source and generate/update the canonical release history at release time. Mechanically validate that the distributed inputs are present when needed.
+
+Growth: the information owner remains release history; the ingestion path becomes distributed because concurrency has earned it.
+
 ## A handoff says "deploy next"
 
 Observed: the active work artifact or old handoff says production deployment is the next step.
