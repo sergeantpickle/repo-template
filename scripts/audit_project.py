@@ -6,6 +6,7 @@ import json
 import os
 import re
 import sys
+import urllib.parse
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -18,6 +19,22 @@ DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 def load_rules():
   data = json.loads(RULES_PATH.read_text(encoding="utf-8"))
   return {rule["id"]: rule for rule in data["rules"]}
+
+
+def normalize_source(source):
+  if not isinstance(source, str) or not source.strip():
+    raise ValueError("source must be a non-empty string")
+  value = source.strip()
+  parsed = urllib.parse.urlparse(value)
+  if parsed.scheme == "https" and parsed.netloc.lower() == "github.com":
+    parts = [part for part in parsed.path.split("/") if part]
+    if len(parts) == 2:
+      owner, repository = parts
+      if repository.endswith(".git"):
+        repository = repository[:-4]
+      if owner and repository:
+        return f"https://github.com/{owner.lower()}/{repository.lower()}"
+  return value.rstrip("/")
 
 
 def load_manifest(project, pre_adoption=False):
@@ -175,7 +192,12 @@ def is_generated_adapter(path, canonical):
   return bool(canonical_text) and canonical_text in adapter_text
 
 
-def audit(project, pre_adoption=False, require_version_match=False):
+def audit(
+  project,
+  pre_adoption=False,
+  require_version_match=False,
+  require_source=None,
+):
   rules = load_rules()
   errors = []
   findings = []
@@ -187,8 +209,25 @@ def audit(project, pre_adoption=False, require_version_match=False):
     source = manifest.get("source")
     adopted = manifest.get("version")
     last_checked = manifest.get("last_checked")
-    if not isinstance(source, str) or not source.strip():
+    try:
+      normalized_source = normalize_source(source)
+    except ValueError:
+      normalized_source = None
       errors.append({"code": "manifest-source-invalid", "message": "manifest source must be a non-empty string"})
+    if require_source is not None and normalized_source is not None:
+      try:
+        normalized_required_source = normalize_source(require_source)
+      except ValueError:
+        errors.append({"code": "auditor-source-invalid", "message": "required auditor source is invalid"})
+      else:
+        if normalized_source != normalized_required_source:
+          errors.append({
+            "code": "auditor-source-mismatch",
+            "message": (
+              f"project adopts source {source!r} but the pinned auditor source is "
+              f"{require_source!r}"
+            ),
+          })
     if not isinstance(adopted, str) or not SEMVER.fullmatch(adopted):
       errors.append({"code": "manifest-version-invalid", "message": "manifest version must use MAJOR.MINOR.PATCH"})
     elif adopted != STANDARD_VERSION:
@@ -377,6 +416,7 @@ def main():
   parser.add_argument("--strict", action="store_true", help="treat active warnings as failures")
   parser.add_argument("--pre-adoption", action="store_true", help="allow auditing a repository that has not adopted the standard yet")
   parser.add_argument("--require-version-match", action="store_true", help="fail when the project version differs from this auditor checkout")
+  parser.add_argument("--require-source", help="fail when the manifest source does not match this auditor source")
   parser.add_argument("--format", choices=["text", "json"], default="text", help="report format")
   args = parser.parse_args()
 
@@ -389,6 +429,7 @@ def main():
     project,
     pre_adoption=args.pre_adoption,
     require_version_match=args.require_version_match,
+    require_source=args.require_source,
   )
   if args.format == "json":
     print(json.dumps(result, indent=2, sort_keys=True))
