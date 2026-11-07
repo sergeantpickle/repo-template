@@ -93,6 +93,8 @@ An upstream change must never silently rewrite the project.
 
 A project should pin externally executed audit code to an immutable commit SHA or a reviewed release tag. The project's manifest version and the audit-code ref should represent the same adopted standard release.
 
+The provided composite action enforces that match before auditing. A deliberately newer auditor can still be run manually without `--require-version-match` during an upgrade review.
+
 Using upstream `main` directly for enforcement couples a project to unreviewed future standard changes and defeats deliberate adoption.
 
 ## Versioning
