@@ -4,6 +4,8 @@ This document is normative.
 
 A downstream project adopts this standard by reference. It does not copy this repository's complete guide tree.
 
+For a new project, `python scripts/init_project.py /path/to/new-project` exports only `starter/README.md`, `starter/AGENTS.md`, and a current adoption manifest. This is preferred over GitHub's native template-copy operation, which copies the complete upstream file tree.
+
 Before adoption, an existing repository can run `python scripts/audit_project.py /path/to/project --pre-adoption` to inspect routing/growth smells without first creating a manifest. Adoption remains a deliberate later action.
 
 ## Adoption manifest — RGS-ADOPT-001
