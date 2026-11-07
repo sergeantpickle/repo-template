@@ -97,7 +97,7 @@ Instruction prose is not a reliable enforcement boundary.
 
 Repeated mechanically checkable correctness or safety requirements should move toward tests, schemas, linters, hooks, permissions, CI, generated checks, or other deterministic controls when the benefit exceeds their maintenance cost.
 
-## RGS-ADOPT-001 — Track alignment; latest released upstream is the target
+## RGS-ALIGN-001 — Track alignment; latest released upstream is the target
 
 Projects record the upstream source and the standard version they last deliberately aligned to. They do not copy the upstream guide wholesale and they do not silently apply upstream changes.
 
@@ -105,7 +105,7 @@ The latest **released** upstream standard is the target. A project that is behin
 
 Alignment remains deliberate: compare the delta, review changed rules and migrations, apply what the current standard requires or record valid exceptions, then advance the recorded aligned version. Unreleased `main` or Draft work is not the stable target.
 
-See `docs/adoption.md`.
+See `docs/alignment.md`.
 
 ## RGS-EXCEPT-001 — Exceptions are explicit and reviewable
 
@@ -122,7 +122,7 @@ The following documents are part of this standard:
 - `docs/lifecycle.md` — information states, promotion, retirement, and conflict authority;
 - `docs/routing.md` — artifact jurisdiction;
 - `docs/growth.md` — structural growth triggers;
-- `docs/adoption.md` — downstream adoption and update behavior;
+- `docs/alignment.md` — downstream alignment and update behavior;
 - `docs/audit.md` — audit levels, detection classes, and exception semantics.
 
 `rules.json` is the machine-readable rule catalog. `docs/examples.md`, `examples/`, and `docs/evidence.md` are explanatory/evidentiary and do not independently create normative requirements.
