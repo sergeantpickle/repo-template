@@ -225,6 +225,12 @@ def audit(
   exceptions = {}
 
   if manifest is not None:
+    schema_version = manifest.get("schema_version")
+    if schema_version != 1:
+      errors.append({
+        "code": "manifest-schema-unsupported",
+        "message": "alignment manifest schema_version must be 1",
+      })
     source = manifest.get("source")
     adopted = manifest.get("version")
     last_checked = manifest.get("last_checked")
