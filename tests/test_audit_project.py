@@ -221,6 +221,18 @@ class AuditProjectTests(unittest.TestCase):
     result = audit_project.audit(project)
     self.assertTrue(any(f["id"] == "RGS-EXCEPT-001" for f in result["findings"]))
 
+  def test_version_match_can_be_required_for_pinned_auditor(self):
+    manifest = {
+      "source": "https://github.com/sergeantpickle/repo-template",
+      "version": "9.9.9",
+      "last_checked": None,
+      "exceptions": {},
+    }
+    temp, project = self.make_project({}, manifest)
+    self.addCleanup(temp.cleanup)
+    result = audit_project.audit(project, require_version_match=True)
+    self.assertTrue(any(error["code"] == "auditor-version-mismatch" for error in result["errors"]))
+
   def test_version_drift_is_informational_and_not_exceptable(self):
     manifest = {
       "source": "https://github.com/sergeantpickle/repo-template",
