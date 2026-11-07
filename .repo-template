@@ -1,0 +1,11 @@
+This marker means the repository is still in generic template state.
+
+A project-initialization agent must delete this file after it has:
+- inventoried the actual repository;
+- replaced template placeholders;
+- built docs/README.md into the project-specific knowledge index;
+- established validation commands;
+- created any required initial durable documentation;
+- verified the repository knowledge checks.
+
+Do not delete this marker before those conditions are true.
