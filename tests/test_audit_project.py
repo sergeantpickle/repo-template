@@ -103,6 +103,30 @@ class AuditProjectTests(unittest.TestCase):
     finding = next(f for f in result["findings"] if f["id"] == "RGS-INSTR-002")
     self.assertIn("differ", finding["message"])
 
+  def test_generated_root_adapter_does_not_warn_when_it_contains_canonical_agents(self):
+    canonical = "# Shared rules\n\nRun tests.\n"
+    generated = (
+      "<!-- GENERATED FILE -- do not edit by hand.\n"
+      "Generated from AGENTS.md. -->\n\n"
+      + canonical
+    )
+    temp, project = self.make_project({
+      "AGENTS.md": canonical,
+      "CLAUDE.md": generated,
+    })
+    self.addCleanup(temp.cleanup)
+    result = audit_project.audit(project)
+    self.assertFalse(any(f["id"] == "RGS-INSTR-002" for f in result["findings"]))
+
+  def test_generated_marker_does_not_hide_diverged_adapter(self):
+    temp, project = self.make_project({
+      "AGENTS.md": "# Shared rules\n\nRun tests.\n",
+      "CLAUDE.md": "<!-- GENERATED FILE -- do not edit by hand. -->\n\n# Different rules\n",
+    })
+    self.addCleanup(temp.cleanup)
+    result = audit_project.audit(project)
+    self.assertTrue(any(f["id"] == "RGS-INSTR-002" for f in result["findings"]))
+
   def test_nested_identical_instruction_copies_warn(self):
     temp, project = self.make_project({
       "AGENTS.md": "# Root rules\n",
