@@ -31,12 +31,13 @@ Source: [OpenAI Cookbook — Iterating development workflows with Codex](https:/
 
 Anthropic documents root and nested `CLAUDE.md` files, path-scoped rules, skills, and subagents as distinct mechanisms. Root instructions are always present for the session; nested instructions and path-scoped rules can be limited to relevant work; skill bodies load when invoked; subagents work in isolated contexts.
 
-This supports showing both the portable project guidance and the tool-specific pieces, without pretending every agent reads the same filenames or loads them in the same way.
+OpenAI's Codex guidance describes root-to-leaf discovery of `AGENTS.md` files. These are related approaches, but the exact filenames, scope, and loading rules are tool-specific.
 
 Sources:
 
 - [Anthropic — Steering Claude Code](https://claude.com/resources/articles/steering-claude-code-skills-hooks-rules-subagents-and-more)
 - [Claude Code — Memory and instruction files](https://code.claude.com/docs/en/memory)
+- [OpenAI — Codex prompting guide](https://developers.openai.com/cookbook/examples/gpt-5/codex_prompting_guide)
 
 ### Documentation categories work when each answers a different question
 
@@ -60,6 +61,14 @@ Sources:
 - [q-agent-harness](https://github.com/kju4q/q-agent-harness)
 - [agents-skeleton](https://github.com/mcqua007/agents-skeleton)
 
+## A current counterweight: do not over-prescribe context
+
+OpenAI's September 2026 guidance for GPT-6 Astra says accumulated `AGENTS.md` and skill instructions should be revisited as models improve. It specifically warns against requiring a full repository map or stack of documentation before every small edit; the agent should read the documents relevant to the task.
+
+Source: [OpenAI — Rethinking skills and prompts for GPT-6 Astra](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra)
+
+This is why the guide puts compact structural references in `AGENTS.md` and detailed notes in examples, but does not tell every agent to read every example on every task.
+
 ## What this guide takes from the research
 
 1. **Show the tree, then explain it.** A directory tree with inline notes makes a structure legible quickly. The example file should then explain triggers, ownership, optional paths, and tradeoffs.
@@ -68,6 +77,7 @@ Sources:
 4. **Separate shared guidance from tool-specific configuration.** A project may have a canonical AGENTS.md plus Claude-specific rules, skills, or agents. Show tool-specific directories only in the examples where they add value.
 5. **Keep documentation categories optional.** Plans, ADRs, product specs, operations guides, evaluations, catalogs, and generated references each need a real owner and recurring use.
 6. **Do not mistake a large example for a recommended baseline.** Some successful agent-first projects use substantial harnesses. Their structure is evidence of what can work at that scale, not a reason to install it in every repository.
+7. **Make retrieval contextual.** A map should help an agent choose what to read, not become a ritual that forces every task through every document.
 
 ## How to use these sources
 
