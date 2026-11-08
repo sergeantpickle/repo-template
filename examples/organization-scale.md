@@ -1,121 +1,47 @@
-# Example: From One Maintainer to Organization Scale
+# Example: Growing from One to Thousands
 
-This example uses people/agent counts only to make the coordination pressure intuitive. The numbers are **not thresholds**. A repository grows when the pressure appears, not when a headcount counter changes.
+This trajectory uses people and agents to illustrate changing coordination needs. The numbers are not maturity thresholds. A repository grows when its responsibilities and coordination pressure grow.
 
-## One maintainer or one primary agent
+## One maintainer or primary agent
 
-Typical pressure: almost none. The person/agent can reconstruct most context directly.
+The project is coherent enough to understand directly. A README, concise project instructions, and the actual source/configuration may be all it needs.
 
-Useful structure may be only:
-
-- README;
-- local agent instructions;
-- source/tests/configuration;
-- standard adoption manifest.
-
-Failure mode to avoid: building a future company's bureaucracy before the first recurring coordination problem exists.
+The maintainer can make most decisions locally and reconstruct context without a large knowledge system.
 
 ## A few concurrent contributors or agents
 
-New pressure:
+Work now crosses sessions and independent contexts. Bounded task records preserve scope, progress, validation, and next actions. Review and ownership become explicit where parallel changes can collide.
 
-- work survives individual context windows;
-- two actors can touch the same area with different assumptions;
-- current task state needs a bounded owner.
+The project keeps its work system lightweight and uses the issue, pull request, or planning approach that already fits its workflow.
 
-Possible growth:
+## Several independently evolving domains
 
-- task-scoped persistent work;
-- exact validation commands;
-- branch/issue/PR discipline if concurrency needs it.
+Different areas develop their own conventions, dependencies, commands, and boundaries. Scoped instructions and domain documentation let each area carry the context it needs without loading it into every task.
 
-Do not automatically add architecture councils, global roadmaps, or permanent handoff files.
-
-## Several independently evolving areas
-
-New pressure:
-
-- frontend/backend/data/infra rules diverge;
-- global instructions become noisy;
-- one team's conventions leak into another area;
-- validation paths differ.
-
-Possible growth:
-
-- scoped/nested agent instructions;
-- domain-level durable docs;
-- explicit boundaries and ownership;
-- dependency-direction checks if repeated mistakes justify them.
-
-The trigger is divergent responsibility, not a package-count threshold.
+Cross-domain interfaces and ownership become easier to discover.
 
 ## Dozens of parallel workstreams
 
-New pressure:
+Coordination now depends on reliable interfaces, clear ownership, discoverable validation, and consistent review. Repeated deterministic requirements move into tests, schemas, linters, generated checks, or permissions.
 
-- repeated cross-domain mistakes;
-- reviewers cannot manually remember every invariant;
-- duplicated instructions begin drifting;
-- deployment/release/compatibility rules become expensive to enforce by memory.
-
-Possible growth:
-
-- mechanical boundary checks;
-- generated inventories;
-- reusable CI;
-- centralized policy for genuinely shared invariants;
-- explicit exception mechanisms;
-- service/package ownership metadata;
-- distributed write paths for canonical records that have become merge hotspots, with later generation/consolidation.
-
-Do not centralize rules that remain genuinely local. Do not preserve a single-file write path merely because the file remains the canonical presentation surface.
+When the number of components makes relationships difficult to reconstruct, a semantic project map or ownership catalog can become valuable.
 
 ## Hundreds of independently changing components
 
-New pressure:
+The repository's topology becomes a system of its own. People and agents need to discover component ownership, dependencies, contracts, operational responsibilities, and change impact.
 
-- repository/service topology is hard to discover;
-- ownership becomes non-obvious;
-- local documentation cannot answer organization-wide dependency questions;
-- policy rollout and exception review become systems problems.
+Service catalogs, dependency maps, shared interfaces, and organization-level documentation can provide that view.
 
-Possible growth:
+## Thousands of contributors or agents
 
-- software/service catalog;
-- organization-level rulesets;
-- dependency/ownership graph;
-- policy-as-code;
-- automated drift reporting;
-- standardized interfaces between domains.
+The organization needs consistent ways to evolve shared practices across many repositories and domains. Central guidance, ownership metadata, policy, migration support, and automated knowledge maintenance may now earn their cost.
 
-At this point a catalog can earn existence because the topology itself is now expensive to reconstruct.
+Local projects still retain their own context and structure. Central guidance provides direction; it does not replace local understanding.
 
-## Thousands of contributors/agents or organization-scale automation
+## The principle across every scale
 
-New pressure:
+The same question applies at every size:
 
-- policy changes must propagate without copying prose everywhere;
-- central standards need versions and migrations;
-- exceptions need ownership and review dates;
-- governance itself requires observability;
-- changes to the control plane can affect many repositories.
+**What coordination problem does this structure solve, and does it make the work clearer than the structure it adds?**
 
-Possible growth:
-
-- versioned upstream standards;
-- centrally managed reusable enforcement;
-- adoption telemetry;
-- exception inventories;
-- migration tooling;
-- policy change review and staged rollout;
-- automated knowledge gardening.
-
-The control plane is now a product with its own reliability requirements.
-
-## The important inversion
-
-The mature organization is not defined by having every item above.
-
-It is defined by having **earned controls for the coordination failures it actually experiences** and by removing controls whose pressure disappears.
-
-A one-person safety-critical system can need Level 4 mechanical governance immediately. A 5,000-person organization can still have a tiny utility repository that remains Level 0 or Level 1.
+A small safety-critical repository can need strong controls immediately. A repository inside a 5,000-person organization can remain simple if its responsibility is simple. Growth follows the work, not the headcount.

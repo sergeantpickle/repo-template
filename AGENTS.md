@@ -1,71 +1,37 @@
-# Agent Instructions
+# Agent Checkpoint
 
-This repository is the upstream Repository Growth Standard. It is not a normal project scaffold.
+This repository is a living reference for AI agents that build and maintain other repositories. It is **not** a software product, installable framework, compliance system, or directory scaffold.
 
-## Read based on the task
+Its purpose is to help agents make good structural decisions as a project grows, then recognize when existing structure needs to evolve or simplify.
 
-- Normative rule change: read `STANDARD.md`, `rules.json`, and the delegated normative document being changed.
-- Routing/lifecycle change: read `docs/lifecycle.md` and `docs/routing.md`.
-- Growth trigger change: read `docs/growth.md` and relevant examples.
-- Audit/tooling change: read `docs/audit.md`, `rules.json`, and tests.
-- Fast-moving agent/tool guidance: verify current sources and update `docs/evidence.md` when the conclusion changes.
+## When this reference is used by another project
 
-Do not require every task to read every document.
+Treat this repository as guidance, not as a checklist or a tree to copy. Read only the sections relevant to the current decision.
 
-## Change discipline
+- Before adding or reorganizing permanent structure, consult [growth](docs/growth.md) and [information ownership](docs/information.md).
+- Before changing global or scoped instructions, skills, or specialized agents, consult [agent context](docs/agent-context.md).
+- At meaningful milestones, check whether the project's structure still matches its actual responsibilities.
+- When the owner asks to "audit this project using repo-template", follow [the audit guide](docs/audit.md).
+- If clear organizational drift appears during ordinary work, address it as part of the task when the correction is safe and within the task's authority. Do not wait for a separate audit request to notice an obvious problem.
 
-- A normative rule has one canonical owner and a stable ID in `rules.json`.
-- Examples are non-normative. They demonstrate judgment; they do not create rules.
-- Do not add a permanent file or directory because a mature project might someday need it. Apply `docs/growth.md` to this repository too.
-- Prefer one document before a directory when the responsibility is still singular.
-- Do not duplicate normative prose. Link to the canonical rule.
-- Heuristic audit checks must be labeled as heuristics and backed by tests for the failure mode they target.
-- Exceptions must remain visible in audit output; do not implement silent suppression.
-- Hard deterministic requirements should move toward tooling when repeated failures justify it.
+## How to make changes safely
 
-## Normative rule proposal gate
+1. Understand the project's actual work, code, people/agents, and coordination needs before recommending structure.
+2. Identify the responsibility and lifecycle that need an owner.
+3. Reuse or improve an existing owner when that solves the problem.
+4. Add the smallest useful structure only when a recurring or consequential need earns it.
+5. Keep useful information when moving or consolidating it; update references and links.
+6. Revisit the result after the change and remove temporary scaffolding that no longer serves a purpose.
 
-Before adding or materially expanding a normative rule, establish:
+Make clear, local, reversible corrections autonomously when they are within the work already authorized. Ask before deleting unique information, making broad reorganizations, changing project policy, or taking actions outside the task's authority.
 
-1. the observed failure, recurring ambiguity, coordination cost, or safety/correctness risk it addresses;
-2. why an existing rule/owner cannot solve the problem more simply;
-3. the rule's scope and canonical document;
-4. whether it is required, recommended, or advisory and whether detection is mechanical, heuristic, or manual;
-5. likely false-positive or over-compliance behavior, especially how an agent might cargo-cult the rule;
-6. impact on existing adopters and any migration required;
-7. whether the rule can eventually shrink, become mechanical, or be retired.
+An audit is an assessment of the real repository, not a demand that it resemble this guide. Do not assign a compliance score or treat examples as mandatory layouts.
 
-If these cannot be stated concretely, keep the idea in evidence/examples until it earns normative status.
+## Maintaining this reference
 
-## Versioning
-
-`VERSION` is the current standard line.
-
-While `STANDARD.md` is marked **Draft**, that version is provisional and may evolve before its first immutable release. Draft trial adopters must pin a reviewed commit SHA; the semantic version alone is not an immutable implementation identity.
-
-After a version is released/tagged, normative semantic changes advance `VERSION` and `CHANGELOG.md`:
-
-- MAJOR: incompatible governance, adoption, or rule semantics.
-- MINOR: new normative rule, lifecycle, or materially expanded requirement.
-- PATCH: clarification, example, evidence refresh, or tooling change with no normative semantic expansion.
-
-A released version is not edited in place. Rule wording may be clarified in a later release without changing the rule ID when meaning is preserved. Incompatible rule meaning requires migration guidance.
-
-`LATEST` names the latest stable released target and remains unchanged while the next standard line is Draft **and while a release candidate is being validated**. A release transaction:
-
-1. marks the exact candidate Active and finalizes `VERSION`/changelog;
-2. passes validation and remote CI on that exact candidate;
-3. tags/releases that exact commit;
-4. only after the immutable release exists, advances `LATEST` on the development branch to the released version.
-
-This ordering prevents downstream projects from observing a release target that has not been published yet. Later Draft development advances `VERSION` while `LATEST` remains on the prior stable release.
-
-## Validation
-
-Run:
-
-```bash
-python scripts/check_standard.py
-```
-
-This runs the focused unit tests and audits the minimal downstream starter in strict mode.
+- Keep the guidance practical, positive, and centered on good repository growth.
+- Keep each document focused on one responsibility. The README is the navigation page; do not create another index unless it solves a real navigation problem.
+- Examples demonstrate good decisions in context. They are not required stages or templates.
+- Keep fast-changing model- and tool-specific advice grounded in current sources. Recheck it before presenting it as current.
+- Prefer a clearer explanation over a new rule catalog, version scheme, manifest, or enforcement mechanism.
+- Do not reintroduce software machinery—auditors, scripts, tests, actions, exporters, manifests, or release automation—unless the owner explicitly changes the purpose of this repository and a demonstrated need justifies it.

@@ -1,69 +1,43 @@
-# Example: Seed to Mature Repository
+# Example: One Agent to a Well-Organized Project
 
-This is a trajectory, not a target architecture.
+This example shows one way a repository can gain structure as its work becomes more demanding. Each stage appears because the project has a new responsibility to support.
 
-## Stage A — seed
+## Start — one agent, one coherent project
 
-The repository begins with:
+The repository has:
 
-```text
-README.md
-AGENTS.md
-.repo-standard.json
-src/
-tests/
-```
+- a README that explains the project and how to use it;
+- a concise AGENTS.md with project-wide boundaries and exact validation commands;
+- the source, configuration, and tests needed by the project.
 
-The README explains the product and setup. AGENTS contains exact validation commands and two non-obvious boundaries. There is no changelog yet because there are no releases. There is no architecture file because the code is easy to inspect.
+The agent can understand most of the system from the code and a small amount of context. No extra documentation framework is needed.
 
-## Stage B — work survives context loss
+## Continuing work — context survives sessions
 
-A database migration spans several sessions. Progress and validation details start leaking into README.
+A substantial migration now spans several sessions. The agent needs to preserve the objective, decisions still under investigation, validation state, and next action.
 
-Trigger: active work now needs a bounded durable owner.
+The project gives that migration a bounded work record in the system it already uses: perhaps an issue, pull request, or task plan. The record closes when the work is complete.
 
-The project creates one task artifact:
+## Reusable knowledge — the same rationale matters again
 
-```text
-work/
-  migrate-storage.md
-```
+Several later changes depend on an append-only storage decision. The reasoning is not obvious from the code, and agents repeatedly need to reconstruct it.
 
-Nothing else is added.
+The project records the decision once and links to it from relevant work. The decision has one clear owner and is updated if the constraint changes.
 
-## Stage C — one rationale keeps being rediscovered
+## Distinct domains — local context becomes useful
 
-Three later changes question why local storage is intentionally append-only. Reconstructing the rationale requires reading old issues and experiments.
+The project now contains an API and a data pipeline. Their commands, conventions, and validation differ enough that a single global instruction file is no longer the best place for every rule.
 
-Trigger: durable non-obvious rationale is repeatedly needed.
+The project keeps cross-cutting instructions at the root and adds scoped guidance for the two domains.
 
-The project creates one decision document:
+## Repeated validation — a check becomes dependable
 
-```text
-docs/
-  append-only-storage-decision.md
-```
+Agents repeatedly need to regenerate API clients after changing a schema. The project adds a deterministic freshness check so the guarantee no longer depends on remembering a sentence in AGENTS.md.
 
-There is still no `docs/decisions/` directory because one file does not justify a taxonomy.
+The instruction becomes shorter and points to the check.
 
-## Stage D — domains diverge
+## Simplification — the project changes again
 
-The repository becomes a web app plus a data pipeline. Their commands, dependencies, and validation rules are materially different, and agents repeatedly apply one domain's conventions to the other.
+The data pipeline is later retired. Its scoped instructions, domain reference, and special validation are removed. The repository returns to a simpler shape that fits its current work.
 
-Trigger: global instructions have become noisy and misleading.
-
-The project introduces scoped instructions near each domain while keeping only cross-project rules at the root.
-
-## Stage E — repeated rule becomes mechanical
-
-Agents repeatedly edit a schema without regenerating derived clients.
-
-Trigger: the rule is repeated, mechanically detectable, and costly when missed.
-
-CI gains a stale-generation check. The prose instruction shrinks because enforcement now owns the mechanical guarantee.
-
-## Stage F — simplification
-
-The data pipeline is later removed. Its scoped instructions, domain docs, and special checks are removed with it.
-
-Maturity does not require preserving obsolete organizational structure.
+The project has grown and simplified without treating any stage as permanent.
