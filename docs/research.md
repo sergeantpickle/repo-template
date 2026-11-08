@@ -39,6 +39,17 @@ Sources:
 - [Claude Code — Memory and instruction files](https://code.claude.com/docs/en/memory)
 - [OpenAI — Codex prompting guide](https://developers.openai.com/cookbook/examples/gpt-5/codex_prompting_guide)
 
+### Root structure maps and "where to look" pointers
+
+The `Emanuel-University/ai-agent-template` keeps its root `AGENTS.md` practical: a short `Structure` section describes the folders, and a `Where to look` section points to the architecture, testing, workflow, decisions, and state documents. Its architecture guide explicitly describes the system shape rather than every file.
+
+This is a useful companion to the larger annotated trees: keep the root agent file navigable, then send the agent to the detailed owner when the task needs it.
+
+Sources:
+
+- [Emanuel University — AI agent template](https://github.com/Emanuel-University/ai-agent-template)
+- [Architecture guide](https://github.com/Emanuel-University/ai-agent-template/blob/main/docs/architecture.md)
+
 ### Documentation categories work when each answers a different question
 
 The `bketelsen/agentic-template` repository separates architecture decisions (why), design (how), specifications (what), and plans (when). The `Sukitly/agentic-docs-templates` repository demonstrates a richer knowledge base with state, deployment, testing, product specifications, design documents, execution plans, and references.
