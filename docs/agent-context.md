@@ -22,17 +22,17 @@ Treat it as an orientation and routing document, not an encyclopedia. Include en
 
 Keep rules concrete and current. A command that no longer works or an architectural rule that describes an aspiration rather than the code can mislead every new session.
 
+Do not require every task to read every document. Point to the architecture guide for boundary changes, the database guide for schema work, and the deployment guide for deployment work. A typo fix should not trigger a full repository onboarding ritual.
+
 ## Different tools discover different files
 
 Do not assume every coding agent reads the same filenames or uses the same inheritance rules.
 
-- Codex recognizes `AGENTS.md` and supports directory-scoped instruction files.
-- Claude Code uses `CLAUDE.md`, supports nested instruction files, and also provides `.claude/rules/` for path-scoped rules.
-- Other tools may use their own instruction files, configuration, or project settings.
+- **Codex CLI** discovers `AGENTS.md` from the repository root through the current working directory and combines applicable instructions in order. See the [Codex prompting guide](https://developers.openai.com/cookbook/examples/gpt-5/codex_prompting_guide).
+- **Claude Code** uses `CLAUDE.md`, supports nested instruction files, and provides `.claude/rules/` for path-scoped rules. See [Claude Code memory and instruction files](https://code.claude.com/docs/en/memory).
+- **Other tools** may use their own instruction files, configuration, or project settings. Check their current discovery behavior before relying on a particular path.
 
 When multiple tools need the same guidance, keep one canonical source and use supported imports, symlinks, or small adapters where practical. Do not maintain several full independent copies of the same rules.
-
-See [Anthropic's instruction-file guidance](https://code.claude.com/docs/en/memory) and the [Codex AGENTS.md guide](https://developers.openai.com/codex/guides/agents-md).
 
 ## Scope instructions by real differences
 
@@ -63,7 +63,7 @@ Common skill structure:
         └── scripts/
 ```
 
-The location is tool- and ecosystem-dependent. Claude Code uses `.claude/skills/`; other agent ecosystems recognize other paths. Choose the location the project actually uses and avoid duplicate independently maintained skill copies.
+The location is tool- and ecosystem-dependent. Claude Code uses `.claude/skills/`; other agent ecosystems use other paths. Choose the location the project actually uses and avoid duplicate independently maintained skill copies.
 
 Keep the skill's main instructions focused. Put large reference material in `references/` and deterministic helpers in `scripts/` only when they genuinely support the procedure.
 
@@ -92,3 +92,9 @@ Long-running or multi-agent work may justify persistent plans. Agent-driven feat
 These are independent capabilities. A project does not need all of them.
 
 See [agent-first project](../examples/agent-first-project/tree.md) and [OpenAI's harness engineering case study](https://openai.com/index/harness-engineering/).
+
+## Keep guidance proportional to the model and task
+
+Agent capabilities and context handling change. Review old instructions when models or tools improve; instructions that once helped a weaker model may now add friction or conflict.
+
+OpenAI's [September 2026 guidance on skills and prompts](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra) recommends contextual retrieval rather than requiring a full repository map before every small edit. Keep the map discoverable, but let the task determine what the agent reads.
