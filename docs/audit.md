@@ -2,7 +2,7 @@
 
 This guide describes how an AI agent checks whether a repository's organization still fits the work being done. The checkpoint is part of normal maintenance; a full audit is a deeper review when the project reaches a meaningful milestone, shows signs of drift, or its owner requests one.
 
-An audit is an exercise in understanding and improving the actual repository. It is not a compliance score and does not require the project to resemble this reference.
+An audit is an exercise in understanding and improving the actual repository. It is not a compliance score and does not require the project to resemble this reference. Use the structural patterns in the root `AGENTS.md` and the annotated `examples/*/tree.md` files as comparisons, not as a checklist of required paths.
 
 ## When to run a checkpoint
 
