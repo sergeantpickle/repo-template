@@ -128,10 +128,12 @@ agent-first-project/
 ├── src/
 ├── tests/
 ├── evals/                    # Agent behavior evaluations, when needed
-├── .agents/skills/           # Shared skill source, if supported
-├── .claude/rules/            # Claude-specific scoped rules
-├── .claude/agents/           # Claude-specific specialists
-└── .claude/skills -> ../.agents/skills/  # Optional verified alias
+├── .agents/
+│   └── skills/               # Shared skill source, if supported
+├── .claude/
+│   ├── rules/                # Claude-specific scoped rules
+│   ├── agents/               # Claude-specific specialists
+│   └── skills -> ../.agents/skills/  # Optional verified alias
 └── docs/
     ├── design-docs/
     └── exec-plans/           # Active/completed work, when needed
