@@ -2,16 +2,13 @@
 
 Agent instructions are part of the repository's working interface. They should help an agent make good decisions without forcing every task to load the entire repository's history and design knowledge.
 
+For annotated layouts, see [scoped instructions](../examples/scoped-instructions/tree.md), [monorepos](../examples/monorepo/tree.md), and [repeatable workflows](../examples/repeatable-workflows/tree.md).
+
 ## Keep the always-loaded layer useful
 
-The root `AGENTS.md` should contain information that is:
+The root `AGENTS.md` should contain information that is important across most work, not already obvious from code or configuration, and costly or risky to rediscover.
 
-- important across most work in the repository;
-- not already obvious from code, configuration, or standard tooling;
-- costly or risky to rediscover;
-- concise enough to remain visible and useful.
-
-Good candidates include project boundaries, non-obvious conventions, exact validation commands, important safety constraints, and pointers to deeper documentation.
+Good candidates include project boundaries, non-obvious conventions, exact validation commands, important safety constraints, a concise repository map, and pointers to deeper documentation.
 
 ## Scope instructions where the work differs
 
@@ -19,7 +16,7 @@ Add nested or path-scoped instructions when a domain has genuinely different con
 
 Keep cross-project rules at the root and domain-specific rules close to the domain. A nested instruction file should explain what is different in its scope; it should not repeat the entire root instruction set.
 
-Use small pointer files for tools that need a separate instruction filename. Keep one canonical source for shared policy, and make tool-specific differences intentional.
+Instruction discovery differs by agent harness. Codex and GitHub Copilot support nested AGENTS.md files; other tools may use different filenames, path rules, or activation behavior. Verify the target harness before relying on a particular inheritance model.
 
 ## Load deeper knowledge when it is relevant
 
