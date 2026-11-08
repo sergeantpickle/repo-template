@@ -1,22 +1,17 @@
-# Example: Starting at Twenty Files
+# Example: Starting with Twenty Files
 
-A new service already contains application code, tests, a package manifest, Docker configuration, two GitHub workflows, database migrations, generated API types, and deployment configuration.
+A new project begins with an application, tests, package metadata, container configuration, database migrations, generated API types, and deployment workflows. It already has twenty files before its first feature is complete.
 
-That does not make it a Level 3 or Level 4 repository.
+That is a valid starting point. The repository's initial structure should reflect the responsibilities that already exist.
 
-The initial control question is not "how many files exist?" It is "which coordination responsibilities already exist and which are ambiguous?"
+A useful initial arrangement might include:
 
-A reasonable initial state may still be only:
+- a README for purpose, setup, and normal use;
+- an AGENTS.md for project-wide agent boundaries and exact validation commands;
+- the source, tests, build configuration, migrations, and deployment files the project actually needs.
 
-```text
-README.md
-AGENTS.md
-.repo-standard.json
-<actual source/test/build/deploy files>
-```
+The project may also need a concise architecture or operations reference immediately if important boundaries are not apparent from the implementation. It does not need a project map merely to repeat the directory tree.
 
-README explains purpose/setup/usage. AGENTS records exact validation commands and non-obvious boundaries. The standard adoption manifest points upstream.
+As the work develops, add a task record when work must survive sessions, durable documentation when non-obvious knowledge is repeatedly needed, and scoped instructions when domains diverge.
 
-Architecture documentation is added only if important relationships or boundaries are expensive to infer from the existing code/configuration. A project map is added only if semantic navigation is repeatedly costly. A changelog is added only when release history has an audience.
-
-Starting complexity can justify earlier growth, but file count itself is not the trigger.
+**Starting complexity can justify structure early. File count alone does not determine what the project needs.**
