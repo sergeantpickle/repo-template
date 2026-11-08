@@ -40,8 +40,11 @@ Copy this note into a project's existing `AGENTS.md`, adapting the wording only 
 - [Information ownership](docs/information.md) — what belongs in README, AGENTS, active work, durable docs, decisions, history, and other common owners.
 - [Agent context](docs/agent-context.md) — how to keep instructions useful, scoped, and loaded only when relevant.
 - [Audit guide](docs/audit.md) — how an agent checks a project, reports drift, and makes proportionate corrections.
-- [Examples](examples/) — positive growth trajectories and starting points.
-- [Research notes](docs/research.md) — current observations and sources that inform the guidance.
+- [One agent to a mature project](examples/seed-to-mature.md)
+- [Starting with twenty files](examples/starting-at-twenty.md)
+- [Growing from one to thousands](examples/organization-scale.md)
+- [A useful project map](examples/project-map.md)
+- [Research notes](docs/research.md) — observations and sources that inform the guidance.
 
 ## The central idea
 
