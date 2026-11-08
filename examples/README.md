@@ -1,24 +1,31 @@
 # Annotated Repository Examples
 
-These examples show concrete directory layouts for different project types and coordination needs. Each folder contains a `tree.md` with a Markdown directory tree, inline path notes, and an explanation of when each part is useful.
+Each example folder contains a `tree.md` with a Markdown directory tree, inline notes on important paths, and an explanation of when the structure is useful. These are reference layouts, not starter kits.
 
-They are reference patterns, not starter kits. A project may combine patterns, start with a subset, or use a different structure that fits its language and tools.
+The root [AGENTS.md](../AGENTS.md) contains shorter versions of the trees so agents can orient quickly. Open the linked `tree.md` for the full notes.
 
-## Choose by project shape
+## Start with the project shape
 
-| Example | Use it to understand |
+| Example | What it demonstrates |
 | --- | --- |
-| [Seed project](seed-project/tree.md) | The smallest useful shape for a coherent project. |
+| [Seed project](seed-project/tree.md) | A small, coherent project with no speculative structure. |
 | [Application project](application-project/tree.md) | A product application with UI, server behavior, data, and tests. |
-| [Library or SDK](library-project/tree.md) | A reusable package with a public API, consumer examples, and release concerns. |
-| [Growing project](growing-project/tree.md) | Durable architecture, operational knowledge, and decisions. |
-| [Scoped instructions](scoped-instructions/tree.md) | Local agent instructions for genuinely distinct domains. |
+| [Library or SDK](library-project/tree.md) | A reusable package with a public API, consumer examples, compatibility, and release concerns. |
 | [Monorepo](monorepo/tree.md) | Multiple applications, services, and shared packages in one workspace. |
-| [Agent-first project](agent-first-project/tree.md) | Agent instructions, skills, specialist agents, evaluations, and durable plans. |
+| [Agent-first project](agent-first-project/tree.md) | Agent context, skills, specialist agents, evaluations, and durable plans. |
 | [Research or data project](research-project/tree.md) | Data provenance, notebooks, reusable analysis, experiments, and reports. |
-| [Repeatable workflows](repeatable-workflows/tree.md) | On-demand skills and their references or helper scripts. |
+
+## Add patterns when the work earns them
+
+| Example | What it demonstrates |
+| --- | --- |
+| [Growing project](growing-project/tree.md) | Durable architecture, operational knowledge, and decision records. |
+| [Scoped instructions](scoped-instructions/tree.md) | Local agent instructions for genuinely distinct domains. |
+| [Repeatable workflows](repeatable-workflows/tree.md) | On-demand skills and their references, scripts, and assets. |
 | [Semantic project map](semantic-project-map/tree.md) | Ownership, dependencies, entry points, and flows that paths alone do not explain. |
 | [Organization scale](organization-scale/tree.md) | Service catalogs and cross-repository ownership/dependency views. |
+
+Project shape and project scale are different dimensions. A library can have scoped instructions; a monorepo can need a semantic map; a research project can use repeatable workflows. Combine only the patterns that solve real problems.
 
 ## How to read a tree
 
