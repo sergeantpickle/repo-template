@@ -2,15 +2,13 @@
 
 A repository should grow in response to the coordination its work actually requires. The goal is not to reach a particular maturity level or accumulate a complete set of documentation categories. The goal is to keep work understandable as complexity changes.
 
-The examples below describe common transitions, not a required sequence. A project can begin at any point, skip stages, or simplify later.
+The examples are patterns, not a required sequence. A project can begin at any point, combine patterns, skip stages, or simplify later. The [example index](../examples/README.md) links to annotated directory trees with notes explaining each path.
 
 ## Begin with the project that exists
 
-A useful starting point is usually:
+A useful starting point is usually a README, a concise root AGENTS.md when agents need project-specific guidance, and the source, configuration, and tests the project actually needs.
 
-- a README that explains purpose, setup, and normal use;
-- an AGENTS.md when coding agents need project-specific instructions;
-- the actual source, configuration, tests, and operational files the project needs.
+[See the seed-project tree](../examples/seed-project/tree.md).
 
 A project that begins with twenty files does not automatically need twenty documentation files. A project with one maintainer can still need strong boundaries if the work is consequential. Start from actual responsibilities, not a preset folder tree.
 
@@ -22,19 +20,17 @@ The owner can be an issue, pull request, task plan, change proposal, or a projec
 
 ## When knowledge becomes reusable
 
-When a non-obvious fact, contract, operational procedure, or design rationale repeatedly matters beyond the task that discovered it, give it a durable home.
+When a non-obvious fact, contract, operational procedure, or design rationale repeatedly matters beyond the task that discovered it, give it a durable home. A decision record earns its place when there were credible alternatives and future maintainers could reasonably undo the choice without understanding its rationale.
 
-A decision record earns its place when there were credible alternatives and future maintainers could reasonably undo the choice without understanding its rationale. A technical reference earns its place when code and configuration alone are costly or risky to interpret.
-
-Let the responsibility determine the document. A single useful document does not need a directory around it.
+[See the growing-project tree](../examples/growing-project/tree.md) for a project whose durable knowledge has earned its own documents.
 
 ## When the project develops distinct domains
 
 As separate areas acquire different conventions, validation commands, boundaries, and ownership, scope their instructions and documentation accordingly.
 
-Keep root instructions for rules that genuinely apply across the project. Put local guidance near the domain that needs it. Add a project map when semantic relationships, entry points, ownership, or validation paths become difficult to discover from the repository itself.
+Keep root instructions for rules that genuinely apply across the project. Put local guidance near the domain that needs it. A nested AGENTS.md should explain what is different in its scope; it should not repeat the entire root instruction set.
 
-The structure should follow real boundaries. It does not need to mirror every directory.
+[See scoped instructions](../examples/scoped-instructions/tree.md) and the [monorepo example](../examples/monorepo/tree.md).
 
 ## When parallel work becomes normal
 
@@ -42,13 +38,19 @@ As more agents or contributors work independently, coordination benefits from cl
 
 When a repeated requirement is deterministic and costly to miss, consider a test, schema, linter, generated check, permission boundary, or CI rule. Mechanical enforcement should replace repeated reminders where it can do so reliably.
 
-The goal is to make coordination less dependent on everyone remembering the same prose—not to automate every convention.
+A skill or reusable procedure may help when a workflow recurs and benefits from being maintained separately. [See the repeatable-workflows tree](../examples/repeatable-workflows/tree.md).
+
+## When the project needs a map
+
+A project map earns its place when semantic relationships, ownership, entry points, dependency direction, or validation paths are difficult to reconstruct from the repository itself. A map that merely restates the directory tree adds another freshness obligation without adding knowledge.
+
+[See the semantic project-map tree](../examples/semantic-project-map/tree.md).
 
 ## When many domains or repositories must work together
 
-At larger scale, local documentation may no longer explain the whole system. Ownership catalogs, dependency maps, service inventories, shared interfaces, organization-wide policies, and automated drift reporting can become useful.
+At larger scale, local documentation may no longer explain the whole system. Ownership catalogs, dependency maps, service inventories, shared interfaces, and organization-wide policies can become useful when the topology itself becomes a coordination problem.
 
-These mechanisms earn their place when the topology itself becomes difficult to understand or coordinate. They are not a seed-project baseline.
+[See the organization-scale tree](../examples/organization-scale/tree.md). These mechanisms are not a seed-project baseline.
 
 ## A practical growth decision
 
