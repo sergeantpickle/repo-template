@@ -49,7 +49,7 @@ A handoff is useful when there is a real transfer boundary that the active work 
 
 A project map is useful when it explains semantic relationships that are difficult to infer from the directory tree: ownership, runtime entry points, dependency direction, subsystem boundaries, or where validation differs.
 
-A map that only lists folders and files repeats information the repository already provides. Start with a short README section or links in existing documentation; give the map its own document only when it has a distinct purpose and update lifecycle.
+A map that only lists folders and files repeats information the repository already provides. Start with a short README section or links in existing documentation; give the map its own document only when it has a distinct purpose and update lifecycle. See the [semantic project-map example](../examples/semantic-project-map/tree.md) for a useful layout, and the [growing-project example](../examples/growing-project/tree.md) for a smaller documentation structure.
 
 ## Information is not authority
 
