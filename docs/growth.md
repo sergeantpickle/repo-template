@@ -4,6 +4,18 @@ A repository should grow in response to the coordination its work actually requi
 
 The examples are patterns, not a required sequence. A project can begin at any point, combine patterns, skip stages, or simplify later. The [example index](../examples/README.md) links to annotated directory trees with notes explaining each path.
 
+## Choose the project shape first
+
+Project type and project scale are separate dimensions. A library, application, monorepo, and research project have different natural layouts; each can be small or large. Start with the closest shape, then add the growth patterns that match actual needs.
+
+- [Application project](../examples/application-project/tree.md) — product code, server behavior, data, and tests.
+- [Library or SDK](../examples/library-project/tree.md) — public package boundaries, consumer examples, compatibility, and releases.
+- [Agent-first project](../examples/agent-first-project/tree.md) — agent context, skills, evaluations, and durable work.
+- [Research or data project](../examples/research-project/tree.md) — provenance, notebooks, experiments, and reproducibility.
+- [Monorepo](../examples/monorepo/tree.md) — multiple applications, services, and shared packages.
+
+These are illustrative shapes, not technology mandates. Use the source tree, language conventions, and existing build system that fit the project.
+
 ## Begin with the project that exists
 
 A useful starting point is usually a README, a concise root AGENTS.md when agents need project-specific guidance, and the source, configuration, and tests the project actually needs.
@@ -17,6 +29,8 @@ A project that begins with twenty files does not automatically need twenty docum
 When a task spans sessions, agents, or contributors, give that bounded body of work a durable place for its objective, scope, progress, discoveries, validation, blockers, and next action.
 
 The owner can be an issue, pull request, task plan, change proposal, or a project-specific work record. Choose the system the project already uses well. A single task does not establish a need for a permanent handoff framework, roadmap hierarchy, or archive taxonomy.
+
+For an agent-intensive workflow, see [the agent-first project tree](../examples/agent-first-project/tree.md).
 
 ## When knowledge becomes reusable
 
