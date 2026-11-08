@@ -158,6 +158,13 @@ engineering/
 
 See [examples/organization-scale/tree.md](examples/organization-scale/tree.md).
 
+## Maintaining this reference
+
+- Every example pattern lives in `examples/<pattern>/tree.md` and includes an annotated tree, notes for the paths shown, when the pattern fits, and what should remain optional.
+- When adding, renaming, or removing an example, update `examples/README.md` and the corresponding tree reference in this file.
+- Keep the repository tree above accurate when the guide's own structure changes.
+- Keep research claims linked to sources and recheck fast-changing agent-harness behavior before presenting it as current.
+
 ## Working principles
 
 - Understand the project before proposing its structure.
