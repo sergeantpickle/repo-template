@@ -1,120 +1,50 @@
-# Repository Growth Standard
+# repo-template
 
-A versioned upstream guide for keeping AI-primary repositories understandable as they grow.
+A living reference for AI agents that build and maintain repositories.
 
-The standard does not prescribe a large project tree. It defines **jurisdiction, lifecycle, growth triggers, exceptions, and enforcement** so agents do not gradually turn README files into handoffs, changelogs into work logs, or one-off observations into permanent bureaucracy.
+This repository explains how repository structure, documentation, agent instructions, and working practices can grow with a project. It helps an AI keep a project understandable as its code, domains, contributors, and concurrent work increase.
 
-Current version: **0.1.0**  
-Status: **Draft** — usable for trials, not yet published as an immutable release.
+**This is a guide to reference, not a project scaffold to copy or a software package to install.** Projects keep their own structure. Agents consult the guidance when making structural decisions and revisit it as the project grows.
 
-## Core idea
+## How projects use this guide
 
-> Every class of durable information has one canonical owner. New permanent structure must earn existence through an observed coordination need.
+Add a short reference to the project's `AGENTS.md`. Agents should consult this repository when they:
 
-A project aligns to this repository by reference. It records the standard version it last aligned to, keeps its own project-specific instructions and knowledge, and periodically compares that state with the latest released upstream standard.
+- introduce or reorganize persistent documentation or repository structure;
+- change global or scoped agent instructions;
+- add a recurring workflow, skill, or specialized agent;
+- introduce a new domain, package, service, or ownership boundary;
+- reach a meaningful project milestone;
+- notice that context, responsibilities, or information ownership are becoming unclear.
 
-## Operating model
+A lightweight checkpoint should happen as part of normal work. A full audit is useful when the project is visibly drifting or its owner asks for one.
 
-```text
-repo-template (upstream guide/control plane)
-  ├─ normative rules
-  ├─ growth examples
-  ├─ evidence
-  └─ audit implementation
-          │
-          │ export starter / align by reference
-          ▼
-project
-  ├─ README + project-specific agent rules
-  ├─ .repo-standard.json
-  └─ only the structure its work has earned
-          │
-          │ structural change or periodic review
-          ▼
-pinned audit against last-aligned version
-          │
-          ├─ routing / lifecycle findings
-          ├─ contextual AI review
-          └─ explicit exceptions
-          │
-          │ newer released upstream version detected
-          ▼
-review changelog + changed rules
-          │
-          └─ deliberately align the delta or record exceptions
-```
+## Reference note for project AGENTS.md
 
-The upstream guide evolves. Projects do not silently inherit changes, but the latest released standard remains the target; the recorded version is the last-aligned bookmark.
+Copy this note into a project's existing `AGENTS.md`, adapting the wording only where the project needs a different boundary:
+
+> ## Repository organization reference
+>
+> This project uses [repo-template](https://github.com/sergeantpickle/repo-template) as its living reference for repository organization and growth.
+>
+> Consult its `AGENTS.md` checkpoint and the relevant guidance before introducing persistent files, directories, documentation categories, agent instructions, skills, or workflows. Apply the principles to this project's actual needs; do not copy the reference repository's tree or create structures merely because an example contains them.
+>
+> Check organizational fit as part of structural changes and meaningful milestones. If clear, low-risk drift appears, correct it while preserving useful information and report what changed. Ask before destructive changes or broad restructuring.
+>
+> When asked to **"audit this project using repo-template,"** perform the contextual review described in [the audit guide](https://github.com/sergeantpickle/repo-template/blob/main/docs/audit.md).
 
 ## Start here
 
-- [STANDARD.md](STANDARD.md) — normative principles and stable rule IDs.
-- [docs/lifecycle.md](docs/lifecycle.md) — how information moves from ephemeral to active, durable, historical, or mechanical.
-- [docs/routing.md](docs/routing.md) — which artifact owns which information.
-- [docs/growth.md](docs/growth.md) — when new files, directories, scoped rules, and automation are justified.
-- [docs/alignment.md](docs/alignment.md) — downstream alignment and periodic upstream checks.
-- [docs/audit.md](docs/audit.md) — audit levels, heuristic limits, and explicit exceptions.
-- [examples/](examples/) — growth trajectories and recovery examples.
-- [docs/evidence.md](docs/evidence.md) — dated research behind current guidance.
+- [`AGENTS.md`](AGENTS.md) — the agent checkpoint and operating instructions for using this reference.
+- [Growth](docs/growth.md) — how a repository can grow from one maintainer or agent to organization scale.
+- [Information ownership](docs/information.md) — what belongs in README, AGENTS, active work, durable docs, decisions, history, and other common owners.
+- [Agent context](docs/agent-context.md) — how to keep instructions useful, scoped, and loaded only when relevant.
+- [Audit guide](docs/audit.md) — how an agent checks a project, reports drift, and makes proportionate corrections.
+- [Examples](examples/) — positive growth trajectories and starting points.
+- [Research notes](docs/research.md) — current observations and sources that inform the guidance.
 
-## Create a new downstream project
+## The central idea
 
-Do **not** use GitHub's native "Use this template" copy as the normal bootstrap path for this repository. GitHub template repositories copy the upstream directory structure and files, which would copy the guide itself into the project.
+A repository should contain enough structure to make work clear and reliable, and no more structure than its real responsibilities can justify.
 
-From a checkout of this standard, export only the minimal starter:
-
-```bash
-python scripts/init_project.py /path/to/new-project
-```
-
-The exporter refuses to overwrite existing `README.md`, `AGENTS.md`, or `.repo-standard.json`.
-
-For an existing project, do not export starter files over it. Run a pre-alignment review instead:
-
-```bash
-python scripts/audit_project.py /path/to/existing-project --pre-alignment
-```
-
-Then align deliberately by adding the manifest and only the project-specific instructions the repository actually needs.
-
-If GitHub's native **Use this template** button is a hard requirement, the clean architecture is a separate minimal template repository generated from `starter/`, while this repository remains the versioned guide/control plane. Do not make the guide itself minimal merely to satisfy GitHub's copy semantics.
-
-## Downstream baseline
-
-The `starter/` directory intentionally contains very little:
-
-```text
-README.md
-AGENTS.md
-.repo-standard.json
-```
-
-It is an example baseline, not a mandatory tree. Projects add structure when the triggers in `docs/growth.md` are actually met.
-
-## Audit a project
-
-From a checkout of this standard:
-
-```bash
-python scripts/audit_project.py /path/to/project
-python scripts/audit_project.py /path/to/project --strict
-python scripts/audit_project.py /path/to/project --format json
-```
-
-Check whether the project is behind the latest **released** upstream standard:
-
-```bash
-python scripts/check_latest.py /path/to/project
-```
-
-The repository also exposes a composite GitHub Action (`action.yml`) so downstream projects can run the pinned audit logic periodically without copying it. See `docs/alignment.md` and `examples/github-actions/`.
-
-## Maintain this standard
-
-Run:
-
-```bash
-python scripts/check_standard.py
-```
-
-The standard must follow itself: no new permanent category, workflow, or rule is added merely because it might be useful someday.
+Growth follows coordination pressure—not file count, age, team size, or somebody else's preferred folder tree. A project can start with twenty files and need very little documentation; a small but safety-critical project may need stronger controls immediately. The right structure is the one that makes ownership, context, and work clear at the project's current scale.
