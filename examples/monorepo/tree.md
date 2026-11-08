@@ -1,35 +1,48 @@
 # Monorepo
 
-A repository contains multiple applications, services, or shared packages that can evolve independently. The root file describes the whole workspace; local instructions appear only where teams or components need different guidance.
+A repository contains multiple applications, services, or shared packages that are developed and released together or coordinated through a common workspace. The root explains the whole workspace; local instructions appear only where a component's needs differ.
 
 ## Example tree
 
 ```text
 workspace/
-├── AGENTS.md                  # Workspace-wide boundaries and navigation
-├── README.md                  # What the workspace contains and how to start
+├── AGENTS.md                         # Workspace-wide boundaries, commands, and navigation
+├── README.md                         # What lives here and how to work across the workspace
+├── workspace manifest                # Actual package/workspace definition for the toolchain
+├── .github/
+│   └── workflows/
+│       └── ci.yml                    # Shared CI entry point, if CI is used
 ├── apps/
 │   ├── web/
-│   │   ├── AGENTS.md          # Web app commands, UI conventions, browser checks
-│   │   └── src/
+│   │   ├── AGENTS.md                 # Web-only conventions and browser validation, if distinct
+│   │   ├── src/
+│   │   └── tests/
 │   └── admin/
-│       └── src/               # Uses root guidance until local rules diverge
+│       ├── src/
+│       └── tests/
 ├── services/
 │   └── api/
-│       ├── AGENTS.md          # Service contracts, migrations, API validation
-│       └── src/
-└── packages/
-    ├── contracts/             # Shared API and event contracts
-    └── ui/                    # Shared interface components
+│       ├── AGENTS.md                 # API contracts, migrations, and service-specific checks
+│       ├── src/
+│       └── tests/
+├── packages/
+│   ├── contracts/                   # Shared API, event, or schema contracts
+│   └── ui/                          # Shared interface components
+├── infra/                           # Shared infrastructure definitions, when centrally owned
+└── docs/
+    └── architecture.md              # Cross-workspace dependency direction and important flows
 ```
 
 ## Notes
 
-- **Root `AGENTS.md`** explains workspace-wide commands, dependency boundaries, shared conventions, and where domain-specific instructions live.
-- **`apps/web/AGENTS.md`** captures browser/UI-specific validation and local conventions that do not apply to the API.
-- **`services/api/AGENTS.md`** captures service-specific commands, API contracts, data migrations, and operational constraints.
-- **`apps/admin/`** inherits root guidance because its conventions still match the workspace defaults.
-- **`packages/contracts/`** and **`packages/ui/`** do not receive nested instructions automatically. Add them only if the packages have independent rules, owners, or validation.
+- **Root `AGENTS.md`** describes workspace-level commands, package boundaries, shared conventions, and navigation. It should not contain every package's local instructions.
+- **Workspace manifest** is the actual source of truth for package membership and dependency relationships. Use the language/toolchain's native workspace file rather than inventing a second catalog.
+- **`apps/`** groups independently runnable user-facing applications. They may share packages but should not reach into each other's private implementation.
+- **`services/`** groups independently deployable or operational services. A service gets local instructions when its contracts, validation, or operations differ from workspace defaults.
+- **`packages/`** contains reusable libraries, contracts, or components. Shared code should have a clear owner and public interface; avoid making packages a dumping ground for cross-app imports.
+- **Nested `AGENTS.md`** belongs only in areas with genuinely different commands, conventions, safety boundaries, or validation. `apps/admin/` deliberately has none while root guidance is sufficient.
+- **`infra/`** belongs when infrastructure is managed as part of this workspace. A separate platform repository may be the better owner.
+- **`docs/architecture.md`** explains dependency direction and cross-service flows that cannot be inferred reliably from the workspace manifest.
 
 ## Keep the workspace navigable
 

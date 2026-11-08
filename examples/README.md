@@ -1,26 +1,40 @@
 # Annotated Repository Examples
 
-These examples show concrete repository layouts for common situations. Each example folder contains a `tree.md` file with an annotated Markdown directory tree and notes explaining the purpose of each path, when it earns its place, and what should remain optional.
+Each example folder contains a `tree.md` with a Markdown directory tree, inline notes on important paths, and an explanation of when the structure is useful. These are reference layouts, not starter kits.
 
-They are reference patterns, not starter kits. Adapt them to the actual work instead of copying every path.
+The root [AGENTS.md](../AGENTS.md) contains shorter versions of the trees so agents can orient quickly. Open the linked `tree.md` for the full notes.
+
+## Start with the project shape
 
 | Example | What it demonstrates |
 | --- | --- |
-| [Seed project](seed-project/tree.md) | A useful small repository without speculative structure. |
-| [Growing project](growing-project/tree.md) | Durable technical knowledge and decision records with clear owners. |
-| [Scoped instructions](scoped-instructions/tree.md) | Nested AGENTS files for domains with genuinely different rules. |
-| [Monorepo](monorepo/tree.md) | Root guidance plus local context for independently evolving apps, services, and packages. |
-| [Repeatable workflows](repeatable-workflows/tree.md) | Skills and supporting references for procedures that recur. |
-| [Semantic project map](semantic-project-map/tree.md) | A map that explains relationships the directory tree cannot show. |
-| [Organization scale](organization-scale/tree.md) | Catalogs, ownership, and dependency views when many components must coordinate. |
+| [Seed project](seed-project/tree.md) | A small, coherent project with no speculative structure. |
+| [Application project](application-project/tree.md) | A product application with UI, server behavior, data, and tests. |
+| [Library or SDK](library-project/tree.md) | A reusable package with a public API, consumer examples, compatibility, and release concerns. |
+| [Monorepo](monorepo/tree.md) | Multiple applications, services, and shared packages in one workspace. |
+| [Agent-first project](agent-first-project/tree.md) | Agent context, skills, specialist agents, evaluations, and durable plans. |
+| [Research or data project](research-project/tree.md) | Data provenance, notebooks, reusable analysis, experiments, and reports. |
+
+## Add patterns when the work earns them
+
+| Example | What it demonstrates |
+| --- | --- |
+| [Growing project](growing-project/tree.md) | Durable architecture, operational knowledge, and decision records. |
+| [Scoped instructions](scoped-instructions/tree.md) | Local agent instructions for genuinely distinct domains. |
+| [Repeatable workflows](repeatable-workflows/tree.md) | On-demand skills and their references, scripts, and assets. |
+| [Semantic project map](semantic-project-map/tree.md) | Ownership, dependencies, entry points, and flows that paths alone do not explain. |
+| [Organization scale](organization-scale/tree.md) | Service catalogs and cross-repository ownership/dependency views. |
+
+Project shape and project scale are different dimensions. A library can have scoped instructions; a monorepo can need a semantic map; a research project can use repeatable workflows. Combine only the patterns that solve real problems.
 
 ## How to read a tree
 
-Each tree uses inline comments to identify a path's responsibility. Notes below the tree explain the trigger for adding it and what not to infer from its presence.
+Every tree is illustrative. Inline comments explain the role of each path; notes below the tree explain its trigger, lifecycle, and optional pieces.
 
-- **Keep** a path when the described responsibility exists in the project.
+- **Keep** a path when the responsibility exists and needs that owner.
 - **Omit** it when the responsibility does not exist or another system already owns it.
-- **Split** a file into a directory only when several independently useful artifacts need their own lifecycle.
-- **Scope** instructions only where local behavior differs from the root.
+- **Split** a file into a directory when several independently useful artifacts need separate lifecycles.
+- **Scope** instructions only where local behavior differs.
+- **Adapt** names and layout to the language, framework, build system, and agent tools actually used.
 
-The trees are intentionally not exhaustive. A real repository also contains language manifests, build configuration, source files, generated output, deployment resources, and other project-specific material.
+The trees are intentionally selective. A real repository also contains the source files, language manifests, build configuration, deployment resources, generated artifacts, and other project-specific material its work requires. No example is a complete list of everything a project must contain.

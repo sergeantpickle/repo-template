@@ -1,65 +1,82 @@
 # Agent Reference
 
-This repository is a field guide for AI agents that build and maintain other repositories. It is not a scaffold to copy wholesale. Use its structures as reference patterns, then shape the project around its real work.
+A field guide for AI agents that build and maintain other repositories. Use these structures as references, not as a scaffold to copy wholesale.
 
 ## How to use this reference
 
-1. Identify the kind of project and the coordination problem you are solving.
-2. Find the closest structural pattern below.
-3. Open that example's `tree.md` for the annotated directory layout and notes.
-4. Keep only the parts that solve a real need in the target project.
-5. Revisit the structure when responsibilities, domains, or working practices change.
+1. Identify the project's shape and the coordination problem.
+2. Find the closest tree below.
+3. Open its linked `examples/<pattern>/tree.md` for the full annotated tree and notes.
+4. Keep only paths that solve a real need.
+5. Revisit the structure when the work or its boundaries change.
 
-The trees are examples, not maturity levels or mandatory checklists. A project can start at any pattern, combine patterns, or remain simpler.
+A project can combine patterns, begin at any point, or stay simpler than every example.
 
 ## This reference repository
 
 ```text
 repo-template/
-├── AGENTS.md                    # This navigation map and structural reference
-├── README.md                    # Human entry point and purpose
+├── AGENTS.md                         # Structural reference and agent instructions
+├── README.md                         # Human entry point
 ├── docs/
-│   ├── growth.md                # When repository structure should evolve
-│   ├── information.md           # Where different kinds of information belong
-│   ├── agent-context.md         # Root and scoped instructions, skills, agents
-│   ├── audit.md                 # Lightweight checkpoints and full reviews
-│   └── research.md              # Observations and sources behind the guidance
+│   ├── growth.md                     # How and when structure evolves
+│   ├── information.md                # Information ownership and lifecycles
+│   ├── agent-context.md              # Instructions, skills, and agents
+│   ├── audit.md                      # Checkpoints and contextual reviews
+│   └── research.md                   # Observed patterns and sources
 └── examples/
-    ├── README.md                # Pattern index and selection guide
-    ├── seed-project/tree.md
-    ├── growing-project/tree.md
-    ├── scoped-instructions/tree.md
-    ├── monorepo/tree.md
-    ├── repeatable-workflows/tree.md
-    ├── semantic-project-map/tree.md
-    └── organization-scale/tree.md
+    ├── README.md                     # Example index
+    └── <pattern>/tree.md             # Annotated structure and path notes
 ```
 
-Read the relevant guide; open an example when you need to see the actual folders and files together.
+## Project structure references
 
-## Structural patterns
-
-### 1. A simple project
-
-Start with a small root: a human README, one project-wide agent instruction file, and the source and tests the project actually needs.
+### Small project
 
 ```text
 project/
+├── AGENTS.md                 # Shared agent context, when needed
+├── README.md                 # Purpose, setup, and normal use
+├── src/                      # Implementation
+└── tests/                    # Behavior checks
+```
+
+See [seed-project](examples/seed-project/tree.md).
+
+### Application or product
+
+```text
+product/
 ├── AGENTS.md
 ├── README.md
-├── src/
-└── tests/
+├── app/                      # Routes and user-facing screens
+├── server/                   # Server behavior, if separate
+├── db/                       # Schema and migrations, if owned here
+├── tests/
+└── docs/                     # Architecture or operations, when useful
 ```
 
-Annotated tree, file responsibilities, and growth signals: [examples/seed-project/tree.md](examples/seed-project/tree.md).
+See [application-project](examples/application-project/tree.md).
 
-### 2. A project with durable knowledge
+### Reusable library or SDK
 
-Add documentation when important architecture, operational knowledge, or decisions become expensive to reconstruct. Keep active task state in the project's existing issue, pull-request, or planning system.
+```text
+library/
+├── AGENTS.md
+├── README.md                 # Consumer quick start and public promises
+├── src/library_name/         # Importable public package
+├── tests/
+├── examples/                 # Consumer usage
+└── docs/                     # API guide, when the surface warrants it
+```
+
+See [library-project](examples/library-project/tree.md).
+
+### Durable project knowledge
 
 ```text
 project/
-├── AGENTS.md
+├── AGENTS.md                 # Map to deeper project context
 ├── README.md
 ├── src/
 ├── tests/
@@ -69,111 +86,131 @@ project/
     └── decisions/
 ```
 
-See [examples/growing-project/tree.md](examples/growing-project/tree.md).
+See [growing-project](examples/growing-project/tree.md).
 
-### 3. Distinct domains with different instructions
-
-Use nested `AGENTS.md` files when a domain has rules, commands, boundaries, or validation that do not apply elsewhere. Do not add one to every directory.
+### Distinct domains and scoped instructions
 
 ```text
 project/
-├── AGENTS.md
+├── AGENTS.md                 # Repository-wide rules
 └── src/
-    ├── api/
-    │   └── AGENTS.md
-    ├── billing/
-    │   └── AGENTS.md
-    └── shared/
+    ├── api/AGENTS.md          # API-only contracts and checks
+    ├── billing/AGENTS.md      # Billing-only invariants and checks
+    └── shared/                # Root rules remain sufficient
 ```
 
-See [examples/scoped-instructions/tree.md](examples/scoped-instructions/tree.md).
+See [scoped-instructions](examples/scoped-instructions/tree.md).
 
-### 4. A multi-application repository
-
-Keep repository-wide guidance at the root and give independently evolving applications or services their own context where it differs. Shared packages keep their own guidance only when they have distinct contracts or conventions.
+### Monorepo or workspace
 
 ```text
 workspace/
-├── AGENTS.md
+├── AGENTS.md                 # Workspace-wide boundaries and navigation
 ├── apps/
-│   ├── web/
-│   │   └── AGENTS.md
+│   ├── web/AGENTS.md          # Local rules only if they differ
 │   └── admin/
 ├── services/
-│   └── api/
-│       └── AGENTS.md
-└── packages/
-    ├── contracts/
-    └── ui/
+│   └── api/AGENTS.md
+├── packages/
+│   ├── contracts/
+│   └── ui/
+└── docs/architecture.md      # Cross-workspace relationships
 ```
 
-See [examples/monorepo/tree.md](examples/monorepo/tree.md).
+See [monorepo](examples/monorepo/tree.md).
 
-### 5. Repeated procedures
-
-A skill or equivalent on-demand procedure earns a place when a workflow recurs and its steps, branching, validation, or supporting assets are worth maintaining separately. Use the location supported by the project's agent harness.
+### Agent-first project
 
 ```text
-project/
-├── AGENTS.md
-└── .agents/
-    └── skills/
-        └── release/
-            ├── SKILL.md
-            ├── references/
-            └── scripts/
-```
-
-See [examples/repeatable-workflows/tree.md](examples/repeatable-workflows/tree.md).
-
-### 6. A project map with semantic value
-
-A map is useful when it explains ownership, dependencies, entry points, or data flow that cannot be understood from a plain directory listing.
-
-```text
-project/
-├── README.md
+agent-first-project/
+├── AGENTS.md                 # Shared entry point and work boundaries
+├── CLAUDE.md                 # Tool-specific entry, if required
+├── src/
+├── tests/
+├── evals/                    # Agent behavior evaluations, when needed
+├── .agents/
+│   └── skills/               # Shared skill source, if supported
+├── .claude/
+│   ├── rules/                # Claude-specific scoped rules
+│   ├── agents/               # Claude-specific specialists
+│   └── skills -> ../.agents/skills/  # Optional verified alias
 └── docs/
-    ├── project-map.md
-    └── architecture/
-        └── request-flow.md
+    ├── design-docs/
+    └── exec-plans/           # Active/completed work, when needed
 ```
 
-See [examples/semantic-project-map/tree.md](examples/semantic-project-map/tree.md).
+See [agent-first-project](examples/agent-first-project/tree.md).
 
-### 7. Organization-scale coordination
+### Research or data project
 
-Catalogs, ownership metadata, dependency maps, and shared policy become useful when many independently changing components or repositories make the overall system difficult to understand.
+```text
+research/
+├── AGENTS.md                 # Data and reproducibility boundaries
+├── README.md                 # Question, sources, reproduction steps
+├── src/                      # Reusable analysis code
+├── tests/
+├── notebooks/                # Exploration and narrative analysis
+├── data/                     # Provenance and staged inputs
+├── experiments/
+└── reports/                  # Published findings and figures
+```
+
+See [research-project](examples/research-project/tree.md).
+
+## Cross-cutting structure patterns
+
+### Repeatable procedures
+
+```text
+.agents/skills/<name>/
+├── SKILL.md                  # Trigger and procedure
+├── references/               # On-demand detail
+├── scripts/                  # Deterministic helpers, if useful
+└── assets/                   # Stable templates or fixtures, if needed
+```
+
+See [repeatable-workflows](examples/repeatable-workflows/tree.md). Use the location recognized by the project's actual agent tools.
+
+### Semantic project map
+
+```text
+docs/
+├── project-map.md            # Ownership, entry points, dependencies
+└── architecture/
+    ├── request-flow.md
+    └── event-flow.md
+```
+
+See [semantic-project-map](examples/semantic-project-map/tree.md). A map should explain relationships that paths alone cannot.
+
+### Organization-scale coordination
 
 ```text
 engineering/
 ├── catalog/
 │   ├── services.yaml
-│   └── ownership.yaml
-├── docs/
-│   └── architecture/
-│       └── dependency-map.md
-└── CODEOWNERS
+│   ├── ownership.yaml
+│   └── dependencies.yaml
+├── docs/platform-map.md
+└── standards/
 ```
 
-See [examples/organization-scale/tree.md](examples/organization-scale/tree.md).
+See [organization-scale](examples/organization-scale/tree.md). This is a separate engineering knowledge surface, not a folder every project needs.
 
-## Maintaining this reference
+## Keep the examples useful
 
-- Every example pattern lives in `examples/<pattern>/tree.md` and includes an annotated tree, notes for the paths shown, when the pattern fits, and what should remain optional.
-- When adding, renaming, or removing an example, update `examples/README.md` and the corresponding tree reference in this file.
-- Keep the repository tree above accurate when the guide's own structure changes.
-- Keep research claims linked to sources and recheck fast-changing agent-harness behavior before presenting it as current.
+- Every example lives in `examples/<pattern>/tree.md` and includes a directory tree with inline path notes.
+- The notes explain responsibility, why a path exists, when it earns its place, and what can be omitted.
+- Keep trees representative, not exhaustive. Do not invent files to make them look complete.
+- Update [examples/README.md](examples/README.md) and this file when adding, renaming, or removing an example.
 
 ## Working principles
 
 - Understand the project before proposing its structure.
-- Give each persistent document or directory a clear responsibility.
+- Give persistent artifacts clear responsibilities and audiences.
 - Prefer an existing owner over a new category.
-- Let domain boundaries, not directory counts, determine instruction scope.
-- Keep root instructions concise and route to deeper context when needed.
-- Treat example trees as patterns to adapt, never as a checklist to reproduce.
-- Preserve useful information when reorganizing; update links and references.
-- Retire structure when the responsibility that justified it disappears.
+- Scope instructions where behavior differs; do not mirror every directory.
+- Treat examples as adaptable patterns, never checklists.
+- Preserve useful information when reorganizing; retire structure when its purpose disappears.
 
-For deeper reasoning, read [growth](docs/growth.md), [information ownership](docs/information.md), and [agent context](docs/agent-context.md). For a repository review, follow [the audit guide](docs/audit.md).
+Read [growth](docs/growth.md), [information ownership](docs/information.md), and [agent context](docs/agent-context.md) when those topics matter. For a full review, follow [the audit guide](docs/audit.md).
