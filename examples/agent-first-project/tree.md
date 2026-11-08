@@ -9,9 +9,9 @@ This is a mature example. It combines patterns that should be introduced only wh
 ```text
 agent-first-product/
 ├── AGENTS.md                         # Canonical project-wide entry point and routing map
-├── CLAUDE.md                         # Claude entry point importing/shared with AGENTS.md, if needed
+├── CLAUDE.md                         # Claude entry point importing shared guidance, if needed
 ├── README.md                         # Human-facing product and developer entry point
-├── ARCHITECTURE.md                   # Cross-domain system map, if architecture needs a top-level view
+├── ARCHITECTURE.md                   # Cross-domain system map, if needed
 ├── src/                              # Product implementation
 ├── tests/                            # Deterministic tests of product behavior
 ├── evals/
@@ -22,12 +22,13 @@ agent-first-product/
 │   └── skills/
 │       └── data-migration/
 │           ├── SKILL.md              # Trigger, procedure, validation, and stop conditions
-│           └── references/           # On-demand procedure details
+│           └── references/           # On-demand procedure detail
 ├── .claude/
 │   ├── rules/
 │   │   └── api-paths.md              # Claude-specific path-scoped constraints
-│   └── agents/
-│       └── reviewer.md               # Claude-specific specialist definition
+│   ├── agents/
+│   │   └── reviewer.md               # Claude-specific specialist definition
+│   └── skills -> ../.agents/skills/  # Optional alias when supported and verified
 └── docs/
     ├── design-docs/
     │   ├── index.md                  # Design document navigation
@@ -46,7 +47,7 @@ agent-first-product/
 - **`CLAUDE.md`** appears only when Claude Code needs its own entry point. Use a supported import or symlink to the canonical shared guidance rather than maintaining a second full instruction set. Other tools may require different adapters.
 - **`ARCHITECTURE.md`** is useful when several domains or dependency layers need a single bird's-eye map. It should describe boundaries and dependency direction, not repeat every package README.
 - **`evals/`** tests agent or model behavior against representative scenarios. It complements ordinary software tests; it does not replace them. A project without agent-specific behavior to evaluate does not need it.
-- **`.agents/skills/`** illustrates a shared skill location used by some agent ecosystems. The project must verify the discovery path for its tools. Claude Code's native skills live under `.claude/skills/`; avoid independent copies and use a canonical source or supported links.
+- **`.agents/skills/`** illustrates a shared skill source used by some agent ecosystems. The project must verify the discovery path for its tools. Claude Code's native skills live under `.claude/skills/`; the tree shows an optional alias, not a second copy.
 - **`.claude/rules/`** and **`.claude/agents/`** are Claude Code-specific surfaces. Other harnesses have their own rule and specialist-agent mechanisms. Add them only when using those capabilities.
 - **`docs/design-docs/`** holds substantial design documents. An index is useful once several exist.
 - **`docs/product-specs/`** describes durable product behavior or contracts when implementation details alone are not enough to orient work.
